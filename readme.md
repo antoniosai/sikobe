@@ -58,6 +58,25 @@ $ cd sikobe
 $ gulp
 ```
 
+### Coding Author
+Please add your name and email on each file you modify / create. Append your name and email information, if there are existing author info in the file. This to make sure your name recognized as someone who helped to build this app. Example :
+```sh
+/*
+ * Author: Sulaeman <me@sulaeman.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ ```
+ ```sh
+ /*
+ * Author: Sulaeman <me@sulaeman.com>.
+ * Author: Your name <your@email.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ ```
 
 ## License
 
