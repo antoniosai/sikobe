@@ -1,0 +1,61 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SIKOBE",
+		"_postman_id": "48f5cc11-afd8-c265-fc9e-5281b9ebddd0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Refresh token",
+			"request": {
+				"url": "http://api.sikobe.sule.dev/refresh_token",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/skbe..v1+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuJEROd3pTPTNTVHBGQ2dWNit6cmdmUyQlajJGI3c3JlcqNV8zPVVDdmF4Yz9HJHJuYWVFXj85LXdIK1liWFMhLUFWKl9GXlVwRmdwJiE3Yl9oRFE1QFdVdiRaUkNtUzUrU3pLTHZTY3doVyRrbiNoY3pMY0N4YnlUZ0NOQmgmKiIsImlzcyI6Imh0dHA6XC9cL3Npa29iZS5zdWxlLmRldiIsImlhdCI6MTQ3NDgyNDY3OCwiZXhwIjoxNDc0ODI4Mjc4LCJuYmYiOjE0NzQ4MjQ2NzgsImp0aSI6ImQxNTNiMjlhNmIyNTgyMDFmZTJmNTE4ZTU5OWM3MWZkIn0.USx1c1psRI8P4-RgAO2Tk1I6HF2v5Xz2TFKxbsPvab8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Informations",
+			"request": {
+				"url": "http://api.sikobe.sule.dev/informations",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/skbe..v1+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuJEROd3pTPTNTVHBGQ2dWNit6cmdmUyQlajJGI3c3JlcqNV8zPVVDdmF4Yz9HJHJuYWVFXj85LXdIK1liWFMhLUFWKl9GXlVwRmdwJiE3Yl9oRFE1QFdVdiRaUkNtUzUrU3pLTHZTY3doVyRrbiNoY3pMY0N4YnlUZ0NOQmgmKiIsImlzcyI6Imh0dHA6XC9cL3Npa29iZS5zdWxlLmRldiIsImlhdCI6MTQ3NDgyNTcyNiwiZXhwIjoxNDc0ODI5MzI2LCJuYmYiOjE0NzQ4MjU3MjYsImp0aSI6ImIwZGU5ODhjMjJmYWU2NGY3MGJjNWMyMjI3OWQyZjA4In0.7hh8NWWdJl9wjYG2iW_WiKKwvys_SeuAfNzK_pz9Nd0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,428 @@
+/* here you can put your own css to customize and override the theme */
+
+@import '../../global/_variables'; // global variables.
+@import '../../global/components/_mixins'; // global mixings.
+
+.order-container .todo-container .todo-projects-container,
+.order-container .todo-container .todo-tasks-container {
+    border: 0;
+}
+
+.order-container .mt-actions .mt-action.flagged,
+.search-content-2 .search-container > ul .search-item.flagged {
+    border-left: #d05454 2px solid;
+    padding-left: 10px;
+}
+.search-content-2 .search-container > ul .search-item .popovers {
+    cursor: pointer;
+}
+
+.toast .toast-close-button {
+  background-image: url("../../../assets/img/portlet-remove-icon-white.png") !important;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject,
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .message {
+    margin-left: 0px;
+}
+
+.portlet > .portlet-title > .tools > a.collapse {
+    background-image: url(../../../assets/img/portlet-collapse-icon.png);
+}
+.portlet>.portlet-title>.tools>a.expand {
+    background-image: url(../../../assets/img/portlet-expand-icon.png);
+}
+
+/* TODO */
+.dashboard-todo .mt-element-list .list-simple.mt-list-container ul > .mt-list-item {
+    padding: 5px 0;
+}
+.dashboard-todo .mt-list-item.completed .list-item-content h5 {
+    text-decoration: line-through;
+}
+.dashboard-todo .mt-list-item.completed .list-item-content h5 > span {
+    text-decoration: none;
+}
+.dashboard-todo .mt-element-list .list-simple.mt-list-container ul > .mt-list-item > .list-datetime {
+    width: 75px;
+}
+.dashboard-todo .todo-item-loading {
+    background: url("../../../assets/img/todo-ajax-loader.gif") no-repeat;
+    margin-top: 5px;
+    height: 11px;
+    width: 16px;
+}
+.dashboard-todo .todo-input .minicolors-swatch {
+    position: relative;
+}
+.dashboard-todo .todo-input .minicolors-theme-bootstrap .minicolors-swatch {
+    top: 0;
+    left: 0;
+    height: 20px;
+}
+.dashboard-todo .todo-input .minicolors-theme-bootstrap.minicolors-position-right .minicolors-swatch {
+    left: 0;
+    right: 0;
+}
+
+/* Extended Dropdowns */
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li {
+    > .item {
+        display: block;
+        clear: both;
+        font-weight: 300;
+        line-height: 20px;
+        white-space: normal;
+        font-size: 13px;
+        padding: 16px 15px 18px;
+        text-shadow: none;
+    }
+
+    &:first-child .item {
+        border-top: none;
+    }
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li {
+    > .item {
+        border-bottom: 1px solid #EFF2F6!important;
+        color: #888;
+    }
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject .time {
+    opacity: 1;
+}
+
+@media (max-width: 767px) {
+    .order-container .form-group.form-md-line-input .input-group .input-group-control,
+    .order-container .input-group .form-control, .input-group-addon, .input-group-btn {
+        display: block;
+    }
+    .order-container .input-group,
+    .order-container .input-group-btn,
+    .order-container .btn-group,
+    .order-container .form-group.form-md-line-input .input-group .input-group-btn .btn {
+        width: 100%;
+    }
+}
+/*@media (max-width: 991px) and (min-width: 768px) {
+    .order-container .form-group.form-md-line-input .input-group .input-group-control,
+    .order-container .input-group .form-control, .input-group-addon, .input-group-btn {
+        display: block;
+    }
+}*/
+
+/* Spinner */
+.three-bounce {
+    margin: 10px auto 0;
+    width: 70px;
+    text-align: center;
+}
+.three-bounce > div {
+    width: 18px;
+    height: 18px;
+    background-color: #26C281;
+
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+.three-bounce .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.three-bounce .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+@-webkit-keyframes sk-bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0) }
+      40% { -webkit-transform: scale(1.0) }
+}
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+
+.rectangle-bounce {
+    margin: 10px auto;
+    width: 50px;
+    height: 20px;
+    text-align: center;
+    font-size: 10px;
+}
+.rectangle-bounce > div {
+    background-color: #26C281;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    margin-right: 1px;
+    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+.rectangle-bounce .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+.rectangle-bounce .rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+.rectangle-bounce .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+.rectangle-bounce .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+@-webkit-keyframes sk-stretchdelay {
+    0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+    20% { -webkit-transform: scaleY(1.0) }
+}
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% { 
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% { 
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+
+// TODO CUSTOM MODAL STYLING
+.todo-task-modal{
+
+    >.modal-dialog{
+        position: absolute;
+        top: 0;
+        right: 0;
+        //left:0;
+        bottom: 0;
+        width: 60%;
+        margin:0 auto;
+
+        .modal-content{
+            position: absolute;
+            top:0;
+            bottom:0;
+            right:0;
+            left:0;
+            overflow:auto;
+
+            .todo-task-modal-title {
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-left: 2em;
+            }
+
+            .todo-task-due{
+                margin-left: 1em;
+                font-weight: 600;
+                color:#4db3a4;
+                width:150px !important;
+            }
+
+            .todo-task-assign{
+                margin-left: 1em;
+                border:1px solid;
+                border-color: #ccc;
+                padding:6px 10px;
+                font-weight: 600;
+                color:#4db3a4;
+                text-transform: uppercase;
+
+                &:hover,
+                &:focus{
+                    text-decoration: none;
+                }
+            }
+
+            > .todo-task-modal-body{
+
+                >.todo-task-modal-bg{
+                    background-color: #f7f9fa;
+                    padding: 20px;
+                }
+
+                >h3{
+                    margin: 15px 0;
+                    font-size: 20px;
+                    color:#4e5a64;
+                    font-weight: 600;
+                }
+
+                > p{
+                    font-size: 15px;
+                    color:#8f9ea6;
+                    line-height: 24px;
+                }
+
+                >h4{
+                    font-size: 14px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    color:#9eacb4;
+                    margin-top:25px;
+
+                    > .todo-add-button{
+                        float:none;
+                    }
+                }
+
+                >.todo-task-file{
+                    color: #49a7fa;
+                    font-size:13px;
+
+                    > i{
+                        margin-right: 0.5em;
+                    }
+
+                    >.todo-remove-file{
+                        color:#9eacb4;
+                        margin-left: 0.5em;
+
+                        &:hover{
+                            color:#4db3a4;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: $screen-sm-max) { /* 991px */
+    .todo-task-modal{
+        >.modal-dialog{
+            width: 95%; 
+        }
+    }
+}
+@media (max-width: $screen-xs-min){
+    .todo-task-modal{
+        .modal-content{
+            //overflow-y: scroll;
+        }
+    }
+}
+
+.btn-icon-only.btn-xs {
+    height: 25px;
+    width: 25px;
+}
+
+.pace .pace-progress {
+    height: 5px;
+}
+.pace .pace-activity {
+    top: 55px;
+}
+
+.no-padding {
+    padding:0 !important;
+}
+.no-background {
+    background:none !important;
+}
+.no-border {
+    border:none !important;
+}
+.no-border-l {
+    border-left:0px !important;
+}
+.no-border-t {
+    border-top:0px !important;
+}
+.no-border-r {
+    border-right:0px !important;
+}
+.no-border-b {
+    border-bottom:0px !important;
+}
+
+.margin-top-0 {
+    margin-top: 0px !important;
+}
+.margin-top-5 {
+    margin-top: 5px !important;
+}
+.margin-bottom-0 {
+    margin-bottom: 0px !important;
+}
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+.margin-right-5 {
+    margin-right: 5px !important;
+}
+
+.padding-5 {
+    padding: 5px !important;
+}
+.padding-20 {
+    padding: 20px !important;
+}
+.padding-left-0 {
+    padding-left: 0px !important;
+}
+.padding-left-5 {
+    padding-left: 5px !important;
+}
+.padding-left-15 {
+    padding-left: 15px !important;
+}
+.padding-left-30 {
+    padding-left: 30px !important;
+}
+.padding-right-0 {
+    padding-right: 0px !important;
+}
+.padding-right-10 {
+    padding-right: 10px !important;
+}
+.padding-right-15 {
+    padding-right: 15px !important;
+}
+.padding-bottom-0 {
+    padding-bottom: 0px !important;
+}
+.padding-bottom-5 {
+    padding-bottom: 5px !important;
+}
+.padding-top-0 {
+    padding-top: 0px !important;
+}
+.padding-top-5 {
+    padding-top: 5px !important;
+}
+.padding-top-10 {
+    padding-top: 10px !important;
+}
+
+.pos-relative {
+    position: relative;
+}
+.pos-absolute {
+    position: absolute;
+}
+.pos-absolute.bottom {
+    bottom: 0px;
+}
+.absolute-center {
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.text-strike {
+    text-decoration: line-through;
+}
