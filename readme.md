@@ -12,6 +12,7 @@
 - Install Node.js (so you can use the "npm" command)
 
 Steps required :
+
 1) Do clone this repository.
 
 2) Download the Composer : https://getcomposer.org/download/1.2.1/composer.phar , and place inside this app directory.
