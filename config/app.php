@@ -173,6 +173,9 @@ return [
         App\Modules\Geo\Providers\Illuminate\GeoServiceProvider::class,
         App\Modules\User\Providers\Illuminate\UserServiceProvider::class,
         App\Modules\Collection\Providers\Illuminate\CollectionServiceProvider::class,
+        App\Modules\File\Providers\Illuminate\FileServiceProvider::class,
+        App\Modules\Territory\Providers\Illuminate\TerritoryServiceProvider::class,
+        App\Modules\Area\Providers\Illuminate\AreaServiceProvider::class,
 
         //
 

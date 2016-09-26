@@ -108,6 +108,12 @@
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
+                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'areas') ? ' active open' : '' }}">
+                            <a href="{{ url('/ctrl/areas') }}" class="nav-link nav-toggle">
+                                <i class="icon-map"></i>
+                                <span class="title">Area Terdampak</span>
+                            </a>
+                        </li>
                         @if ($user->isSuperAdmin())
                         <li class="heading">
                             <h3 class="uppercase">Administrasi</h3>

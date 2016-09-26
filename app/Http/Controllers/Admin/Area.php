@@ -9,67 +9,33 @@ namespace App\Http\Controllers\Admin;
  * file that was distributed with this source code.
  */
 
-use Gate;
-
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Support\Asset;
-use App\Presenter\User as UserPresenter;
-use App\Services\User as UserService;
+use App\Services\Territory as TerritoryService;
+use App\Services\Area as AreaService;
 
 use RuntimeException;
-use App\Modules\User\RecordNotFoundException;
+use App\Modules\Territory\RecordNotFoundException;
 
-class User extends Controller
+class Area extends Controller
 {
     /**
-     * Show the profile.
+     * Current province ID.
      *
-     * @param  \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\Response
+     * @var integer
      */
-    public function profile(Request $request)
-    {
-        Asset::add(elixir('assets/css/profile.css'), 'header.specific.css');
-
-        return view('admin.profile');
-    }
+    protected $provinceId = 32;
 
     /**
-     * Update the profile.
+     * Current regency ID.
      *
-     * @param  \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\Response
+     * @var integer
      */
-    public function profileUpdate(Request $request)
-    {
-        $service = $this->getService();
-
-        try {
-            $response = $service->updateProfile($this->user->id);
-
-            if ($response instanceOf Validator) {
-                $request->session()->flash('error', 'Tolong perbaiki input dengan tanda merah!');
-
-                $this->throwValidationException(
-                    $request, $response
-                );
-            }
-        } catch (RecordNotFoundException $e) {
-            abort(404);
-        } catch (RuntimeException $e) {
-            abort(500);
-        }
-
-        $request->session()->flash('success', 'Berhasil tersimpan!');
-
-        return back();
-    }
+    protected $regencyId = 3205;
 
     /**
      * Show the items.
@@ -80,22 +46,20 @@ class User extends Controller
      */
     public function index(Request $request)
     {
-        // You can implement this later
-        if (Gate::denies('show', $this)) {
-            abort(403);
-        }
-
         $limit = 10;
         $page  = (int) $request->get('page', 1);
+        $district = (int) $request->get('district');
+        $village  = (int) $request->get('village');
+        $title    = trim($request->get('title'));
 
-        $service = $this->getService();
+        $areaService = $this->getAreaService();
+        $territoryService = $this->getTerritoryService();
 
-        list($collection, $total) = $service->search([], $page, $limit);
-
-        // Optional wrapping to a presenter, as User object is required by default
-        $collection = $collection->map(function($item) {
-            return new UserPresenter($item);
-        });
+        list($collection, $total) = $areaService->search([
+            'district_id' => $district, 
+            'village_id'  => $village, 
+            'title'       => $title
+        ], $page, $limit);
         
         $list = new LengthAwarePaginator(
             $collection->all(), 
@@ -105,8 +69,27 @@ class User extends Controller
             ['path' => Paginator::resolveCurrentPath()]
         );
 
-        return view('admin.users', [
-            'list' => $list
+        list($districts) = $territoryService->searchDistricts([
+            'province_id' => $this->provinceId, 
+            'regency_id'  => $this->regencyId, 
+            'order_by'    => 'name'
+        ], 1, 0);
+
+        list($villages) = $territoryService->searchVillages([
+            'province_id' => $this->provinceId, 
+            'regency_id'  => $this->regencyId, 
+            'order_by'    => 'name'
+        ], 1, 0);
+
+        return view('admin.areas', [
+            'filter' => [
+                'district' => $district, 
+                'village'  => $village, 
+                'title'    => $title
+            ], 
+            'districts' => $districts, 
+            'villages'  => $villages, 
+            'list'      => $list
         ]);
     }
 
@@ -220,13 +203,25 @@ class User extends Controller
     }
 
     /**
-     * Return the service instance.
+     * Return the area service instance.
      *
-     * @return \App\Services\User
+     * @return \App\Services\Area
      */
-    private function getService()
+    private function getAreaService()
     {
-        $service = new UserService();
+        $service = new AreaService();
+
+        return $service;
+    }
+
+    /**
+     * Return the territory service instance.
+     *
+     * @return \App\Services\Territory
+     */
+    private function getTerritoryService()
+    {
+        $service = new TerritoryService();
 
         return $service;
     }
