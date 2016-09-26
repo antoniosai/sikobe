@@ -17,6 +17,7 @@ class List extends Component {
     baseUrl: PropTypes.string.isRequired,
     filter: PropTypes.object.isRequired,
     getAreas: PropTypes.func.isRequired,
+    openDetail: PropTypes.func.isRequired,
     dataIsLoaded: PropTypes.func, 
     loadedData: PropTypes.func
   };
@@ -50,7 +51,7 @@ class List extends Component {
               this.props.dataIsLoaded();
             }
 
-            if (this.props.loadedData && !_.isMatch(this.state.data, nextProps.data.data)) {
+            if (this.props.loadedData) {
               this.props.loadedData(nextProps.data.data);
             }
 
@@ -76,8 +77,7 @@ class List extends Component {
 
   getDefaultState() {
     return {
-      data: null,
-      openDetailData: null
+      data: null
     };
   }
 
@@ -89,7 +89,7 @@ class List extends Component {
     const items = this.state.data.map((item) => {
       return <Item key={`area-item-${item.id}`}
        baseUrl={this.props.baseUrl} data={item}
-       openDetail={this.handleOpenDetail.bind(this)} />;
+       openDetail={this.props.openDetail} />;
     });
 
     return (
@@ -97,24 +97,6 @@ class List extends Component {
         <div className="row">{items}</div>
       </div>
     );
-  }
-
-  handleOpenDetail(data) {
-    this.setState({openDetailData: data});
-  }
-
-  handleCloseDetail() {
-    this.setState({openDetailData: null});
-  }
-
-  getDetailData() {
-    if (this.state.openDetailData == null) {
-      return null;
-    }
-
-    return <Detail baseUrl={this.props.baseUrl}
-     data={this.state.openDetailData}
-      onClose={this.handleCloseDetail.bind(this)} />
   }
 
   collectData() {

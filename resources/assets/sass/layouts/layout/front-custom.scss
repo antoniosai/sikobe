@@ -48,6 +48,13 @@ body {
     cursor: pointer;
 }
 
+.cbp .cbp-item {
+    width: 25%;
+}
+.cbp-popup-wrap {
+    z-index: 99990;
+}
+
 /* Spinner */
 .three-bounce {
     margin: 10px auto 0;

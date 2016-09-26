@@ -8,6 +8,7 @@
 import React, { Component, PropTypes } from 'react';
 import Mapping from './Mapping';
 import List from './List';
+import Detail from './Detail';
 
 class Area extends Component {
 
@@ -30,7 +31,8 @@ class Area extends Component {
         search: null
       },
       isDataLoaded: false,
-      items: null
+      items: null,
+      openDetailData: null
     };
   }
 
@@ -75,15 +77,21 @@ class Area extends Component {
             </div>
           </div>
           <Mapping baseUrl={this.props.baseUrl}
-           items={this.state.items} />
+           items={this.state.items} openDetail={this.handleOpenDetail.bind(this)} />
         </div>
         {this.getLoading()}
         <List baseUrl={this.props.baseUrl}
          filter={this.state.filter}
+         openDetail={this.handleOpenDetail.bind(this)}
          dataIsLoaded={this.handleDataIsLoaded.bind(this)}
          loadedData={this.handleLoadedData.bind(this)} />
+        {this.getDetailData()}
       </div>
     );
+  }
+
+  handleOpenDetail(data) {
+    this.setState({openDetailData: data});
   }
 
   handleFilter() {
@@ -107,8 +115,28 @@ class Area extends Component {
     this.setState({isDataLoaded: true});
   }
 
+  handleCloseDetail() {
+    this.setState({openDetailData: null});
+  }
+
   handleLoadedData(items) {
-    this.setState({items: items});
+    if (items.length == 0 && this.state.items.length > 0) {
+      this.setState({items: items});
+    } else {
+      if (!_.isMatch(this.state.items, items)) {
+        this.setState({items: items});
+      }
+    }
+  }
+
+  getDetailData() {
+    if (this.state.openDetailData == null) {
+      return null;
+    }
+
+    return <Detail baseUrl={this.props.baseUrl}
+     data={this.state.openDetailData}
+      onClose={this.handleCloseDetail.bind(this)} />
   }
 
   getLoading() {

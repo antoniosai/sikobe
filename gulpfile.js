@@ -71,7 +71,8 @@ elixir(function(mix) {
     mix.sass([
         '../plugins/pace/themes/pace-theme-flash.css',
         'apps/todo.scss',
-        'pages/search.scss'
+        'pages/search.scss',
+        '../plugins/cubeportfolio/css/cubeportfolio.css'
     ], 'public/assets/css/home.css');
 });
 
@@ -125,7 +126,8 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.scripts([
-        '../plugins/pace/pace.min.js'
+        '../plugins/pace/pace.min.js',
+        '../plugins/cubeportfolio/js/jquery.cubeportfolio.min.js'
     ], 'public/assets/js/home.js');
 });
 

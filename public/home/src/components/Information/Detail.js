@@ -42,7 +42,7 @@ class Detail extends Component {
                 <strong>{data.title}</strong> | {moment(data.created_at.date).format('D MMMM YYYY, HH:mm:ss')}
               </h4>
             </div>
-            <div className="modal-body" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
+            <div className="modal-body todo-task-modal-body" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
             <div className="modal-footer">
               <button type="button" className="btn dark btn-outline" data-dismiss="modal">
                 Tutup

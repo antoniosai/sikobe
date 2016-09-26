@@ -12,6 +12,7 @@ class Mapping extends Component {
 
   static propTypes = {
     baseUrl: PropTypes.string.isRequired,
+    openDetail: PropTypes.func.isRequired,
     items: PropTypes.array
   };
 
@@ -38,6 +39,8 @@ class Mapping extends Component {
       });
 
       this.setState({markers: markers});
+    } else {
+      this.setState({markers: []});
     }
   }
 
@@ -81,7 +84,10 @@ class Mapping extends Component {
     );
   }
 
-  //Toggle to 'true' to show InfoWindow and re-renders component
+  handleShowAreaDetail(index) {
+    this.props.openDetail(this.props.items[index]);
+  }
+
   handleMarkerClick(marker) {
     marker.showInfo = true;
     this.setState(this.state);
@@ -97,7 +103,9 @@ class Mapping extends Component {
       <InfoWindow key={`${ref}_info_window`}
         onCloseclick={this.handleMarkerClose.bind(this, marker)}>
         <div>
-          <h5 className="font-dark bold uppercase">{this.props.items[marker.index].title}</h5>
+          <h5 className="font-dark bold uppercase">
+            <a href="javascript:;" onClick={this.handleShowAreaDetail.bind(this, marker.index)}>{this.props.items[marker.index].title}</a>
+          </h5>
           <p className="margin-top-0 margin-bottom-0">
             {this.props.items[marker.index].short_description}
           </p>
@@ -105,7 +113,7 @@ class Mapping extends Component {
             {this.props.items[marker.index].address}
           </p>
           <p className="margin-top-0 margin-bottom-0">
-            {this.props.items[marker.index].district.data.title} - {this.props.items[marker.index].village.data.title}
+            {this.props.items[marker.index].village.data.title} - {this.props.items[marker.index].district.data.title}
           </p>
         </div>
       </InfoWindow>
