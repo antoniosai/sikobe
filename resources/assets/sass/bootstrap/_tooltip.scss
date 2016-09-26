@@ -65,14 +65,14 @@
   }
   &.right .tooltip-arrow {
     top: 50%;
-    left: 0;
+    left: 0#{'/*rtl:ignore*/'};
     margin-top: -$tooltip-arrow-width;
     border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0#{'/*rtl:ignore*/'};
     border-right-color: $tooltip-arrow-color#{'/*rtl:ignore*/'};
   }
   &.left .tooltip-arrow {
     top: 50%;
-    right: 0;
+    right: 0#{'/*rtl:ignore*/'};
     margin-top: -$tooltip-arrow-width;
     border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width#{'/*rtl:ignore*/'};
     border-left-color: $tooltip-arrow-color#{'/*rtl:ignore*/'};

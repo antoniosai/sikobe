@@ -19,3 +19,12 @@ Custimized Bootstrap Wells
         @include border-radius($general-border-radius);
     }
 }
+
+.well-lg {
+  padding: 40px;  
+}
+
+.well-sm {
+  padding: 10px;  
+}
+

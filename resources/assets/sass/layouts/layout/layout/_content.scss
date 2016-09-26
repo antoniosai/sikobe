@@ -235,6 +235,11 @@ Page content
 }
 
 @media (max-width: $screen-sm-max) { /* 991px */
+	// disable mobile vertical scroll
+	html,
+	body {
+  		overflow-x: hidden;
+	}
 
 	/* Bg solid content's breadcrumb */
 	.page-content-white,
@@ -259,6 +264,33 @@ Page content
 			min-height: 280px; 
 		}
 	}
+
+	// sidebar mobile menu offcanvas
+	.page-sidebar-mobile-offcanvas {
+		.page-wrapper {
+			left: 0;
+			transition: $general-transition;
+
+			.page-header {
+				transition: $general-transition;
+			}
+		}
+
+		&.page-sidebar-mobile-offcanvas-open {
+			overflow-x: hidden;
+			transition: $general-transition;
+
+			.page-wrapper {
+				position: relative;
+				left: $sidebar-width;
+				transition: $general-transition;
+
+				.page-header {
+					transition: $general-transition;
+				}
+			}
+		}
+	}	
 }
 
 @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) { /*  768px & 991px */

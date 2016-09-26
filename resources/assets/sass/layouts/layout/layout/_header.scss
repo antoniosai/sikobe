@@ -123,18 +123,15 @@ Page Header
 
 	/* Menu Toggler */
 	.menu-toggler {
+        cursor: pointer;
+        @include burger-icon(#ffffff, #ffffff, $menu-toggler-size, 1px, -6px, 6px, -6px);
+        @include opacity(0.7);
 		display: block;
-		cursor: pointer; 
-		opacity: 0.7;
-		filter: alpha(opacity=70);
-		width: $header-menu-toggler-width;
-		height: $header-menu-toggler-height;
-		background-repeat: no-repeat;
-		background-position: center center;
-
+        @include transition('opacity 0.3s');
+		
 		&:hover { 
-			filter: alpha(opacity=100);
-			opacity: 1;
+            @include transition('opacity 0.3s');
+			@include opacity(1);
 		}
 
 		&.sidebar-toggler {
@@ -142,7 +139,7 @@ Page Header
 			margin: $header-sidebar-toggler-margin;
 
 			.page-sidebar-closed.page-sidebar-closed-hide-logo & {
-				margin-right: ($sidebar-collapsed-width - $header-menu-toggler-width ) / 2 ;
+				margin-right: ($sidebar-collapsed-width - $menu-toggler-size ) / 2 ;
 			}
 		}
 
@@ -205,7 +202,7 @@ Page Header
 				}
 
 				.dropdown-menu {
-					margin-top: 3px;
+					margin-top: 1px;
 
                     @include border-radius(4px);
 
@@ -585,6 +582,7 @@ Horizontal Menu
             float: left;
 
             .navbar-nav {
+                min-height: $header-height;
                 position: static;
 
                 &.navbar-right {
@@ -695,6 +693,7 @@ Horizontal Menu
                         font-size: $header-hor-menu-default-link-font-size;
                         font-weight: $header-hor-menu-default-link-font-weight;
                         padding: $header-hor-menu-general-item-padding;  
+                        min-height: $header-height;
 
                         &:focus {
                             background: none !important;
@@ -883,7 +882,7 @@ Horizontal Menu
 			}
 
 			&.responsive-toggler {
-				display: inline-block;
+				display: block;
 			}
 		}
 

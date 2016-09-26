@@ -132,8 +132,7 @@
 		}
    
    		&.edited:not([readonly]),
-		&:focus:not([readonly]),  
-		&.focus:not([readonly]) {
+		&:focus:not([readonly]) {
 			~ label,   
 			~ .form-control-focus {
 				color: $input-md-label-color;  
@@ -153,6 +152,16 @@
 			~ .help-block {
 				color: $input-md-focus-border;     
 				@include opacity(1);
+			}
+
+			~ .help-block-error {
+				@include opacity(0);
+			}
+		}  
+ 
+		&.edited:not([readonly]):not(:focus) {
+			~ .help-block {  
+				@include opacity(0);
 			}
 
 			~ .help-block-error {

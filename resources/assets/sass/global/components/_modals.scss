@@ -73,11 +73,11 @@ Customized Bootstrap Modal
 
 body[ng-controller] {
     .modal-backdrop {
-        z-index: $zindex-modal-background !important;
+        z-index: $zindex-modal-background;
     }
 
     .modal {
-        z-index: $zindex-modal-background + 1 !important;
+        z-index: $zindex-modal-background + 1;
     }
 }
 

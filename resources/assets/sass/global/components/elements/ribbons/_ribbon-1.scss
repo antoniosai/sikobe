@@ -1,13 +1,13 @@
 // General mode
 
 .mt-element-ribbon {
-	padding:25px;
 	position: relative;
 	margin-bottom: 30px;
 
 	.ribbon-content{
 		margin:0;
-		padding-top: 2.5em;
+		padding: 25px;
+		clear:both;
 
 		&.no-padding{
 			padding-top: 0;
@@ -15,29 +15,36 @@
 	}
 
 	.ribbon{
-		position: absolute;
-		top:15px;
-		left:-2px;
 		padding:0.5em 1em;
 		z-index: 5;
+		float:left;
+		margin: 10px 0 0 -2px;
+		clear:left;
+		position: relative;
 
 		// POSITION CONTROL
 		&.ribbon-right{
-			left:auto;
-			right:-2px;
+			float:right;
+			clear:right;
+			margin: 10px -2px 0 0;
+
 		}
 		&.ribbon-vertical-left{
-			top:-2px;
-			left:15px;
+			clear:none;
+			margin: -2px 0 0 10px;
 			padding-top:1em;
 			padding-bottom:1em;
+			width: 41px;
+			text-align: center;
 		}
 		&.ribbon-vertical-right{
-			top:-2px;
-			left:auto;
-			right:15px;
+			clear:none;
+			float:right;
+			margin: -2px 10px 0 0;
 			padding-top:1em;
 			padding-bottom:1em;
+			width: 41px;
+			text-align: center;
 		}
 
 		// EFFECT CONTROL
@@ -163,10 +170,12 @@
 
 		&.ribbon-clip{
 			left:-10px;
+			margin-left:0;
 
 			&.ribbon-right{
 				left:auto;
 				right:-10px;
+				margin-right:0;
 			}
 		}
 
@@ -359,9 +368,3 @@
 
 }
 
-// Mobile mode
-@media (max-width: $screen-sm-max) { /* 991px */
-	.mt-element-ribbon-1 {
-
-	}
-}

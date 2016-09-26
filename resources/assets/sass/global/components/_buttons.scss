@@ -46,6 +46,11 @@ Custom color buttons
     .btn.#{$name}-stripe { 
         border-left: 4px solid map-get($colors, base) !important;
     }  
+
+
+    .btn.#{$name}.btn-no-border:not(.active) {
+        border-color: transparent;
+    }
 }
 
 
@@ -53,6 +58,7 @@ Custom color buttons
 
 .btn-circle {
   border-radius: 25px !important;  
+  overflow: hidden;
 }
 
 .btn-circle-right {
@@ -84,6 +90,7 @@ Custom color buttons
     margin-top: 2px;
   }
 }
+
 
 .btn-group.btn-group-circle {
     > .btn {
@@ -125,7 +132,7 @@ Custom color buttons
     $uppercase-padding-sm:            6px 18px 6px 18px !default;
     $uppercase-padding-xs:            3px 8px 3px 8px !default; 
 
-    .btn:not(.md-skip) {
+    .btn:not(.md-skip, .bs-select-all, .bs-deselect-all) {
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;    

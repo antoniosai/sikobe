@@ -62,9 +62,9 @@
 				color:#a4aab2;
 				font-size: 13px;
 
-				input{
+				.form-control {
 					width:100%;
-					padding: 10px;
+					padding: 10px 0;
 					border:none;
 					border-bottom:1px solid;
 					border-color:#a0a9b4;
@@ -214,6 +214,10 @@
 
 	.user-login-5{
 		min-height:50vh;
+
+		.mt-login-5-bsfix{
+			width:100%;
+		}
 
 		.login-bg{
 			min-height: 50vh;

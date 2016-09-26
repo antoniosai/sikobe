@@ -41,6 +41,10 @@ Dropdown Menu
     border: 1px solid #eee;
     font-family: $font-family-default;  
 
+    .dropdown-hoverable:hover & {
+        display: block;
+    }
+
     @include border-radius($general-border-radius);          
 
     li.divider {
@@ -98,7 +102,7 @@ Dropdown Menu
 
         &:before,
         &:after {
-            display: none;
+            display: none !important;
         }
     }
 

@@ -195,8 +195,12 @@ $bg-color: #5c97bd;
   margin-top: 8px;
 }
 
-.login .content .check {
+.login .content .mt-checkbox {
   color: lighten($bg-color, 30%) !important;
+}
+
+.login .content .mt-checkbox > span:after {
+  border-color: lighten($bg-color, 30%) !important;
 }
 
 .login .content .create-account {

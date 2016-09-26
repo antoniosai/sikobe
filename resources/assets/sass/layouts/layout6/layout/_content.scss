@@ -4,7 +4,7 @@
 
 /* Body */
 body {
-    background: $color-default url(../img/bg_01.jpg) no-repeat;
+    background: $color-default url(#{$layout-img-path}bg_01.jpg) no-repeat;
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;

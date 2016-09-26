@@ -300,10 +300,14 @@ Light Table
 
     &.table-hover > tbody > tr {
         > td:hover,
-        > th:hover, 
-        &:hover > td,
-        &:hover > th { 
-            background: lighten(#94A0B2, 34%);
+        > th:hover,
+        &:hover > td{ 
+            background: lighten(#94A0B2, 34%) !important;
         }
     }
+}
+
+.table-hover > tbody > tr:hover,
+.table-hover > tbody > tr:hover > td {
+    background: lighten(#94A0B2, 32%) !important;
 }

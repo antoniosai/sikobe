@@ -35,8 +35,7 @@
 			.list-label{
 				display: inline-block;
 				font-size: 12px;
-			}
-			
+			}			
 		}
 
 		&.mt-list-container{
@@ -876,24 +875,23 @@
 
 		.list-todo {
 
-			&.mt-list-head.#{$name}{
+			&.mt-list-head.#{$name} {
 				background-color: map-get($colors, base);
 				color: map-get($colors, font);
 			}
 
-			.list-count.#{$name}{
+			.list-count.#{$name} {
 				background-color: map-get($colors, base);
 				color: map-get($colors, font);
 
-				&:hover{
+				&:hover {
 					background-color: darken(map-get($colors, base), 5%);
 				}
 			}
 
 			.list-todo-line.#{$name}{
 				border-color:map-get($colors, base);
-			}
-			
+			}			
 
 			.list-todo-item.#{$name} {
 
@@ -910,30 +908,19 @@
 						background: map-get($colors, font);
 					}
 				}
-
 			}
 		}
-
-	}
-}
-
-@media (max-width: $screen-sm-max) { /* 991px */
-
-
-// Mobile mode
-	.mt-element-list {
-
 	}
 }
 
 @each $name, $colors in $component-colors {
- .mt-element-list .list-todo-item.#{$name} {
-  &:after {
-   border-right-color:map-get($colors, base)
-  }
+	.mt-element-list .list-todo-item.#{$name} {
+  		&:after {
+   			border-right-color:map-get($colors, base)
+  		}
 
-  .list-toggle {
-   background: map-get($colors, base);
-  }
- }
+  		.list-toggle {
+   			background: map-get($colors, base);
+  		}
+ 	}
 }

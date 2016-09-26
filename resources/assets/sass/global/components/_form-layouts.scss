@@ -339,3 +339,17 @@ Form Layouts
         } 
     }
 }
+
+/* Horizontal form small input issue */
+
+.form-horizontal {
+    .form-group {
+        .input-sm {
+            margin-top: 3px;
+        }
+
+        .form-control-static {
+            margin-top: 1px;
+        }
+    }
+}

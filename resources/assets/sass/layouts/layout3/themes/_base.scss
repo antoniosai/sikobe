@@ -710,6 +710,12 @@ Page Footer
                             > i {
                                 color: $header-mobile-hor-menu-default-link-font-color !important;
                             }   
+
+                            &:focus,
+                            &:active,
+                            &:hover {
+                                 background: none !important;
+                            }
                         }
 
                         &:hover > {

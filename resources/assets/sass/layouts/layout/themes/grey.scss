@@ -13,8 +13,10 @@ $brand-main-color:                                                      #31c7b2 
 $brand-main-font-color:                                                 #ffffff !default; 
 
 // Body and header
-$bg-color:                                                              lighten(#697380, 3%) !default; 
+$bg-color:                                                              darken(#697380, 5%) !default; 
 $header-bg-color:                                                       lighten(#444D59, 5%) !default;         
+$header-toggler-color:                                                  lighten($header-bg-color, 50%) !default;  
+$header-toggler-bg-color:                                               darken($bg-color, 5%) !default; 
 
 // Mega Menu 
 $header-hor-menu-bg-color:                                              $header-bg-color;     

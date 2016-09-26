@@ -278,7 +278,7 @@
 
         /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
         .menu-toggler {
-            background-image: url(../../../assets/img/sidebar_toggler_icon_#{$theme-name}.png);
+            @include burger-icon-color-change($header-toggler-color, $header-toggler-color);
         }
     }
 
@@ -780,7 +780,13 @@
         }
 
         .sidebar-toggler {
-            background: url(../../img/sidebar_inline_toggler_icon_#{$theme-name}.jpg); 
+            @include burger-icon-color-change($header-toggler-color, $header-toggler-color);
+            
+            background: $header-toggler-bg-color; 
+
+            &:hover {
+                background: darken($header-toggler-bg-color, 5%); 
+            }
         }
 
         /* Sidebar search */

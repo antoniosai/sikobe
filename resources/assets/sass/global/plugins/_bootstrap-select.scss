@@ -71,5 +71,9 @@ Bootstrap Select
 }
 
 .bootstrap-select .dropdown-menu {
-  z-index: $zindex-navbar-above !important;
+  z-index: $zindex-dropdown !important;
+}
+
+.modal-open .bootstrap-select .dropdown-menu  {
+  z-index: $zindex-modal !important;
 }

@@ -17,7 +17,7 @@ Login page
 }  
 
 .login .content {
-  background: url(../img/bg-white-lock.png) repeat;
+  background: url(#{$page-img-path}bg-white-lock.png) repeat;
   width: 360px;
   margin: 0 auto; 
   margin-bottom: 0px;
@@ -37,6 +37,10 @@ Login page
 .login .content p,
 .login .content label {
   color: #fff;
+}
+
+.login .mt-checkbox > span:after {
+  border-color: #eee;
 }
 
 .login .content .login-form,
@@ -71,11 +75,6 @@ Login page
   margin-right: -30px;
 }
 
-.login .content .form-actions .checkbox {
-  margin-left: 0;
-  padding-left: 0;
-}
-
 .login .content .forget-form .form-actions {
   border: 0;
   margin-bottom: 0;
@@ -88,7 +87,7 @@ Login page
   padding-bottom: 0px;
 }
 
-.login .content .form-actions .checkbox {
+.login .content .form-actions .rememberme {
   margin-top: 8px;
   display: inline-block;
 }

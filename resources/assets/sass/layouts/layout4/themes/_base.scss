@@ -302,7 +302,7 @@
 
         /* Menu Toggler */
         .menu-toggler {
-            background-image: url(../../img/#{$header-toggler-img});   
+            background-image: url(#{$layout-theme-img-path}#{$header-toggler-img});   
         }          
 
         .page-actions .btn-group .btn-sm.btn-transparent {

@@ -122,8 +122,9 @@ Pricing Table 1
 
 				>.price-sign{
 					font-size:24px;
-					position: absolute;
 					margin-left: -15px;
+					vertical-align: top;
+					top:15px;
 				}
 			}
 
@@ -319,8 +320,9 @@ Pricing Table 2
 
 					>.price-sign{
 						font-size:24px;
-						position: absolute;
 						margin-left: -15px;
+						vertical-align: top;
+						top:15px;
 					}
 				}
 
