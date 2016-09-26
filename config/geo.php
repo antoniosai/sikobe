@@ -19,7 +19,7 @@ return [
     */
 
     'maxmind' => [
-        'db'  => env('MAXMIND_DB', __DIR__.'/../app/Modules/geo/GeoLite2-Country.mmdb')
+        'db'  => env('MAXMIND_DB', __DIR__.'/../app/Modules/Geo/GeoLite2-Country.mmdb')
     ]
 
 ];
