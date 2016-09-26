@@ -9,8 +9,6 @@ namespace App\Services;
  * file that was distributed with this source code.
  */
 
-use Illuminate\Validation\Validator;
-
 use App\Services\Validators\User as UserValidator;
 
 use App\Modules\User\Repository;
@@ -268,7 +266,7 @@ class User extends Service
     /**
      * Return validator instance.
      *
-     * @return \App\Services\Validators\Preferences\User
+     * @return \App\Services\Validators\User
      */
     private function getValidator()
     {

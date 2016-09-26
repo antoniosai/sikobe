@@ -11,8 +11,6 @@ namespace App\Services;
 
 use App\Modules\Territory\Repository;
 
-use RuntimeException;
-
 class Territory extends Service
 {
     /**
@@ -84,6 +82,19 @@ class Territory extends Service
         $collection = $repository->searchVillages($params, $page, $limit);
 
         return [$collection, $repository->getTotal()];
+    }
+
+    /**
+     * Return a villate.
+     *
+     * @param  integer $id
+     * 
+     * @return \App\Modules\Territory\Models\Village
+     * @throws \App\Modules\Territory\RecordNotFoundException
+     */
+    public function getVillage($id)
+    {
+        return $this->getTerritoryRepository()->findVillage($id);
     }
 
     /**

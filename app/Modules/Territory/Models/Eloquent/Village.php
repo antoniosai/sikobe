@@ -29,4 +29,12 @@ class Village extends Model implements VillageInterface
         'district_id', 
         'name'
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function district()
+    {
+        return $this->belongsTo('\App\Modules\Territory\Models\Eloquent\District');
+    }
 }

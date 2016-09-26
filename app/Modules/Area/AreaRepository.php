@@ -246,11 +246,9 @@ class AreaRepository implements Repository
     }
 
     /**
-     * Create a new instance of the model.
-     *
-     * @return \App\Modules\Area\Models\Area
+     * {@inheritdoc}
      */
-    private function createModel()
+    public function createModel()
     {
         return new $this->model;
     }

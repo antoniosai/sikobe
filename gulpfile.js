@@ -115,6 +115,12 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.scripts([
+        '../js/file-upload.js'
+    ], 'public/assets/js/file-upload.js');
+});
+
+elixir(function(mix) {
     mix.version([
         'assets/css/global-plugin.css',
         'assets/css/theme.css',
@@ -128,6 +134,7 @@ elixir(function(mix) {
         'assets/js/ui.js',
         'assets/js/layout.js',
         'assets/js/auth-plugin.js',
-        'assets/js/auth.js'
+        'assets/js/auth.js',
+        'assets/js/file-upload.js'
     ]);
 });

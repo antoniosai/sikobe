@@ -60,4 +60,11 @@ interface Repository
      * @return integer
      */
     public function getTotal();
+
+    /**
+     * Create a new instance of the model.
+     *
+     * @return \App\Modules\Area\Models\Area
+     */
+    public function createModel();
 }

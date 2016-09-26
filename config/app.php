@@ -235,7 +235,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class
+        'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class
 
     ],
 

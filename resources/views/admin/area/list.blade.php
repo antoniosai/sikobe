@@ -9,7 +9,9 @@
     </ul>
     <div class="page-toolbar">
         <div class="btn-group pull-right">
-            <a data-toggle="modal" href="#new-item" class="btn blue btn-sm"><i class="fa fa-plus"></i> Tambah</a>
+            <a data-toggle="modal" href="{{ url('/ctrl/areas/0') }}" class="btn blue btn-sm">
+                <i class="fa fa-plus"></i> Tambah
+            </a>
         </div>
     </div>
 </div>
@@ -110,7 +112,7 @@
         <div class="row">
             <div class="col-sm-6">&nbsp;</div>
             <div class="col-sm-6">
-                <?php echo $list->render(); ?>
+                <?php echo $list->appends($filter)->render(); ?>
             </div>
         </div>
     </div>

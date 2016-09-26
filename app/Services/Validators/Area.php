@@ -11,7 +11,11 @@ namespace App\Services\Validators;
 
 use Illuminate\Http\Request;
 
-class Collection
+use App\Services\Territory as TerritoryService;
+
+use App\Modules\Territory\RecordNotFoundException;
+
+class Area
 {
     /**
      * The request instance.
@@ -26,9 +30,10 @@ class Collection
      * @var array
      */
     protected $validationRules = [
-        'author_id'   => 'required', 
         'title'       => 'required', 
-        'description' => 'required'
+        'description' => 'required', 
+        'address'     => 'required', 
+        'village'     => 'required|is_village_exist'
     ];
 
     /**
@@ -49,6 +54,20 @@ class Collection
      */
     public function isValid()
     {
+        // Validate that value is not available
+        $service = $this->getTerritoryService();
+
+        $this->getValidationFactory()->extend(
+            'is_village_exist', function ($attribute, $value) use ($service) {
+                try {
+                    $service->getVillage($value);
+                    return true;
+                } catch (RecordNotFoundException $e) {
+                    return false;
+                }
+            }
+        );
+
         // Do validation
         $validator = $this->getValidationFactory()->make(
             $this->request->all(), 
@@ -60,6 +79,18 @@ class Collection
         }
 
         return $validator;
+    }
+
+    /**
+     * Return the territory service instance.
+     *
+     * @return \App\Services\Territory
+     */
+    private function getTerritoryService()
+    {
+        $service = new TerritoryService();
+
+        return $service;
     }
 
     /**

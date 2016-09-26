@@ -106,7 +106,7 @@ class FileRepository implements Repository
         }
 
         if ( ! empty($params['object_id'])) {
-            $query->->where($model->getTable().'.object_id', '=', $params['object_id']);
+            $query->where($model->getTable().'.object_id', '=', $params['object_id']);
         }
 
         $this->total = $query->count();

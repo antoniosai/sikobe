@@ -13,7 +13,10 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Modules\Area\Models\Area as AreaInterface;
 
-class Area extends Model implements AreaInterface
+use App\Presenter\Area as AreaPresenter;
+use App\Contracts\Presentable;
+
+class Area extends Model implements AreaInterface, Presentable
 {
     /**
      * The table associated with the model.
@@ -29,7 +32,7 @@ class Area extends Model implements AreaInterface
         'identifier',   
         'author_id', 
         'title', 
-        'descriptions', 
+        'description', 
         'address', 
         'province_id', 
         'regency_id', 
@@ -39,4 +42,12 @@ class Area extends Model implements AreaInterface
         'longitude', 
         'status'
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPresenter()
+    {
+        return new AreaPresenter($this);
+    }
 }
