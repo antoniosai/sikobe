@@ -8,16 +8,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { notify } from '../Util';
-import { getInformations } from '../../actions/actions';
+import { getAreas } from '../../actions/actions';
 import Item from './Item';
-import Detail from './Detail';
 
 class List extends Component {
 
   static propTypes = {
     baseUrl: PropTypes.string.isRequired,
-    getInformations: PropTypes.func.isRequired,
-    dataLoaded: PropTypes.func
+    filter: PropTypes.object.isRequired,
+    getAreas: PropTypes.func.isRequired,
+    dataIsLoaded: PropTypes.func, 
+    loadedData: PropTypes.func
   };
 
   constructor() {
@@ -28,6 +29,7 @@ class List extends Component {
     this.isDataLoaded = false;
     this.timeout = null;
     this.fetchInterval = 60000; //60000
+    this.previousFilter = null;
   }
 
   componentDidMount() {
@@ -43,9 +45,13 @@ class List extends Component {
           notify('error', nextProps.data.action.errorMessage, 'Error');
         } else {
           if (typeof nextProps.data.data != "undefined") {
-            if ( ! this.isDataLoaded && this.props.dataLoaded) {
+            if ( ! this.isDataLoaded && this.props.dataIsLoaded) {
               this.isDataLoaded = true;
-              this.props.dataLoaded();
+              this.props.dataIsLoaded();
+            }
+
+            if (this.props.loadedData && !_.isMatch(this.state.data, nextProps.data.data)) {
+              this.props.loadedData(nextProps.data.data);
             }
 
             this.setState({data: nextProps.data.data});
@@ -57,6 +63,14 @@ class List extends Component {
           this.collectData();
         }, this.fetchInterval);
       }
+    }
+  }
+
+  componentDidUpdate() {
+    if (!_.isMatch(this.previousFilter, this.props.filter)) {
+      this.previousFilter = _.clone(this.props.filter);
+      this.isDataLoaded = false;
+      this.collectData();
     }
   }
 
@@ -73,25 +87,14 @@ class List extends Component {
     }
 
     const items = this.state.data.map((item) => {
-      return <Item key={`information-item-${item.id}`} data={item}
+      return <Item key={`area-item-${item.id}`}
+       baseUrl={this.props.baseUrl} data={item}
        openDetail={this.handleOpenDetail.bind(this)} />;
     });
 
     return (
-      <div className="mt-element-list">
-        <div className="mt-list-container list-news">
-          <ul>
-            {items}
-          </ul>
-        </div>
-        <div className="mt-list-container list-simple">
-          <a className="list-toggle-container collapsed" href="/informations">
-            <div className="list-toggle uppercase">
-              Lihat semua <i className="fa fa-angle-right"></i>
-            </div>
-          </a>
-        </div>
-        {this.getDetailData()}
+      <div className="search-content-3">
+        <div className="row">{items}</div>
       </div>
     );
   }
@@ -117,21 +120,22 @@ class List extends Component {
   collectData() {
     clearTimeout(this.timeout);
 
-    this.props.getInformations({
-      limit: 2
-    });
+    this.props.getAreas(_.extend({
+      limit: 0, 
+      include: 'district,village,photos'
+    }, this.props.filter));
   }
 
 }
 
 const mapStateToProps = (state) => {
   return {
-    data: state.informations
+    data: state.areas
   }
 };
 
 const mapDispatchToProps = {
-  getInformations
+  getAreas
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

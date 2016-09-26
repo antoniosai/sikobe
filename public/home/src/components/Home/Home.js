@@ -14,7 +14,8 @@ import Post from '../Post';
 class Home extends Component {
 
   static propTypes = {
-    baseUrl: PropTypes.string.isRequired
+    baseUrl: PropTypes.string.isRequired, 
+    territory: PropTypes.object.isRequired
   };
 
   render() {
@@ -26,7 +27,7 @@ class Home extends Component {
           <Post baseUrl={this.props.baseUrl} />
         </div>
         <div className="col-md-8">
-          <Area baseUrl={this.props.baseUrl} />
+          <Area baseUrl={this.props.baseUrl} territory={this.props.territory} />
         </div>
       </div>
     );

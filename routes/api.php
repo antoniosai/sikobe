@@ -38,6 +38,12 @@ $api->version('v1', [
             'App\Http\Controllers\Api\v1\Information@getAll'
         );
 
+        // Area routes
+        $api->get(
+            'areas', 
+            'App\Http\Controllers\Api\v1\Area@getAll'
+        );
+
     });
 
 });

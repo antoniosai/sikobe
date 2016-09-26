@@ -16,8 +16,9 @@ export default {
 
   async action({ render, context }) {
     const baseUrl = context.store.getState().runtime.baseUrl;
+    const territory = context.store.getState().runtime.territory;
 
-    return <Home context={context} baseUrl={baseUrl} />;
+    return <Home context={context} baseUrl={baseUrl} territory={territory} />;
   },
 
 };

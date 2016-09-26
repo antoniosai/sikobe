@@ -85,7 +85,46 @@ class Territory extends Service
     }
 
     /**
-     * Return a villate.
+     * Return a province.
+     *
+     * @param  integer $id
+     * 
+     * @return \App\Modules\Territory\Models\Province
+     * @throws \App\Modules\Territory\RecordNotFoundException
+     */
+    public function getProvince($id)
+    {
+        return $this->getTerritoryRepository()->findProvince($id);
+    }
+
+    /**
+     * Return a regency.
+     *
+     * @param  integer $id
+     * 
+     * @return \App\Modules\Territory\Models\Regency
+     * @throws \App\Modules\Territory\RecordNotFoundException
+     */
+    public function getRegency($id)
+    {
+        return $this->getTerritoryRepository()->findRegency($id);
+    }
+
+    /**
+     * Return a district.
+     *
+     * @param  integer $id
+     * 
+     * @return \App\Modules\Territory\Models\District
+     * @throws \App\Modules\Territory\RecordNotFoundException
+     */
+    public function getDistrict($id)
+    {
+        return $this->getTerritoryRepository()->findDistrict($id);
+    }
+
+    /**
+     * Return a village.
      *
      * @param  integer $id
      * 

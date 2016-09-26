@@ -6,115 +6,120 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { notify } from '../Util';
-import { getAreas } from '../../actions/actions';
+import Mapping from './Mapping';
+import List from './List';
 
 class Area extends Component {
 
   static propTypes = {
-    baseUrl: PropTypes.string.isRequired, 
-    getAreas: PropTypes.func.isRequired
+    baseUrl: PropTypes.string.isRequired,
+    territory: PropTypes.object.isRequired
   };
 
   constructor() {
     super();
 
     this.state = this.getDefaultState();
-
-    this.timeout = null;
-    this.fetchInterval = 60000; //60000
-  }
-
-  componentDidMount() {
-    if (this.state.data == null) {
-      this.collectData();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.data.action != "undefined") {
-      if (!nextProps.data.action.started) {
-        if (nextProps.data.action.error) {
-          notify('error', nextProps.data.action.errorMessage, 'Error');
-        } else {
-          if (typeof nextProps.data.data != "undefined") {
-            this.setState({data: nextProps.data.data});
-          }
-        }
-
-        if (!this.isDetailOpened) {
-          this.timeout = setTimeout(() => {
-            this.collectData();
-          }, this.fetchInterval);
-        }
-      }
-    }
   }
 
   getDefaultState() {
     return {
-      data: null
+      filter: {
+        district: 'all',
+        village: 'all',
+        search: null
+      },
+      isDataLoaded: false,
+      items: null
     };
   }
 
   render() {
+    const districts = this.props.territory.districts.map((item) => {
+      return (<option key={`district-${item.id}`} value={item.id}>{item.name}</option>);
+    });
+
+    const villages = this.props.territory.villages.map((item) => {
+      return (<option key={`village-${item.id}`} value={item.id}>{item.name} | {item.district}</option>);
+    });
+
     return (
-      <div className="portlet light">
-        <div className="portlet-title">
-          <div className="caption form">
-            <div className="form-group form-md-line-input form-md-floating-label padding-top-0 margin-bottom-0">
-              <div className="input-group">
-                <div className="input-group-control">
-                  <select id="filter-district" className="form-control">
-                    <option value="all">Semua Kecamatan</option>
-                  </select>
+      <div className="area-container">
+        <div className="portlet light">
+          <div className="portlet-title">
+            <div className="caption form">
+              <div className="form-group form-md-line-input form-md-floating-label padding-top-0 margin-bottom-0">
+                <div className="input-group">
+                  <div className="input-group-control">
+                    <select id="filter-district" className="form-control">
+                      <option value="all">Semua Kecamatan</option>
+                      {districts}
+                    </select>
+                  </div>
+                  <div className="input-group-control">
+                    <select id="filter-village" className="form-control">
+                      <option value="all">Semua Kelurahan</option>
+                      {villages}
+                    </select>
+                  </div>
+                  <div className="input-group-control">
+                    <input type="text" id="filter-search" className="form-control" placeholder="Pencarian" />
+                  </div>
+                  <span className="input-group-btn btn-right">
+                    <button type="button" className="btn red-sunglo" onClick={this.handleFilter.bind(this)}>
+                      Filter
+                    </button>
+                  </span>
                 </div>
-                <div className="input-group-control">
-                  <select id="filter-village" className="form-control">
-                    <option value="all">Semua Kelurahan</option>
-                  </select>
-                </div>
-                <div className="input-group-control">
-                  <input type="text" className="form-control" placeholder="Pencarian" />
-                </div>
-                <span className="input-group-btn btn-right">
-                  <button type="button" className="btn red-sunglo" type="button">Filter</button>
-                </span>
               </div>
             </div>
           </div>
+          <Mapping baseUrl={this.props.baseUrl}
+           items={this.state.items} />
         </div>
         {this.getLoading()}
+        <List baseUrl={this.props.baseUrl}
+         filter={this.state.filter}
+         dataIsLoaded={this.handleDataIsLoaded.bind(this)}
+         loadedData={this.handleLoadedData.bind(this)} />
       </div>
     );
   }
 
+  handleFilter() {
+    const district = document.getElementById('filter-district');
+    const districtId = district.options[district.selectedIndex].value;
+
+    const village = document.getElementById('filter-village');
+    const villageId = village.options[village.selectedIndex].value;
+
+    this.setState({
+      filter: {
+        district: districtId,
+        village: villageId,
+        search: document.getElementById('filter-search').value
+      },
+      isDataLoaded: false
+    });
+  }
+
+  handleDataIsLoaded() {
+    this.setState({isDataLoaded: true});
+  }
+
+  handleLoadedData(items) {
+    this.setState({items: items});
+  }
+
   getLoading() {
-    return (
+    return ! this.state.isDataLoaded ? (
       <div className="padding-20 text-center">
         <img src={`${this.props.baseUrl}/assets/img/loading-spinner-grey.gif`} className="loading" /> 
         <span>&nbsp;&nbsp;Mengunduh data... </span>
       </div>
-    );
-  }
-
-  collectData() {
-    clearTimeout(this.timeout);
-
-    // this.props.getAreas();
+    ) : null;
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    data: state.informations
-  }
-};
-
-const mapDispatchToProps = {
-  getAreas
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Area);
+export default Area;

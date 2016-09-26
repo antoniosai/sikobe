@@ -1,5 +1,6 @@
 import {
-  LOAD_INFORMATIONS_START, LOAD_INFORMATIONS_SUCCESS, LOAD_INFORMATIONS_ERROR
+  LOAD_INFORMATIONS_START, LOAD_INFORMATIONS_SUCCESS, LOAD_INFORMATIONS_ERROR,
+  LOAD_AREAS_START, LOAD_AREAS_SUCCESS, LOAD_AREAS_ERROR
 } from '../constants';
 
 function _dispatch(dispatch, types, url, props, all) {
@@ -79,14 +80,14 @@ export function getPosts() {
   // };
 }
 
-export function getAreas() {
-  // return async (dispatch) => {
-  //   const url = '/informations';
+export function getAreas(props) {
+  return async (dispatch) => {
+    const url = '/areas';
 
-  //   return _dispatch(dispatch, {
-  //     start: LOAD_INFORMATIONS_START, 
-  //     success: LOAD_INFORMATIONS_SUCCESS, 
-  //     error: LOAD_INFORMATIONS_ERROR
-  //   }, url, null, false);
-  // };
+    return _dispatch(dispatch, {
+      start: LOAD_AREAS_START, 
+      success: LOAD_AREAS_SUCCESS, 
+      error: LOAD_AREAS_ERROR
+    }, url, props, false);
+  };
 }

@@ -44,7 +44,7 @@ class Area extends Service
         return new LengthAwarePaginator(
             $collection->all(), 
             $repository->getTotal(), 
-            $limit, 
+            ($limit > 0) ? $limit : 1, 
             $page, 
             ['path' => Paginator::resolveCurrentPath()]
         );

@@ -53,7 +53,7 @@ class Information extends Controller
     /**
      * Return the service instance.
      *
-     * @return \App\Services\Todo
+     * @return \App\Services\Area
      */
     private function getService()
     {

@@ -43,7 +43,8 @@ body {
     height: auto;
 }
 
-.mt-element-list .list-news.mt-list-container ul > .mt-list-item {
+.mt-element-list .list-news.mt-list-container ul > .mt-list-item,
+.area-container .search-content-3 .tile-container {
     cursor: pointer;
 }
 
