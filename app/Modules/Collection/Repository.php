@@ -17,7 +17,7 @@ interface Repository
      * @param  array   $params
      * @param  integer $page
      * @param  integer $limit
-     * 
+     *
      * @return \Collection
      */
     public function search(Array $params = [], $page = 1, $limit = 10);
@@ -26,9 +26,9 @@ interface Repository
      * Find a item by params.
      *
      * @param  array $params
-     * 
+     *
      * @return \App\Modules\Collection\Models\Collection
-     * 
+     *
      * @throws \App\Modules\Collection\RecordNotFoundException
      */
     public function findBy(Array $params);
@@ -37,9 +37,9 @@ interface Repository
      * Find the item by it's ID.
      *
      * @param  integer $id
-     * 
+     *
      * @return \App\Modules\Collection\Models\Collection
-     * 
+     *
      * @throws \App\Modules\Collection\RecordNotFoundException
      */
     public function find($id);
@@ -48,7 +48,7 @@ interface Repository
      * Create a new item.
      *
      * @param  Array $data
-     * 
+     *
      * @return \App\Modules\Collection\Models\Collection|null
      * @throws \RuntimeException
      */

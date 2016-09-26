@@ -26,9 +26,9 @@ class Collection extends Model implements CollectionInterface
      * {@inheritdoc}
      */
     protected $fillable = [
-        'author_id', 
-        'identifier', 
-        'title', 
+        'author_id',
+        'identifier',
+        'title',
         'description'
     ];
 }

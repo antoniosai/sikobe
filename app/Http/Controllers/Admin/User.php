@@ -30,7 +30,7 @@ class User extends Controller
      * Show the profile.
      *
      * @param  \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function profile(Request $request)
@@ -44,7 +44,7 @@ class User extends Controller
      * Update the profile.
      *
      * @param  \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function profileUpdate(Request $request)
@@ -76,7 +76,7 @@ class User extends Controller
      * Show the items.
      *
      * @param  \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -97,12 +97,12 @@ class User extends Controller
         $collection = $collection->map(function($item) {
             return new UserPresenter($item);
         });
-        
+
         $list = new LengthAwarePaginator(
-            $collection->all(), 
-            $total, 
-            $limit, 
-            $page, 
+            $collection->all(),
+            $total,
+            $limit,
+            $page,
             ['path' => Paginator::resolveCurrentPath()]
         );
 
@@ -116,7 +116,7 @@ class User extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  integer                  $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
@@ -151,7 +151,7 @@ class User extends Controller
      * Create new item.
      *
      * @param  \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -187,7 +187,7 @@ class User extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  Integer                  $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function save(Request $request, $id)
