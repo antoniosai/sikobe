@@ -44,6 +44,7 @@ elixir(function(mix) {
         'layouts/layout/layout.scss',
         'layouts/layout/themes/blue.scss',
         'pages/contact.scss',
+        'pages/about.scss',
         'layouts/layout/front-custom.scss'
     ], 'public/assets/css/front-layout.css');
 });
@@ -64,6 +65,13 @@ elixir(function(mix) {
     mix.sass([
         'pages/profile.scss'
     ], 'public/assets/css/profile.css');
+});
+
+elixir(function(mix) {
+    mix.sass([
+        '../plugins/pace/themes/pace-theme-flash.css',
+        'apps/todo.scss',
+    ], 'public/assets/css/home.css');
 });
 
 elixir(function(mix) {
@@ -116,6 +124,12 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.scripts([
+        '../plugins/pace/pace.min.js'
+    ], 'public/assets/js/home.js');
+});
+
+elixir(function(mix) {
+    mix.scripts([
         '../js/file-upload.js'
     ], 'public/assets/js/file-upload.js');
 });
@@ -128,6 +142,7 @@ elixir(function(mix) {
         'assets/css/front-layout.css',
         'assets/css/auth.css',
         'assets/css/profile.css',
+        'assets/css/home.css',
         'assets/css/error.css',
         'assets/js/ie.js',
         'assets/js/global-plugin.js',
@@ -135,6 +150,7 @@ elixir(function(mix) {
         'assets/js/layout.js',
         'assets/js/auth-plugin.js',
         'assets/js/auth.js',
+        'assets/js/home.js',
         'assets/js/file-upload.js'
     ]);
 });
