@@ -22,7 +22,7 @@ class User extends Service
      * Update the profile.
      *
      * @param  Integer $id
-     * 
+     *
      * @return \Illuminate\Validation\Validator|mixed
      * @throws \RuntimeException
      */
@@ -67,9 +67,9 @@ class User extends Service
 
             // Populate data
             $data = [
-                'email'      => $request->get('email'), 
-                'activated'  => (int) $request->get('activated', 0), 
-                'first_name' => $firstName, 
+                'email'      => $request->get('email'),
+                'activated'  => (int) $request->get('activated', 0),
+                'first_name' => $firstName,
                 'last_name'  => $lastName
             ];
 
@@ -94,7 +94,7 @@ class User extends Service
      * @param  array   $params
      * @param  integer $page
      * @param  integer $limit
-     * 
+     *
      * @return array
      * @throws \RuntimeException
      */
@@ -110,7 +110,7 @@ class User extends Service
      * Delete a item.
      *
      * @param  integer $id
-     * 
+     *
      * @return boolean
      * @throws \App\Modules\User\RecordNotFoundException
      * @throws \RuntimeException
@@ -126,7 +126,7 @@ class User extends Service
 
     /**
      * Create new item.
-     * 
+     *
      * @return \Illuminate\Validation\Validator|App\Modules\User\Models\User
      * @throws \RuntimeException
      */
@@ -153,10 +153,10 @@ class User extends Service
 
         // Create
         $data = [
-            'email'      => $request->get('email'), 
-            'password'   => bcrypt($request->get('password')), 
-            'activated'  => (int) $request->get('activated', 0), 
-            'first_name' => $firstName, 
+            'email'      => $request->get('email'),
+            'password'   => bcrypt($request->get('password')),
+            'activated'  => (int) $request->get('activated', 0),
+            'first_name' => $firstName,
             'last_name'  => $lastName
         ];
 
@@ -189,7 +189,7 @@ class User extends Service
      * Save a item.
      *
      * @param  integer $id
-     * 
+     *
      * @return \Illuminate\Validation\Validator|mixed
      * @throws \RuntimeException
      */
@@ -222,9 +222,9 @@ class User extends Service
 
         // Populate data
         $data = [
-            'email'      => $request->get('email'), 
-            'activated'  => (int) $request->get('activated', 0), 
-            'first_name' => $firstName, 
+            'email'      => $request->get('email'),
+            'activated'  => (int) $request->get('activated', 0),
+            'first_name' => $firstName,
             'last_name'  => $lastName
         ];
 

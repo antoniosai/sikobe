@@ -56,7 +56,7 @@ class UserRepository implements Repository
      * @param string $modelMeta
      * @param string $modelGroup
      * @param string $modelUserGroup
-     * 
+     *
      * @return void
      */
     public function __construct($model, $modelMeta, $modelGroup, $modelUserGroup)
@@ -77,7 +77,7 @@ class UserRepository implements Repository
         ], $params);
 
         $model = $this->createModel();
-        
+
         if (empty($page)) {
             $page = 1;
         }
@@ -139,7 +139,7 @@ class UserRepository implements Repository
     public function findBy(Array $params)
     {
         $params = array_merge([
-            'id'         => 0, 
+            'id'         => 0,
             'email'      => ''
         ], $params);
 
@@ -188,7 +188,7 @@ class UserRepository implements Repository
     {
         try {
             $meta = $this->findMetaBy([
-                'user_id' => $userId, 
+                'user_id' => $userId,
                 'handle'  => $key
             ]);
         } catch (RecordNotFoundException $e) {
@@ -196,8 +196,8 @@ class UserRepository implements Repository
         }
 
         $data = [
-            'user_id' => $userId, 
-            'handle'  => $key, 
+            'user_id' => $userId,
+            'handle'  => $key,
             'value'   => $value
         ];
 
@@ -207,7 +207,7 @@ class UserRepository implements Repository
 
         $meta->fill($data);
         $meta->save();
-        
+
         return $meta;
     }
 
@@ -215,7 +215,7 @@ class UserRepository implements Repository
      * Create a new meta item.
      *
      * @param  Array $data
-     * 
+     *
      * @return \App\Modules\User\Models\UserMeta
      * @throws \RuntimeException
      */
@@ -237,8 +237,8 @@ class UserRepository implements Repository
     public function findMetaBy(Array $params)
     {
         $params = array_merge([
-            'id'      => 0, 
-            'user_id' => 0, 
+            'id'      => 0,
+            'user_id' => 0,
             'handle'  => ''
         ], $params);
 
@@ -275,7 +275,7 @@ class UserRepository implements Repository
     public function findGroupBy(Array $params)
     {
         $params = array_merge([
-            'id'   => 0, 
+            'id'   => 0,
             'name' => ''
         ], $params);
 
@@ -309,7 +309,7 @@ class UserRepository implements Repository
     {
         $model = $this->createModelUserGroup();
         $model->fill([
-            'user_id'  => $userId, 
+            'user_id'  => $userId,
             'group_id' => $groupId
         ]);
 

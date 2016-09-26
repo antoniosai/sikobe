@@ -24,7 +24,7 @@ class Collection extends Service
      * @param  array   $params
      * @param  integer $page
      * @param  integer $limit
-     * 
+     *
      * @return array
      * @throws \RuntimeException
      */
@@ -40,7 +40,7 @@ class Collection extends Service
      * Delete a collection item.
      *
      * @param  integer $id
-     * 
+     *
      * @return boolean
      * @throws \App\Modules\Collection\RecordNotFoundException
      * @throws \RuntimeException
@@ -53,10 +53,43 @@ class Collection extends Service
     }
 
     /**
+     * Update the Information.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function informasiUpdate($id)
+    {
+      $validator = $this->getValidator();
+
+      $request = $this->getRequest();
+
+      $collectionRepository = $this->getCollectionRepository();
+
+      $item = $collectionRepository->findBy(['id' => $id]);
+
+      $data = [
+          'author_id'      => $request->get('author_id'),
+          'identifier'  => $request->get('identifier'),
+          'description' => $request->get('description')
+      ];
+
+      $item->fill($data);
+
+      if ( ! $item->save()) {
+          throw new RuntimeException('Failed to update information');
+      }
+
+      return $item;
+
+    }
+
+    /**
      * Create new item.
      *
      * @param  string  $identifier
-     * 
+     *
      * @return \Illuminate\Validation\Validator|App\Modules\Collection\Models\Collection
      * @throws \RuntimeException
      */
@@ -68,13 +101,13 @@ class Collection extends Service
         if (true !== ($validation = $validator->isValid())) {
             return $validation;
         }
-        
+
         $request = $this->getRequest();
 
         return $this->getCollectionRepository()->create([
-            'author_id'   => $request->get('author_id'), 
-            'identifier'  => $identifier, 
-            'title'       => $request->get('title'), 
+            'author_id'   => $request->get('author_id'),
+            'identifier'  => $identifier,
+            'title'       => $request->get('title'),
             'description' => $request->get('description')
         ]);
     }
