@@ -29,4 +29,10 @@ Route::group([
     Route::post('/users/{id}', 'User@save');
     Route::get('/users/{id}/delete', 'User@delete');
 
+    Route::get('/areas', 'Area@index');
+    Route::post('/areas', 'Area@save');
+    Route::get('/areas/{id}', 'Area@form');
+    Route::post('/areas/{id}', 'Area@save');
+    Route::get('/areas/{id}/delete', 'Area@delete');
+
 });

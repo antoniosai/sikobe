@@ -13,7 +13,13 @@ use Illuminate\Http\Request;
 
 class Collection
 {
-
+    /**
+     * The request instance.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+    
     /**
      * The validation rules.
      *
@@ -24,6 +30,17 @@ class Collection
         'title'       => 'required', 
         'description' => 'required'
     ];
+
+    /**
+     * Create a new instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     /**
      * Validate data.

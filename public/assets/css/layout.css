@@ -2716,6 +2716,19 @@ body {
 .portlet > .portlet-title > .tools > a.expand {
   background-image: url(../../../assets/img/portlet-expand-icon.png); }
 
+.upload-container.mt-element-list .list-todo.mt-list-container {
+  border: 0px; }
+
+.upload-container.mt-element-list .list-todo.mt-list-container ul > .mt-list-item > .list-todo-item {
+  margin-left: 0px;
+  width: 100%; }
+
+.upload-container.mt-element-list .list-todo.mt-list-container ul > .mt-list-item > .list-todo-item .task-list .task-list-item > .task-content {
+  padding-left: 40px; }
+
+.upload-container.mt-element-list .list-todo.mt-list-container ul > .mt-list-item > .list-todo-item .task-list .task-list-item > .task-icon img {
+  width: 35px; }
+
 /* TODO */
 .dashboard-todo .mt-element-list .list-simple.mt-list-container ul > .mt-list-item {
   padding: 5px 0; }

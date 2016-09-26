@@ -25,12 +25,12 @@
 
         {{ \App\Support\Asset::scripts('header.scripts') }}
     </head>
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed page-md">
+    <body class="page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed page-md">
         <form id="form-logout" method="POST" action="{{ url('/logout') }}" style="display:none;">
             {{ csrf_field() }}
         </form>
         <!-- BEGIN HEADER -->
-        <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header navbar navbar-static-top">
             <!-- BEGIN HEADER INNER -->
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
@@ -95,7 +95,7 @@
                     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                    <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <ul class="page-sidebar-menu page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
                         <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
                         <li class="sidebar-toggler-wrapper hide">
                             <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
@@ -106,6 +106,12 @@
                             <a href="{{ url('/ctrl/dashboard') }}" class="nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'areas') ? ' active open' : '' }}">
+                            <a href="{{ url('/ctrl/areas') }}" class="nav-link nav-toggle">
+                                <i class="icon-map"></i>
+                                <span class="title">Area Terdampak</span>
                             </a>
                         </li>
                         @if ($user->isSuperAdmin())

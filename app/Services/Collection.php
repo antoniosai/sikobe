@@ -9,8 +9,6 @@ namespace App\Services;
  * file that was distributed with this source code.
  */
 
-use Illuminate\Validation\Validator;
-
 use App\Services\Service;
 use App\Services\Validators\Collection as CollectionValidator;
 
@@ -117,7 +115,7 @@ class Collection extends Service
     /**
      * Return validator instance.
      *
-     * @return \App\Services\Validators\Preferences\Collection
+     * @return \App\Services\Validators\Collection
      */
     private function getValidator()
     {

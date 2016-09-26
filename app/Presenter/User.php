@@ -15,13 +15,6 @@ class User extends Presenter
 {
 
     /**
-     * The User model.
-     *
-     * @var User
-     */
-    protected $_model;
-
-	/**
      * Create the Presenter and store the object we are presenting.
      *
      * @param  UserContract $user

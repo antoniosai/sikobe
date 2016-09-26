@@ -25,6 +25,15 @@
         "classmap": [
             "database"
         ],
+        "files": [
+            "app/Support/helpers.php", 
+            "app/Modules/Area/Exceptions.php", 
+            "app/Modules/Collection/Exceptions.php", 
+            "app/Modules/File/Exceptions.php", 
+            "app/Modules/Geo/Exceptions.php", 
+            "app/Modules/Territory/Exceptions.php", 
+            "app/Modules/User/Exceptions.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         }

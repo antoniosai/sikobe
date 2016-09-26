@@ -17,7 +17,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Support\Asset;
-use App\Presenter\BootstrapThreePresenter;
 use App\Presenter\User as UserPresenter;
 use App\Services\User as UserService;
 
@@ -223,7 +222,7 @@ class User extends Controller
     /**
      * Return the service instance.
      *
-     * @return \App\Services\Preferences\Referrence
+     * @return \App\Services\User
      */
     private function getService()
     {

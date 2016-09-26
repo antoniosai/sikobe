@@ -173,6 +173,9 @@ return [
         App\Modules\Geo\Providers\Illuminate\GeoServiceProvider::class,
         App\Modules\User\Providers\Illuminate\UserServiceProvider::class,
         App\Modules\Collection\Providers\Illuminate\CollectionServiceProvider::class,
+        App\Modules\File\Providers\Illuminate\FileServiceProvider::class,
+        App\Modules\Territory\Providers\Illuminate\TerritoryServiceProvider::class,
+        App\Modules\Area\Providers\Illuminate\AreaServiceProvider::class,
 
         //
 
@@ -232,7 +235,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class
+        'BrowserDetect' => hisorange\BrowserDetect\Facade\Parser::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class
 
     ],
 
