@@ -74,7 +74,7 @@
             <!-- END HEADER INNER -->
         </div>
         <!-- END HEADER -->
-        
+
         <!-- BEGIN HEADER & CONTENT DIVIDER -->
         <div class="clearfix"> </div>
         <!-- END HEADER & CONTENT DIVIDER -->
@@ -112,6 +112,12 @@
                             <a href="{{ url('/ctrl/areas') }}" class="nav-link nav-toggle">
                                 <i class="icon-map"></i>
                                 <span class="title">Area Terdampak</span>
+                            </a>
+                        </li>
+                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'information') ? ' active open' : '' }}">
+                            <a href="{{ url('/ctrl/information') }}" class="nav-link nav-toggle">
+                                <i class="icon-info"></i>
+                                <span class="title">Informasi</span>
                             </a>
                         </li>
                         @if ($user->isSuperAdmin())

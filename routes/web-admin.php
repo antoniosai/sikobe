@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::group([
-    'namespace' => 'Admin', 
+    'namespace' => 'Admin',
     'middleware' => ['auth'],
     'prefix' => 'ctrl'
 ], function() {
@@ -35,4 +35,7 @@ Route::group([
     Route::post('/areas/{id}', 'Area@save');
     Route::get('/areas/{id}/delete', 'Area@delete');
 
+    Route::get('/information', 'Information@index');
+    Route::post('/information/store', 'Information@store');
+    Route::get('/information/{id}/delete', 'Information@delete');
 });

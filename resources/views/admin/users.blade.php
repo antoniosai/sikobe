@@ -116,7 +116,7 @@
         @if(Session::has('error'))
         <div class="alert alert-danger">{{ Session::get('error') }}</div>
         @endif
-        
+
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>

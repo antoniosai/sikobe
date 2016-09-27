@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
 
 /*
  * Author: Antonio Saiful Islam <finallyantonio@gmail.com>.
@@ -25,19 +24,32 @@ namespace App\Http\Controllers;
 
  use RuntimeException;
 
-class Informasi extends Controller
+class Information extends Controller
 {
     /**
      * Display a listing of the resource.
      * Code Owner : Antonio Saiful Islam
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $data = Collection::all();
+      $limit = 10;
+      $page  = (int) $request->get('page', 1);
 
-      return view('admin.informasi', [
-        '$data' => $data
+      $service = $this->getService();
+
+      list($collection, $total) = $service->search([], $page, $limit);
+
+      $list = new LengthAwarePaginator(
+          $collection->all(),
+          $total,
+          $limit,
+          $page,
+          ['path' => Paginator::resolveCurrentPath()]
+      );
+
+      return view('admin.information.list', [
+          'list' => $list
       ]);
     }
 
@@ -63,11 +75,18 @@ class Informasi extends Controller
     {
       $service = $this->getService();
 
+      $data = [
+        'author_id' => $this->user->id,
+        'identifier' => 'information',
+        'title' => $request->input('title'),
+        'description' => $request->input('description')
+      ];
+
       try {
-          $response = $service->create($request->all());
+          $response = $service->create($data);
 
           if ($response instanceOf Validator) {
-              $request->session()->flash('error', 'Tolong perbaiki input dengan tanda merah!');
+              $request->session()->flash('error', 'Tossslong perbaiki input dengan tanda merah!');
 
               $this->throwValidationException(
                   $request, $response
@@ -106,6 +125,33 @@ class Informasi extends Controller
         //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function form(Request $request, $id = 0)
+    {
+        $service = $this->getService();
+
+        try {
+            $data = $service;
+        } catch (RecordNotFoundException $e) {
+            if ($id > 0) {
+                abort(404);
+            } else {
+                $data = $service->getEmptyModel();
+            }
+        } catch (RuntimeException $e) {
+            abort(500);
+        }
+
+        return view('admin.information.form', [
+            // 'data'      => new AreaPresenter($data)
+            'data'  => $data
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -157,15 +203,29 @@ class Informasi extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request, $id)
     {
+        if (empty($id)) {
+            abort(404);
+        }
+
         $service = $this->getService();
 
-        $response = $service->delete($id);
+        try {
+            $isDeleted = $service->delete($id);
+        } catch (RecordNotFoundException $e) {
+            abort(404);
+        }
 
-        $request->session()->flash('success', 'Informasi berhasil dihapus!');
+        if ( ! $isDeleted) {
+            $request->session()->flash('error', 'Terjadi kesalahan ketika menghapus!');
 
-        return back();
+            return back();
+        }
+
+        $request->session()->flash('success', 'Berhasil dihapus!');
+
+        return redirect('/ctrl/information');
     }
 
     private function getService()

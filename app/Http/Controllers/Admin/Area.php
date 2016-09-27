@@ -41,7 +41,7 @@ class Area extends Controller
      * Show the items.
      *
      * @param  \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -55,8 +55,8 @@ class Area extends Controller
         $areaService = $this->getAreaService();
 
         $list = $areaService->search([
-            'district_id' => $district, 
-            'village_id'  => $village, 
+            'district_id' => $district,
+            'village_id'  => $village,
             'title'       => $title
         ], $page, $limit);
 
@@ -64,12 +64,12 @@ class Area extends Controller
 
         return view('admin.area.list', [
             'filter' => [
-                'district' => $district, 
-                'village'  => $village, 
+                'district' => $district,
+                'village'  => $village,
                 'title'    => $title
-            ], 
-            'districts' => $districts, 
-            'villages'  => $villages, 
+            ],
+            'districts' => $districts,
+            'villages'  => $villages,
             'list'      => $list
         ]);
     }
@@ -79,7 +79,7 @@ class Area extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  Integer                   $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function form(Request $request, $id = 0)
@@ -103,8 +103,8 @@ class Area extends Controller
         Asset::add(elixir('assets/js/file-upload.js'), 'footer.specific.js');
 
         return view('admin.area.form', [
-            'districts' => $districts, 
-            'villages'  => $villages, 
+            'districts' => $districts,
+            'villages'  => $villages,
             'data'      => new AreaPresenter($data)
         ]);
     }
@@ -114,7 +114,7 @@ class Area extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  Integer                  $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function save(Request $request, $id = 0)
@@ -123,8 +123,8 @@ class Area extends Controller
 
         try {
             $response = $service->save($id, [
-                'province_id' => $this->provinceId, 
-                'regency_id'  => $this->regencyId, 
+                'province_id' => $this->provinceId,
+                'regency_id'  => $this->regencyId,
             ]);
 
             if ($response instanceOf Validator) {
@@ -150,7 +150,7 @@ class Area extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  integer                  $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
@@ -174,7 +174,7 @@ class Area extends Controller
         }
 
         $request->session()->flash('success', 'Berhasil dihapus!');
-        
+
         return redirect('/ctrl/areas');
     }
 
@@ -188,14 +188,14 @@ class Area extends Controller
         $territoryService = $this->getTerritoryService();
 
         list($districts) = $territoryService->searchDistricts([
-            'province_id' => $this->provinceId, 
-            'regency_id'  => $this->regencyId, 
+            'province_id' => $this->provinceId,
+            'regency_id'  => $this->regencyId,
             'order_by'    => 'name'
         ], 1, 0);
 
         list($villages) = $territoryService->searchVillages([
-            'province_id' => $this->provinceId, 
-            'regency_id'  => $this->regencyId, 
+            'province_id' => $this->provinceId,
+            'regency_id'  => $this->regencyId,
             'order_by'    => 'name'
         ], 1, 0);
 

@@ -19,15 +19,15 @@ class Collection
      * @var \Illuminate\Http\Request
      */
     protected $request;
-    
+
     /**
      * The validation rules.
      *
      * @var array
      */
     protected $validationRules = [
-        'author_id'   => 'required', 
-        'title'       => 'required', 
+        'author_id'   => 'required',
+        'title'       => 'required',
         'description' => 'required'
     ];
 
@@ -44,14 +44,14 @@ class Collection
 
     /**
      * Validate data.
-     * 
+     *
      * @return boolean|\Illuminate\Validation\Validator
      */
     public function isValid()
     {
         // Do validation
         $validator = $this->getValidationFactory()->make(
-            $this->request->all(), 
+            $this->request->all(),
             $this->validationRules
         );
 
