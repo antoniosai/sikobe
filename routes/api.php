@@ -21,7 +21,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'middleware' => 'api.throttle', 
-    'limit' => 100, 
+    'limit' => 500, 
     'expires' => 1
 ], function ($api) {
 
@@ -36,6 +36,12 @@ $api->version('v1', [
         $api->get(
             'informations', 
             'App\Http\Controllers\Api\v1\Information@getAll'
+        );
+
+        // Area routes
+        $api->get(
+            'areas', 
+            'App\Http\Controllers\Api\v1\Area@getAll'
         );
 
     });

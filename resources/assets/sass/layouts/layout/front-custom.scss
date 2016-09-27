@@ -3,6 +3,14 @@
 @import '../../global/_variables'; // global variables.
 @import '../../global/components/_mixins'; // global mixings.
 
+body {
+    background-color: #d9534f;
+}
+
+.page-header.navbar {
+    background-color: #d9534f;
+}
+
 .toast .toast-close-button {
   background-image: url("../../../assets/img/portlet-remove-icon-white.png") !important;
 }
@@ -20,11 +28,31 @@
     color: #333;
 }*/
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i,
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover > i,
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle {
-    color: #c9dae9;
+    color: #ffffff;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
+    background-color: #E08283;
 }
 .page-header .top-menu .dropdown>.dropdown-toggle {
     padding: 17px 10px 9px!important;
+}
+
+.about-text {
+    height: auto;
+}
+
+.mt-element-list .list-news.mt-list-container ul > .mt-list-item,
+.area-container .search-content-3 .tile-container {
+    cursor: pointer;
+}
+
+.cbp .cbp-item {
+    width: 25%;
+}
+.cbp-popup-wrap {
+    z-index: 99990;
 }
 
 /* Spinner */
@@ -116,9 +144,6 @@
     width: 25px;
 }
 
-.pace .pace-progress {
-    height: 5px;
-}
 .pace .pace-activity {
     top: 55px;
 }

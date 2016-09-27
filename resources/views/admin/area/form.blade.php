@@ -23,7 +23,7 @@
         <div class="page-toolbar">
             <div class="btn-group pull-right">
                 @if ( ! empty($data->id))
-                    <a href="{{ sprintf(url('/ctrl/areas/%d/delete'), $data->id) }}" class="btn btn-danger" data-toggle="confirmation" data-popout="true" data-placement="top" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!"><i class="fa fa-close"></i> Hapus</a>
+                    <a href="{{ sprintf(url('/ctrl/areas/%d/delete'), $data->id) }}" class="btn btn-danger" data-toggle="confirmation" data-popout="true" data-placement="bottom" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!"><i class="fa fa-close"></i> Hapus</a>
                 @endif
                 <button type="submit" name="save" value="1" class="btn green-meadow">
                     <i class="fa fa-save"></i> Simpan

@@ -9,6 +9,8 @@ namespace App\Presenter\Api;
  * file that was distributed with this source code.
  */
 
+use App\Support\Str;
+
 use League\Fractal\TransformerAbstract;
 
 use App\Modules\Collection\Models\Collection as CollectionContract;
@@ -25,12 +27,13 @@ class Collection extends TransformerAbstract
     public function transform(CollectionContract $item)
     {
         return [
-            'id'          => (int) $item->id, 
-            'identifier'  => $item->identifier, 
-            'title'       => $item->title, 
-            'description' => $item->description, 
-            'created_at'  => $item->created_at, 
-            'links'       => [
+            'id'                => (int) $item->id, 
+            'identifier'        => $item->identifier, 
+            'title'             => $item->title, 
+            'short_description' => Str::words($item->description, 15, '...'), 
+            'description'       => $item->description, 
+            'created_at'        => $item->created_at, 
+            'links'             => [
                 [
                     'rel' => 'self',
                     'uri' => '/'.$item->identifier.'s/'.$item->id,
