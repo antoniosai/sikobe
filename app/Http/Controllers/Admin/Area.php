@@ -154,13 +154,16 @@ class Area extends Controller
         list($districts, $villages) = $this->getTerritories();
 
         Asset::add(elixir('assets/js/file-upload.js'), 'footer.specific.js');
+        Asset::add('https://maps.googleapis.com/maps/api/js?key='.env('GOOGLE_API_KEY'), 'footer.specific.js');
+        Asset::add('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/min/jquery.ui.map.full.min.js', 'footer.specific.js');
+        Asset::add(elixir('assets/js/map-picker.js'), 'footer.specific.js');
 
         return view('admin.area.main-form', [
-            'tab'       => $tab, 
+            'tab'       => $tab,
             'districts' => $districts,
             'villages'  => $villages,
-            'data'      => $data->getPresenter(), 
-            'status'    => ( ! is_null($status)) ? $status->getPresenter() : null, 
+            'data'      => $data->getPresenter(),
+            'status'    => ( ! is_null($status)) ? $status->getPresenter() : null,
             'statuses'  => $statuses
         ]);
     }

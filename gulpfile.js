@@ -139,6 +139,12 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.scripts([
+        '../js/map-picker.js'
+    ], 'public/assets/js/map-picker.js');
+});
+
+elixir(function(mix) {
     mix.version([
         'assets/css/global-plugin.css',
         'assets/css/theme.css',
@@ -155,6 +161,7 @@ elixir(function(mix) {
         'assets/js/auth-plugin.js',
         'assets/js/auth.js',
         'assets/js/home.js',
-        'assets/js/file-upload.js'
+        'assets/js/file-upload.js',
+        'assets/js/map-picker.js',
     ]);
 });

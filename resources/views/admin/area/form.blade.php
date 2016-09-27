@@ -81,7 +81,7 @@
                         <select id="village" name="village" class="form-control">
                             @if ( ! $villages->isEmpty())
                             @foreach ($villages as $item)
-                            <option value="{{ $item->id }}"{{ ($item->id == $data->village_id) ? ' selected=selected' : '' }}>
+                            <option value="{{ $item->id }}"{{ ($item->id == $data->village_id) ? ' selected=selected' : '' }} data-village="{{ $item->name }}" data-district="{{ $item->district }}">
                                 {{ $item->name }} | {{ $item->district }}
                             </option>
                             @endforeach
@@ -93,6 +93,10 @@
                         @endif
                     </div>
                     <div class="row">
+                        <div class="col-md-12">
+                          <label>Geser Marker Ke Posisi Area</label>
+                          <div style="width:100%;height:250px;background-color:#dcdcdc;margin-bottom:20px" id="map_canvas"></div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input{{ $errors->has('latitude') ? ' has-error' : '' }}">
                                 <input type="text" id="latitude" name="latitude" class="form-control" placeholder="Input koordinat di sini" value="{{ old('latitude', $data->latitude) }}">
