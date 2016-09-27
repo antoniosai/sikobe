@@ -40,6 +40,14 @@ class Status extends Model implements StatusInterface, Presentable
     /**
      * {@inheritdoc}
      */
+    public function area()
+    {
+        return $this->belongsTo('\App\Modules\Area\Models\Eloquent\Area');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPresenter()
     {
         return new StatusPresenter($this);

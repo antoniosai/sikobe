@@ -1,6 +1,7 @@
 import {
   LOAD_INFORMATIONS_START, LOAD_INFORMATIONS_SUCCESS, LOAD_INFORMATIONS_ERROR,
   LOAD_AREAS_START, LOAD_AREAS_SUCCESS, LOAD_AREAS_ERROR,
+  LOAD_AREAS_STATUSES_START, LOAD_AREAS_STATUSES_SUCCESS, LOAD_AREAS_STATUSES_ERROR,
   LOAD_AREA_STATUSES_START, LOAD_AREA_STATUSES_SUCCESS, LOAD_AREA_STATUSES_ERROR
 } from '../constants';
 
@@ -95,7 +96,13 @@ export function getAreas(props) {
 
 export function getAreaStatuses(areaId, props) {
   return async (dispatch) => {
-    const url = '/areas/' + areaId + '/statuses';
+    let url = '';
+    if (_.isNumber(areaId)) {
+      url = '/areas/' + areaId + '/statuses';
+    } else {
+      url = '/area-statuses';
+      props = areaId;
+    }
 
     return _dispatch(dispatch, {
       start: LOAD_AREA_STATUSES_START, 
@@ -103,4 +110,21 @@ export function getAreaStatuses(areaId, props) {
       error: LOAD_AREA_STATUSES_ERROR
     }, url, props, false);
   };
+}
+
+export function getAreasStatuses(props) {
+  return async (dispatch) => {
+    let url = '/area-statuses';
+
+    return _dispatch(dispatch, {
+      start: LOAD_AREAS_STATUSES_START, 
+      success: LOAD_AREAS_STATUSES_SUCCESS, 
+      error: LOAD_AREAS_STATUSES_ERROR
+    }, url, props, false);
+  };
+}
+
+export function getAreaPhotos(areaId, props) {
+  const url = '/areas/' + areaId + '/photos';
+  return apiClient.get(url, props);
 }

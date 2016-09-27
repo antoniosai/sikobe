@@ -34,12 +34,8 @@ class Status extends TransformerAbstract
      * {@inheritdoc}
      */
     protected $availableIncludes = [
-        'province', 
-        'regency', 
-        'district', 
-        'village', 
         'photos', 
-        'latest_status'
+        'area'
     ];
 
     /**
@@ -77,6 +73,18 @@ class Status extends TransformerAbstract
         ], 1, 0);
 
         return $this->collection($files, new File);
+    }
+
+    /**
+     * Include Area
+     *
+     * @param  StatusContract $status
+     *
+     * @return League\Fractal\Resource\Item|null
+     */
+    public function includeArea(StatusContract $status)
+    {
+        return $this->item($status->area, new Area);
     }
 
     /**

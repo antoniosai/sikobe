@@ -335,6 +335,26 @@ class Area extends Service
     }
 
     /**
+     * Return item photos.
+     *
+     * @param  integer $id
+     * 
+     * @return \Collection
+     * @throws \App\Modules\Area\RecordNotFoundException
+     */
+    public function getPhotos($id)
+    {
+        $area = $this->get($id);
+
+        list($files) = $this->getFileService()->search([
+            'object_type' => 'area', 
+            'object_id'   => $area->id
+        ], 1, 0);
+
+        return $files;
+    }
+
+    /**
      * Return a status item.
      *
      * @param  integer $id

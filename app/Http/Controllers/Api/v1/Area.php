@@ -9,9 +9,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Dingo\Api\Routing\Helpers;
 
 use App\Services\Area as AreaService;
+use App\Services\File as FileService;
 
 use App\Presenter\Api\Area\Area as AreaPresenter;
 use App\Presenter\Api\Area\Status as StatusPresenter;
+use App\Presenter\Api\File as FilePresenter;
 
 use RuntimeException;
 use App\Modules\Area\RecordNotFoundException;
@@ -59,6 +61,24 @@ class Area extends Controller
     }
 
     /**
+     * Return area photos.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  integer                   $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPhotos($id)
+    {
+        $result = $this->getService()->getPhotos($id);
+        
+        return $this->response->collection(
+            $result, 
+            new FilePresenter
+        );
+    }
+
+    /**
      * Return area statuses.
      * 
      * @param  \Illuminate\Http\Request  $request
@@ -66,7 +86,7 @@ class Area extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAllStatuses(Request $request, $id)
+    public function getAllStatuses(Request $request, $id = 0)
     {
         $limit    = (int) $request->get('limit', 10);
         $page     = (int) $request->get('page', 1);
@@ -93,5 +113,17 @@ class Area extends Controller
     private function getService()
     {
         return new AreaService();
+    }
+
+    /**
+     * Return the file service instance.
+     *
+     * @return \App\Services\File
+     */
+    private function getFileService()
+    {
+        $service = new FileService();
+
+        return $service;
     }
 }

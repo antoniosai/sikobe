@@ -64,7 +64,7 @@ class Area extends Component {
                       {villages}
                     </select>
                   </div>
-                  <div className="input-group-control">
+                  <div className="input-group-control hidden">
                     <input type="text" id="filter-search" className="form-control" placeholder="Pencarian" />
                   </div>
                   <span className="input-group-btn btn-right">
