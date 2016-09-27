@@ -6,7 +6,8 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
+import { GoogleMapLoader, GoogleMap, InfoWindow, Marker } from "react-google-maps";
+import Statuses from './Statuses';
 
 class Detail extends Component {
 
@@ -16,9 +17,21 @@ class Detail extends Component {
     onClose: PropTypes.func
   };
 
+  constructor() {
+    super();
+
+    this.state = this.getDefaultState();
+  }
+
+  getDefaultState() {
+    return {
+      isShown: false
+    };
+  }
+
   componentDidMount() {
     const onShown = () => {
-      jQuery('#js-grid-full-width').cubeportfolio({
+      jQuery('#js-area-grid-full-width').cubeportfolio({
         layoutMode: 'mosaic',
         sortToPreventGaps: true,
         defaultFilter: '*',
@@ -51,6 +64,8 @@ class Detail extends Component {
         lightboxGallery: true,
         lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
       });
+
+      this.setState({isShown: true});
     };
     const onHidden = () => {
       jQuery('#todo-task-modal').unbind('shown.bs.modal', onShown);
@@ -78,11 +93,17 @@ class Detail extends Component {
               <h4 className="font-dark bold uppercase">{data.title}</h4>
             </div>
             <div className="modal-body todo-task-modal-body">
-              <p className="todo-task-modal-bg margin-top-0" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
-              <p className="todo-task-modal-bg">
-                <i className="icon-direction"></i> {data.address} - {data.village.data.title} - {data.district.data.title}
-              </p>
+              <div className="row">
+                <div className="col-md-6">
+                  {this.getMap()}
+                </div>
+                <div className="col-md-6 text-right">
+                  <i className="icon-direction"></i> {data.address} - {data.village.data.title} - {data.district.data.title}
+                </div>
+              </div>
+              <p className="todo-task-modal-bg" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
               {this.getPhotos()}
+              <Statuses areaId={data.id} />
             </div>
             <div className="modal-footer">
               <button type="button" className="btn dark btn-outline" data-dismiss="modal">
@@ -92,6 +113,31 @@ class Detail extends Component {
           </div>
         </div>
       </div>
+    );
+  }
+
+  getMap() {
+    if (this.props.data.latitude == 0 || this.props.data.longitude == 0) {
+      return null;
+    }
+
+    if ( ! this.state.isShown) {
+      return null;
+    }
+
+    const latLngCenter = new google.maps.LatLng(this.props.data.latitude, this.props.data.longitude);
+
+    return (
+      <GoogleMapLoader containerElement={<div style={{height: '100px'}}></div>}
+        googleMapElement={
+          <GoogleMap
+            containerProps={{style: {
+              height: '100px',
+            }}} defaultZoom={13} defaultCenter={latLngCenter}>
+            <Marker position={latLngCenter} />
+          </GoogleMap>
+        }
+      /> //end of GoogleMapLoader
     );
   }
 
@@ -113,8 +159,8 @@ class Detail extends Component {
     });
 
     return (
-      <div className="portfolio-content portfolio-4">
-        <div id="js-grid-full-width" className="cbp">
+      <div className="portfolio-content portfolio-4 area-photos">
+        <div id="js-area-grid-full-width" className="cbp">
           {items}
         </div>
       </div>

@@ -9,8 +9,6 @@ namespace App\Presenter\Api;
  * file that was distributed with this source code.
  */
 
-use App\Support\Str;
-
 use League\Fractal\TransformerAbstract;
 
 use App\Modules\File\Models\File as FileContract;

@@ -9,8 +9,6 @@ namespace App\Presenter\Api\Territories;
  * file that was distributed with this source code.
  */
 
-use App\Support\Str;
-
 use League\Fractal\TransformerAbstract;
 
 use App\Modules\Territory\Models\District as DistrictContract;

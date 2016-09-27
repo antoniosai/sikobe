@@ -26,7 +26,8 @@ class Item extends Component {
 
     return (
       <div className="col-md-4">
-        <div className="tile-container" onClick={this.handleOpenDetail.bind(this)}>
+        <div className="mt-element-ribbon tile-container" onClick={this.handleOpenDetail.bind(this)}>
+          {this.getRibbon()}
           <div className="tile-thumbnail">
             <img src={imageUrl} alt={imageTitle} />
           </div>
@@ -46,6 +47,59 @@ class Item extends Component {
 
   handleOpenDetail() {
     this.props.openDetail(this.props.data);
+  }
+
+  getRibbon() {
+    let ribbon = null;
+
+    if (typeof this.props.data.latest_status == "undefined") {
+      return ribbon;
+    }
+
+    switch (this.props.data.latest_status.data.scale) {
+      case 1:
+        ribbon = (
+          <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-success uppercase">
+            <div className="ribbon-sub ribbon-bookmark"></div>
+            <i className="icon-feed"></i>
+          </div>
+        );
+        break;
+      case 2:
+        ribbon = (
+          <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-primary uppercase">
+            <div className="ribbon-sub ribbon-bookmark"></div>
+            <i className="icon-feed"></i>
+          </div>
+        );
+        break;
+      case 3:
+        ribbon = (
+          <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-info uppercase">
+            <div className="ribbon-sub ribbon-bookmark"></div>
+            <i className="icon-feed"></i>
+          </div>
+        );
+        break;
+      case 4:
+        ribbon = (
+          <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-warning uppercase">
+            <div className="ribbon-sub ribbon-bookmark"></div>
+            <i className="icon-feed"></i>
+          </div>
+        );
+        break;
+      case 5:
+        ribbon = (
+          <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-danger uppercase">
+            <div className="ribbon-sub ribbon-bookmark"></div>
+            <i className="icon-feed"></i>
+          </div>
+        );
+        break;
+    }
+
+    return ribbon;
   }
 
 }

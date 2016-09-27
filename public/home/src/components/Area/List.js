@@ -104,7 +104,7 @@ class List extends Component {
 
     this.props.getAreas(_.extend({
       limit: 0, 
-      include: 'district,village,photos'
+      include: 'district,village,photos,latest_status'
     }, this.props.filter));
   }
 

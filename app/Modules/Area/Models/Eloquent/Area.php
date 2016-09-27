@@ -46,6 +46,14 @@ class Area extends Model implements AreaInterface, Presentable
     /**
      * {@inheritdoc}
      */
+    public function statuses()
+    {
+        return $this->hasMany('\App\Modules\Area\Models\Eloquent\Status');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPresenter()
     {
         return new AreaPresenter($this);

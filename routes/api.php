@@ -43,6 +43,10 @@ $api->version('v1', [
             'areas', 
             'App\Http\Controllers\Api\v1\Area@getAll'
         );
+        $api->get(
+            'areas/{id}/statuses', 
+            'App\Http\Controllers\Api\v1\Area@getAllStatuses'
+        );
 
     });
 

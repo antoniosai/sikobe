@@ -48,11 +48,16 @@ body {
     cursor: pointer;
 }
 
-.cbp .cbp-item {
-    width: 25%;
+.area-photos .cbp .cbp-item {
+    width: 12.5%;
 }
 .cbp-popup-wrap {
     z-index: 99990;
+}
+
+.area-container .mt-element-ribbon .ribbon {
+    position: absolute;
+    left: 10px;
 }
 
 /* Spinner */

@@ -1,6 +1,7 @@
 import {
   LOAD_INFORMATIONS_START, LOAD_INFORMATIONS_SUCCESS, LOAD_INFORMATIONS_ERROR,
-  LOAD_AREAS_START, LOAD_AREAS_SUCCESS, LOAD_AREAS_ERROR
+  LOAD_AREAS_START, LOAD_AREAS_SUCCESS, LOAD_AREAS_ERROR,
+  LOAD_AREA_STATUSES_START, LOAD_AREA_STATUSES_SUCCESS, LOAD_AREA_STATUSES_ERROR
 } from '../constants';
 
 function _dispatch(dispatch, types, url, props, all) {
@@ -88,6 +89,18 @@ export function getAreas(props) {
       start: LOAD_AREAS_START, 
       success: LOAD_AREAS_SUCCESS, 
       error: LOAD_AREAS_ERROR
+    }, url, props, false);
+  };
+}
+
+export function getAreaStatuses(areaId, props) {
+  return async (dispatch) => {
+    const url = '/areas/' + areaId + '/statuses';
+
+    return _dispatch(dispatch, {
+      start: LOAD_AREA_STATUSES_START, 
+      success: LOAD_AREA_STATUSES_SUCCESS, 
+      error: LOAD_AREA_STATUSES_ERROR
     }, url, props, false);
   };
 }

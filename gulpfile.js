@@ -71,6 +71,7 @@ elixir(function(mix) {
     mix.sass([
         '../plugins/pace/themes/pace-theme-flash.css',
         'apps/todo.scss',
+        'apps/todo-2.scss',
         'pages/search.scss',
         '../plugins/cubeportfolio/css/cubeportfolio.css'
     ], 'public/assets/css/home.css');

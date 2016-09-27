@@ -10,7 +10,8 @@ use Dingo\Api\Routing\Helpers;
 
 use App\Services\Area as AreaService;
 
-use App\Presenter\Api\Area as AreaPresenter;
+use App\Presenter\Api\Area\Area as AreaPresenter;
+use App\Presenter\Api\Area\Status as StatusPresenter;
 
 use RuntimeException;
 use App\Modules\Area\RecordNotFoundException;
@@ -20,7 +21,7 @@ class Area extends Controller
     use Helpers;
 
     /**
-     * Return the all information.
+     * Return areas.
      * 
      * @param  \Illuminate\Http\Request  $request
      *
@@ -51,6 +52,33 @@ class Area extends Controller
         return $this->response->paginator(
             $result, 
             new AreaPresenter, 
+            [
+                'include' => $include
+            ]
+        );
+    }
+
+    /**
+     * Return area statuses.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  integer                   $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllStatuses(Request $request, $id)
+    {
+        $limit    = (int) $request->get('limit', 10);
+        $page     = (int) $request->get('page', 1);
+        $include  = trim($request->get('include', ''));
+
+        $result = $this->getService()->searchStatus([
+            'area_id' => $id
+        ], $page, $limit);
+        
+        return $this->response->paginator(
+            $result, 
+            new StatusPresenter, 
             [
                 'include' => $include
             ]
