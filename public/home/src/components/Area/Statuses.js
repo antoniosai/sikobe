@@ -16,7 +16,7 @@ class Statuses extends Component {
   static propTypes = {
     areaId: PropTypes.number.isRequired,
     getAreaStatuses: PropTypes.func.isRequired, 
-    loadedData: PropTypes.func
+    dataIsLoaded: PropTypes.func
   };
 
   constructor() {

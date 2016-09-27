@@ -59,7 +59,8 @@ class AreaRepository implements Repository
             'identifier'  => '', 
             'district_id' => '', 
             'village_id'  => '', 
-            'title'       => ''
+            'title'       => '', 
+            'is_active'   => 1
         ], $params);
 
         $model = $this->createModel();
@@ -78,7 +79,8 @@ class AreaRepository implements Repository
          || ! empty($params['identifier'])
          || ! empty($params['district_id'])
          || ! empty($params['village_id'])
-         || ! empty($params['title'])) {
+         || ! empty($params['title'])
+         || $params['is_active'] > -1) {
             $useWhere = true;
         }
 
@@ -136,6 +138,16 @@ class AreaRepository implements Repository
             $isUseWhere = true;
         }
 
+        if ($params['is_active'] > -1) {
+            if ($isUseWhere) {
+                $fromSql .= ' AND';
+            }
+
+            $fromSql .= ' `is_active` = '.$params['is_active'];
+
+            $isUseWhere = true;
+        }
+
         $fromSql .= ' ORDER BY `created_at` DESC';
 
         if ($limit > 0) {
@@ -164,6 +176,10 @@ class AreaRepository implements Repository
 
         if ( ! empty($params['title'])) {
             $query->where($model->getTable().'.title', 'LIKE', '%'.$params['title'].'%');
+        }
+
+        if ($params['is_active'] > -1) {
+            $query->where($model->getTable().'.is_active', '=', $params['is_active']);
         }
 
         $this->total = $query->count();
@@ -253,7 +269,8 @@ class AreaRepository implements Repository
     {
         $params = array_merge([
             'area_id'   => '',
-            'author_id' => ''
+            'author_id' => '', 
+            'is_active' => 1
         ], $params);
 
         $model = $this->createModelStatus();
@@ -269,7 +286,8 @@ class AreaRepository implements Repository
         $isUseWhere = false;
 
         if ( ! empty($params['area_id'])
-         || ! empty($params['author_id'])) {
+         || ! empty($params['author_id'])
+         || $params['is_active'] > -1) {
             $useWhere = true;
         }
 
@@ -297,6 +315,16 @@ class AreaRepository implements Repository
             $isUseWhere = true;
         }
 
+        if ($params['is_active'] > -1) {
+            if ($isUseWhere) {
+                $fromSql .= ' AND';
+            }
+
+            $fromSql .= ' `is_active` = '.$params['is_active'];
+
+            $isUseWhere = true;
+        }
+
         $fromSql .= ' ORDER BY `created_at` DESC';
 
         if ($limit > 0) {
@@ -313,6 +341,10 @@ class AreaRepository implements Repository
 
         if ( ! empty($params['author_id'])) {
             $query->where($model->getTable().'.author_id', '=', $params['author_id']);
+        }
+
+        if ($params['is_active'] > -1) {
+            $query->where($model->getTable().'.is_active', '=', $params['is_active']);
         }
 
         $this->total = $query->count();

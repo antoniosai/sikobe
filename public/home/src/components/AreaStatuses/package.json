@@ -1,0 +1,6 @@
+{
+  "name": "AreaStatuses",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AreaStatuses.js"
+}

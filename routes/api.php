@@ -44,7 +44,15 @@ $api->version('v1', [
             'App\Http\Controllers\Api\v1\Area@getAll'
         );
         $api->get(
+            'areas/{id}/photos', 
+            'App\Http\Controllers\Api\v1\Area@getPhotos'
+        );
+        $api->get(
             'areas/{id}/statuses', 
+            'App\Http\Controllers\Api\v1\Area@getAllStatuses'
+        );
+        $api->get(
+            'area-statuses', 
             'App\Http\Controllers\Api\v1\Area@getAllStatuses'
         );
 

@@ -131,7 +131,7 @@ class Area extends Service
             $area = $this->getAreaRepository()->create($data);
         }
 
-        $this->processFiles($status, 'area');
+        $this->processFiles($area, 'area');
 
         return $area;
     }
@@ -217,7 +217,9 @@ class Area extends Service
         if ( ! $existingFiles->isEmpty()) {
             foreach ($existingFiles as $file) {
                 if ( ! in_array($file->id, $keepFiles)) {
-                    $file->delete();
+                    // $file->delete();
+                    $file->is_active = 0;
+                    $file->save();
                 }
             }
         }
@@ -267,18 +269,21 @@ class Area extends Service
     {
         $area = $this->get($id);
 
-        list($existingFiles) = $this->getFileService()->search([
-            'object_type' => 'area', 
-            'object_id'   => $area->id
-        ], 1, 0);
+        $area->is_active = 0;
+        return $area->save();
 
-        if ( ! $existingFiles->isEmpty()) {
-            foreach ($existingFiles as $file) {
-                $file->delete();
-            }
-        }
+        // list($existingFiles) = $this->getFileService()->search([
+        //     'object_type' => 'area', 
+        //     'object_id'   => $area->id
+        // ], 1, 0);
 
-        return $area->delete();
+        // if ( ! $existingFiles->isEmpty()) {
+        //     foreach ($existingFiles as $file) {
+        //         $file->delete();
+        //     }
+        // }
+
+        // return $area->delete();
     }
 
     /**
@@ -299,18 +304,21 @@ class Area extends Service
             throw new RecordNotFoundException('Item not found');
         }
 
-        list($existingFiles) = $this->getFileService()->search([
-            'object_type' => 'area_status', 
-            'object_id'   => $status->id
-        ], 1, 0);
+        $status->is_active = 0;
+        return $status->save();
 
-        if ( ! $existingFiles->isEmpty()) {
-            foreach ($existingFiles as $file) {
-                $file->delete();
-            }
-        }
+        // list($existingFiles) = $this->getFileService()->search([
+        //     'object_type' => 'area_status', 
+        //     'object_id'   => $status->id
+        // ], 1, 0);
 
-        return $status->delete();
+        // if ( ! $existingFiles->isEmpty()) {
+        //     foreach ($existingFiles as $file) {
+        //         $file->delete();
+        //     }
+        // }
+
+        // return $status->delete();
     }
 
     /**
@@ -324,6 +332,26 @@ class Area extends Service
     public function get($id)
     {
         return $this->getAreaRepository()->find($id);
+    }
+
+    /**
+     * Return item photos.
+     *
+     * @param  integer $id
+     * 
+     * @return \Collection
+     * @throws \App\Modules\Area\RecordNotFoundException
+     */
+    public function getPhotos($id)
+    {
+        $area = $this->get($id);
+
+        list($files) = $this->getFileService()->search([
+            'object_type' => 'area', 
+            'object_id'   => $area->id
+        ], 1, 0);
+
+        return $files;
     }
 
     /**

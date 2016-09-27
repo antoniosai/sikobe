@@ -47,7 +47,8 @@ class FileRepository implements Repository
     {
         $params = array_merge([
             'object_type' => '', 
-            'object_id'   => 0
+            'object_id'   => 0, 
+            'is_active'   => 1
         ], $params);
 
         $model = $this->createModel();
@@ -63,7 +64,8 @@ class FileRepository implements Repository
         $isUseWhere = false;
 
         if ( ! empty($params['object_type'])
-         || ! empty($params['object_id'])) {
+         || ! empty($params['object_id'])
+         || $params['is_active'] > -1) {
             $useWhere = true;
         }
 
@@ -91,6 +93,16 @@ class FileRepository implements Repository
             $isUseWhere = true;
         }
 
+        if ($params['is_active'] > -1) {
+            if ($isUseWhere) {
+                $fromSql .= ' AND';
+            }
+
+            $fromSql .= ' `is_active` = '.$params['is_active'];
+
+            $isUseWhere = true;
+        }
+
         $fromSql .= ' ORDER BY `created_at` DESC';
 
         if ($limit > 0) {
@@ -107,6 +119,10 @@ class FileRepository implements Repository
 
         if ( ! empty($params['object_id'])) {
             $query->where($model->getTable().'.object_id', '=', $params['object_id']);
+        }
+
+        if ($params['is_active'] > -1) {
+            $query->where($model->getTable().'.is_active', '=', $params['is_active']);
         }
 
         $this->total = $query->count();

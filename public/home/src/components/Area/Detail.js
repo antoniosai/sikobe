@@ -7,6 +7,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import { GoogleMapLoader, GoogleMap, InfoWindow, Marker } from "react-google-maps";
+import { notify } from '../Util';
+import { getAreaPhotos } from '../../actions/actions';
 import Statuses from './Statuses';
 
 class Detail extends Component {
@@ -25,47 +27,26 @@ class Detail extends Component {
 
   getDefaultState() {
     return {
-      isShown: false
+      isPhotosLoaded: false,
+      isStatusesLoaded: false,
+      isShown: false,
+      photos: []
     };
   }
 
   componentDidMount() {
     const onShown = () => {
-      jQuery('#js-area-grid-full-width').cubeportfolio({
-        layoutMode: 'mosaic',
-        sortToPreventGaps: true,
-        defaultFilter: '*',
-        animationType: 'fadeOutTop',
-        gapHorizontal: 0,
-        gapVertical: 0,
-        gridAdjustment: 'responsive',
-        mediaQueries: [{
-          width: 1500,
-          cols: 5
-        }, {
-          width: 1100,
-          cols: 4
-        }, {
-          width: 800,
-          cols: 3
-        }, {
-          width: 480,
-          cols: 2
-        }, {
-          width: 320,
-          cols: 1
-        }],
-        caption: 'zoom',
-        displayType: 'lazyLoading',
-        displayTypeSpeed: 100,
+      this.renderUI();
+      
+      let state = {
+        isShown: true
+      };
 
-        // lightbox
-        lightboxDelegate: '.cbp-lightbox',
-        lightboxGallery: true,
-        lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
-      });
+      if (typeof this.props.data.photos != "undefined") {
+        state.isPhotosLoaded = true;
+      }
 
-      this.setState({isShown: true});
+      this.setState(state);
     };
     const onHidden = () => {
       jQuery('#todo-task-modal').unbind('shown.bs.modal', onShown);
@@ -81,9 +62,26 @@ class Detail extends Component {
     jQuery('#todo-task-modal').modal('show');
   }
 
+  componentDidUpdate() {
+    if ( ! this.state.isPhotosLoaded) {
+      getAreaPhotos(this.props.data.id).then((response) => {
+        this.setState({
+          isPhotosLoaded: true,
+          photos: response.data
+        });
+      }).catch((error) => {
+        notify('error', error.message, 'Error');
+
+        this.setState({
+          isPhotosLoaded: true
+        });
+      });
+    }
+  }
+
   render() {
     const data = this.props.data;
-
+    
     return (
       <div id="todo-task-modal" className="modal fade" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard={false}>
         <div className="modal-dialog">
@@ -102,8 +100,10 @@ class Detail extends Component {
                 </div>
               </div>
               <p className="todo-task-modal-bg" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
+              {this.getPhotosLoading()}
               {this.getPhotos()}
-              <Statuses areaId={data.id} />
+              {this.getStatusesLoading()}
+              <Statuses areaId={data.id} dataIsLoaded={this.handleStatusesIsLoaded.bind(this)} />
             </div>
             <div className="modal-footer">
               <button type="button" className="btn dark btn-outline" data-dismiss="modal">
@@ -114,6 +114,10 @@ class Detail extends Component {
         </div>
       </div>
     );
+  }
+
+  handleStatusesIsLoaded(items) {
+    this.setState({isStatusesLoaded: true});
   }
 
   getMap() {
@@ -142,11 +146,20 @@ class Detail extends Component {
   }
 
   getPhotos() {
-    if (this.props.data.photos.data.length == 0) {
+    if (typeof this.props.data.photos == "undefined" && this.state.photos.length == 0) {
       return null;
     }
 
-    const items = this.props.data.photos.data.map((item) => {
+    let photos = this.state.photos;
+    if (photos.length == 0 && typeof this.props.data.photos != "undefined") {
+      photos = this.props.data.photos.data;
+    }
+
+    if (photos.length == 0) {
+      return null;
+    }
+
+    const items = photos.map((item) => {
       return (
         <div key={`area-photo-item-${item.url}`} className="cbp-item">
           <a href={item.url} className="cbp-caption cbp-lightbox" data-title="">
@@ -167,8 +180,61 @@ class Detail extends Component {
     );
   }
 
+  getPhotosLoading() {
+    return ! this.state.isPhotosLoaded ? this.getLoading() : null;
+  }
+
+  getStatusesLoading() {
+    return ! this.state.isStatusesLoaded ? this.getLoading() : null;
+  }
+
+  getLoading() {
+    return (
+      <div className="padding-20 text-center">
+        <img src={`${this.props.baseUrl}/assets/img/loading-spinner-grey.gif`} className="loading" /> 
+        <span>&nbsp;&nbsp;Mengunduh data... </span>
+      </div>
+    );
+  }
+
   handleClose() {
     jQuery('#todo-task-modal').modal('hide');
+  }
+
+  renderUI() {
+    jQuery('#js-area-grid-full-width').cubeportfolio({
+      layoutMode: 'mosaic',
+      sortToPreventGaps: true,
+      defaultFilter: '*',
+      animationType: 'fadeOutTop',
+      gapHorizontal: 0,
+      gapVertical: 0,
+      gridAdjustment: 'responsive',
+      mediaQueries: [{
+        width: 1500,
+        cols: 5
+      }, {
+        width: 1100,
+        cols: 4
+      }, {
+        width: 800,
+        cols: 3
+      }, {
+        width: 480,
+        cols: 2
+      }, {
+        width: 320,
+        cols: 1
+      }],
+      caption: 'zoom',
+      displayType: 'lazyLoading',
+      displayTypeSpeed: 100,
+
+      // lightbox
+      lightboxDelegate: '.cbp-lightbox',
+      lightboxGallery: true,
+      lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+    });
   }
 }
 

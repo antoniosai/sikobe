@@ -7,9 +7,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import Information from '../Information';
-import Incident from '../Incident';
+import AreaStatuses from '../AreaStatuses';
 import Area from '../Area';
-import Post from '../Post';
 
 class Home extends Component {
 
@@ -23,8 +22,7 @@ class Home extends Component {
       <div className="row">
         <div className="col-md-4">
           <Information baseUrl={this.props.baseUrl} />
-          <Incident baseUrl={this.props.baseUrl} />
-          <Post baseUrl={this.props.baseUrl} />
+          <AreaStatuses baseUrl={this.props.baseUrl} />
         </div>
         <div className="col-md-8">
           <Area baseUrl={this.props.baseUrl} territory={this.props.territory} />

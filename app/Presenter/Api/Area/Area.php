@@ -67,7 +67,7 @@ class Area extends TransformerAbstract
             'id'                => (int) $item->id, 
             'identifier'        => $item->identifier, 
             'title'             => $item->title, 
-            'short_description' => Str::words($item->description, 15, '...'), 
+            'short_description' => Str::words($item->description, 20, '...'), 
             'description'       => $item->description, 
             'address'           => $item->address, 
             'latitude'          => (float) $item->latitude, 
@@ -92,7 +92,9 @@ class Area extends TransformerAbstract
      */
     public function includeLatestStatus(AreaContract $area)
     {
-        $status = $area->statuses()->orderBy('created_at', 'DESC')->first();
+        $status = $area->statuses()
+                        ->where('is_active', '=', 1)
+                        ->orderBy('created_at', 'DESC')->first();
         
         if (is_object($status)) {
             return $this->item($status, new Status);
