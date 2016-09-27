@@ -50,7 +50,7 @@ class Status extends TransformerAbstract
         return [
             'id'                => (int) $item->id, 
             'identifier'        => $item->identifier, 
-            'short_description' => Str::words($item->description, 10, '...'), 
+            'short_description' => Str::words($item->description, 20, '...'), 
             'description'       => $item->description, 
             'scale'             => (int) $item->scale, 
             'datetime'          => new DateTime($item->datetime), 

@@ -67,7 +67,7 @@ class Area extends TransformerAbstract
             'id'                => (int) $item->id, 
             'identifier'        => $item->identifier, 
             'title'             => $item->title, 
-            'short_description' => Str::words($item->description, 15, '...'), 
+            'short_description' => Str::words($item->description, 20, '...'), 
             'description'       => $item->description, 
             'address'           => $item->address, 
             'latitude'          => (float) $item->latitude, 
