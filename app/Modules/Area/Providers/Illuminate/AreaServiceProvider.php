@@ -36,7 +36,8 @@ class AreaServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(Repository::class, function() {
             return new AreaRepository(
-                \App\Modules\Area\Models\Eloquent\Area::class
+                \App\Modules\Area\Models\Eloquent\Area::class, 
+                \App\Modules\Area\Models\Eloquent\Status::class
             );
         });
     }

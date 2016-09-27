@@ -55,6 +55,27 @@ interface Repository
     public function create(Array $data);
 
     /**
+     * Find the status item by it's ID.
+     *
+     * @param  integer $id
+     * 
+     * @return \App\Modules\Area\Models\Status
+     * 
+     * @throws \App\Modules\Area\RecordNotFoundException
+     */
+    public function findStatus($id);
+
+    /**
+     * Create a new status item.
+     *
+     * @param  Array $data
+     * 
+     * @return \App\Modules\Area\Models\Status|null
+     * @throws \RuntimeException
+     */
+    public function createStatus(Array $data);
+
+    /**
      * Return latest query total items.
      *
      * @return integer
@@ -67,4 +88,11 @@ interface Repository
      * @return \App\Modules\Area\Models\Area
      */
     public function createModel();
+
+    /**
+     * Create a new instance of the Status model.
+     *
+     * @return \App\Modules\Area\Models\Status
+     */
+    public function createModelStatus();
 }

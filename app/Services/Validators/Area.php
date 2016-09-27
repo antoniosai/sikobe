@@ -37,6 +37,16 @@ class Area
     ];
 
     /**
+     * The status validation rules.
+     *
+     * @var array
+     */
+    protected $validationStatusRules = [
+        'description' => 'required', 
+        'scale'       => 'required'
+    ];
+
+    /**
      * Create a new instance.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -72,6 +82,26 @@ class Area
         $validator = $this->getValidationFactory()->make(
             $this->request->all(), 
             $this->validationRules
+        );
+
+        if (! $validator->fails()) {
+            return true;
+        }
+
+        return $validator;
+    }
+
+    /**
+     * Validate status data.
+     * 
+     * @return boolean|\Illuminate\Validation\Validator
+     */
+    public function isValidStatus()
+    {
+        // Do validation
+        $validator = $this->getValidationFactory()->make(
+            $this->request->all(), 
+            $this->validationStatusRules
         );
 
         if (! $validator->fails()) {

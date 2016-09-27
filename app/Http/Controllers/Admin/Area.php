@@ -16,8 +16,6 @@ use App\Support\Asset;
 use App\Services\Territory as TerritoryService;
 use App\Services\Area as AreaService;
 
-use App\Presenter\Area as AreaPresenter;
-
 use RuntimeException;
 use App\Modules\Area\RecordNotFoundException;
 
@@ -75,17 +73,46 @@ class Area extends Controller
     }
 
     /**
-     * Show the form.
+     * Show the form info.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  Integer                   $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function form(Request $request, $id = 0)
+    public function formInfo(Request $request, $id)
+    {
+        return $this->form($request, $id, 'info');
+    }
+
+    /**
+     * Show the form status.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Integer                   $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function formStatus(Request $request, $areaId, $id = 0)
+    {
+        return $this->form($request, $areaId, 'status', $id);
+    }
+
+    /**
+     * Show the form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Integer                   $id
+     * @param  string                    $tab
+     * @param  string                    $statusId
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function form(Request $request, $id = 0, $tab = 'status', $statusId = -1)
     {
         $areaService = $this->getAreaService();
 
+        // Find a area to create or edit
         try {
             $data = $areaService->get($id);
         } catch (RecordNotFoundException $e) {
@@ -98,14 +125,43 @@ class Area extends Controller
             abort(500);
         }
 
+        // Find a status to create or edit
+        $status = null;
+
+        if ($statusId > -1) {
+            try {
+                $status = $areaService->getStatus($statusId);
+            } catch (RecordNotFoundException $e) {
+                if ($statusId > 0) {
+                    abort(404);
+                } else {
+                    $status = $areaService->getEmptyModelStatus();
+                }
+            } catch (RuntimeException $e) {
+                abort(500);
+            }
+        }
+
+        // Get existing statuses
+        $limit = 10;
+        $page  = (int) $request->get('page', 1);
+
+        $statuses = $areaService->searchStatus([
+            'area_id' => ( ! empty($data->id)) ? $data->id : -1
+        ], $page, $limit);
+
+        // Get all available territories
         list($districts, $villages) = $this->getTerritories();
 
         Asset::add(elixir('assets/js/file-upload.js'), 'footer.specific.js');
 
-        return view('admin.area.form', [
+        return view('admin.area.main-form', [
+            'tab'       => $tab, 
             'districts' => $districts,
             'villages'  => $villages,
-            'data'      => new AreaPresenter($data)
+            'data'      => $data->getPresenter(), 
+            'status'    => ( ! is_null($status)) ? $status->getPresenter() : null, 
+            'statuses'  => $statuses
         ]);
     }
 
@@ -142,7 +198,41 @@ class Area extends Controller
 
         $request->session()->flash('success', 'Berhasil tersimpan!');
 
-        return redirect('/ctrl/areas/'.$response->id);
+        return redirect('/ctrl/areas/'.$response->id.'/info');
+    }
+
+    /**
+     * Save a status item.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  Integer                  $areaId
+     * @param  Integer                  $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function saveStatus(Request $request, $areaId, $id = 0)
+    {
+        $service = $this->getAreaService();
+
+        try {
+            $response = $service->saveStatus($areaId, $id);
+
+            if ($response instanceOf Validator) {
+                $request->session()->flash('error', 'Tolong perbaiki input dengan tanda merah!');
+
+                $this->throwValidationException(
+                    $request, $response
+                );
+            }
+        } catch (RecordNotFoundException $e) {
+            abort(404);
+        } catch (RuntimeException $e) {
+            abort(500);
+        }
+
+        $request->session()->flash('success', 'Berhasil tersimpan!');
+
+        return redirect('/ctrl/areas/'.$response->area_id);
     }
 
     /**
@@ -176,6 +266,40 @@ class Area extends Controller
         $request->session()->flash('success', 'Berhasil dihapus!');
 
         return redirect('/ctrl/areas');
+    }
+
+    /**
+     * Delete a status item.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  integer                  $areaId
+     * @param  integer                  $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteStatus(Request $request, $areaId, $id)
+    {
+        if (empty($areaId) || empty($id)) {
+            abort(404);
+        }
+
+        $service = $this->getAreaService();
+
+        try {
+            $isDeleted = $service->deleteStatus($areaId, $id);
+        } catch (RecordNotFoundException $e) {
+            abort(404);
+        }
+
+        if ( ! $isDeleted) {
+            $request->session()->flash('error', 'Terjadi kesalahan ketika menghapus!');
+
+            return back();
+        }
+
+        $request->session()->flash('success', 'Berhasil dihapus!');
+
+        return redirect('/ctrl/areas/'.$areaId);
     }
 
     /**

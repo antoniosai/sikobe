@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 @if (empty($data->id))
 <form role="form" method="POST" enctype="multipart/form-data" action="{{ url('/ctrl/areas') }}" class="form">
 @else
@@ -8,6 +5,7 @@
 @endif
     {!! csrf_field() !!}
 
+    @if (empty($data->id))
     <!-- BEGIN PAGE HEADER-->
     <!-- BEGIN PAGE BAR -->
     <div class="page-bar">
@@ -17,14 +15,14 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <span>{{ (empty($data->id)) ? 'Tambah' : $data->title }}</span>
+                <span>Tambah</span>
             </li>
         </ul>
         <div class="page-toolbar">
             <div class="btn-group pull-right">
-                @if ( ! empty($data->id))
-                    <a href="{{ sprintf(url('/ctrl/areas/%d/delete'), $data->id) }}" class="btn btn-danger" data-toggle="confirmation" data-popout="true" data-placement="bottom" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!"><i class="fa fa-close"></i> Hapus</a>
-                @endif
+                <a href="{{ url('/ctrl/areas') }}" class="btn dark">
+                    <i class="icon-logout"></i> Kembali
+                </a>
                 <button type="submit" name="save" value="1" class="btn green-meadow">
                     <i class="fa fa-save"></i> Simpan
                 </button>
@@ -33,19 +31,13 @@
     </div>
     <!-- END PAGE BAR -->
     <!-- BEGIN PAGE TITLE-->
-    <h3 class="page-title">{{ (empty($data->id)) ? 'Tambah Area Terdampak' : $data->title }}</h3>
+    <h3 class="page-title">Tambah Area Terdampak</h3>
     <!-- END PAGE TITLE-->
     <!-- END PAGE HEADER-->
+    @endif
 
     <div class="row margin-top-20">
         <div class="col-md-12">
-            @if(Session::has('success'))
-            <div class="alert alert-success margin-top-10">{{ Session::get('success') }}</div>
-            @endif
-            @if(Session::has('error'))
-            <div class="alert alert-danger margin-top-10">{{ Session::get('error') }}</div>
-            @endif
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group form-md-line-input{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -205,8 +197,13 @@
             </div>
             <div class="col-md-5">
                 <div class="btn-group pull-right">
+                    <a href="{{ url('/ctrl/areas') }}" class="btn dark">
+                        <i class="icon-logout"></i> Kembali
+                    </a>
                     @if ( ! empty($data->id))
-                        <a href="{{ sprintf(url('/ctrl/areas/%d/delete'), $data->id) }}" class="btn btn-danger" data-toggle="confirmation" data-popout="true" data-placement="top" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!"><i class="fa fa-close"></i> Hapus</a>
+                        <a href="{{ sprintf(url('/ctrl/areas/%d/delete'), $data->id) }}" class="btn btn-danger" data-toggle="confirmation" data-popout="true" data-placement="top" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!">
+                            <i class="fa fa-close"></i> Hapus
+                        </a>
                     @endif
                     <button type="submit" name="save" value="1" class="btn green-meadow">
                         <i class="fa fa-save"></i> Simpan
@@ -217,4 +214,3 @@
     </div>
 
 </form>
-@endsection

@@ -78,7 +78,6 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>#ID</th>
                         <th>Nama</th>
                         <th>Alamat</th>
                         <th></th>
@@ -88,14 +87,19 @@
                 @if ( ! $list->isEmpty())
                     @foreach ($list as $item)
                     <tr>
-                        <td width="10">{{ $item->id }}</td>
                         <td>
-                            <i class="icon-pencil"></i> <a href="{{ sprintf(url('/ctrl/areas/%d'), $item->id) }}">{{ $item->title }}</a>
+                            <a href="{{ sprintf(url('/ctrl/areas/%d'), $item->id) }}" class="btn green-meadow btn-sm">
+                                <i class="icon-pencil"></i> Perbaharui
+                            </a>
+                            <a href="{{ sprintf(url('/ctrl/areas/%d/statuses'), $item->id) }}" class="btn red-mint btn-sm">
+                                <i class="icon-feed"></i> Tambah status
+                            </a>
+                            <a href="{{ sprintf(url('/ctrl/areas/%d'), $item->id) }}">{{ $item->title }}</a>
                         </td>
                         <td>{{ $item->address }}</td>
                         <td width="70">
                             <a href="{{ URL::current() }}/{{ $item->id }}/delete" class="btn btn-danger btn-sm" data-toggle="confirmation" data-popout="true" data-placement="left" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!">
-                                <span class="fa fa-times"></span>
+                                <span class="icon-trash"></span>
                             </a>
                         </td>
                     </tr>

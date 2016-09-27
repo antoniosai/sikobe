@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Modules\Area\Models\Area as AreaInterface;
 
-use App\Presenter\Area as AreaPresenter;
+use App\Presenter\Area\Area as AreaPresenter;
 use App\Contracts\Presentable;
 
 class Area extends Model implements AreaInterface, Presentable

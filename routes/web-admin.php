@@ -32,8 +32,14 @@ Route::group([
     Route::get('/areas', 'Area@index');
     Route::post('/areas', 'Area@save');
     Route::get('/areas/{id}', 'Area@form');
+    Route::get('/areas/{id}/info', 'Area@formInfo');
+    Route::get('/areas/{id}/statuses', 'Area@formStatus');
     Route::post('/areas/{id}', 'Area@save');
+    Route::post('/areas/{id}/statuses', 'Area@saveStatus');
+    Route::get('/areas/{id}/statuses/{statusId}', 'Area@formStatus');
+    Route::post('/areas/{id}/statuses/{statusId}', 'Area@saveStatus');
     Route::get('/areas/{id}/delete', 'Area@delete');
+    Route::get('/areas/{id}/statuses/{statusId}/delete', 'Area@deleteStatus');
 
     Route::get('/information', 'Information@index');
     Route::post('/information/store', 'Information@store');

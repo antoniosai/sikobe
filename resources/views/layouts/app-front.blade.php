@@ -62,7 +62,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="{{ url('/new-incident') }}" class="dropdown-toggle">
-                                <i class="icon-flag"></i> <span class="hidden-xs">Kirim Kejadian</span>
+                                <i class="icon-flag"></i> <span class="hidden-xs">Laporkan Kejadian</span>
                             </a>
                         </li>
                         <li class="dropdown">

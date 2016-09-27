@@ -23,6 +23,7 @@ use App\Services\File as FileService;
 use App\Services\Validators\Area as AreaValidator;
 
 use RuntimeException;
+use App\Modules\Area\RecordNotFoundException;
 
 class Area extends Service
 {
@@ -41,6 +42,30 @@ class Area extends Service
         $repository = $this->getAreaRepository();
         $collection = $repository->search($params, $page, $limit);
 
+        return new LengthAwarePaginator(
+            $collection->all(), 
+            $repository->getTotal(), 
+            ($limit > 0) ? $limit : 1, 
+            $page, 
+            ['path' => Paginator::resolveCurrentPath()]
+        );
+    }
+
+    /**
+     * Search status items.
+     *
+     * @param  array   $params
+     * @param  integer $page
+     * @param  integer $limit
+     * 
+     * @return array
+     * @throws \RuntimeException
+     */
+    public function searchStatus(Array $params = [], $page = 1, $limit = 10)
+    {
+        $repository = $this->getAreaRepository();
+        $collection = $repository->searchStatus($params, $page, $limit);
+        
         return new LengthAwarePaginator(
             $collection->all(), 
             $repository->getTotal(), 
@@ -99,21 +124,94 @@ class Area extends Service
             $area->save();
         } else {
             $data = array_merge([
-                'identifier'  => Uuid::generate(5, $request->get('title'), Uuid::NS_DNS), 
-                'author_id'   => $this->user->id
+                'identifier' => Uuid::generate(5, $data['title'], Uuid::NS_DNS), 
+                'author_id'  => $this->user->id
             ], $data);
 
             $area = $this->getAreaRepository()->create($data);
         }
 
+        $this->processFiles($status, 'area');
+
+        return $area;
+    }
+
+    /**
+     * Save a status item.
+     *
+     * @param  integer $areaId
+     * @param  integer $id
+     * 
+     * @return \Illuminate\Validation\Validator|mixed
+     * @throws \App\Modules\Area\RecordNotFoundException
+     * @throws \RuntimeException
+     */
+    public function saveStatus($areaId, $id)
+    {
+        if (is_null($this->user)) {
+            throw new RuntimeException('User information is required');
+        }
+
+        // Validate request data
+        $validator = $this->getValidator();
+
+        if (true !== ($validation = $validator->isValidStatus())) {
+            return $validation;
+        }
+
+        if ( ! empty($id)) {
+            $status = $this->getStatus($id);
+        }
+
+        $data = [
+            'description' => $this->getRequest()->get('description'), 
+            'scale'       => (int) $this->getRequest()->get('scale'), 
+            'datetime'    => $this->getRequest()->get('datetime')
+        ];
+
+        if (empty($data['datetime'])) {
+            $data['datetime'] = (new \DateTime())->format('Y-m-d H:i:s');
+        }
+
+        // Save
+        if ( ! empty($id)) {
+            $status->fill($data);
+            $status->save();
+        } else {
+            $data = array_merge([
+                'identifier' => Uuid::generate(5, $data['datetime'], Uuid::NS_DNS), 
+                'area_id'    => $areaId, 
+                'author_id'  => $this->user->id
+            ], $data);
+
+            $status = $this->getAreaRepository()->createStatus($data);
+        }
+
+        $this->processFiles($status, 'area_status');
+
+        return $status;
+    }
+
+    /**
+     * Process the item files.
+     *
+     * @param  mixed   $object
+     * @param  string  $objectType
+     * 
+     * @return \Illuminate\Validation\Validator|mixed
+     * @throws \App\Modules\Area\RecordNotFoundException
+     * @throws \RuntimeException
+     */
+    private function processFiles($object, $objectType)
+    {
         $fileService = $this->getFileService();
 
         // Remove files
-        $keepFiles = $request->get('keep-files', []);
+        $keepFiles = $this->getRequest()->get('keep-files', []);
 
         list($existingFiles) = $fileService->search([
-            'object_type' => 'area', 
-            'object_id'   => $area->id
+            'object_type' => $objectType, 
+            'object_id'   => $object->id
         ], 1, 0);
 
         if ( ! $existingFiles->isEmpty()) {
@@ -125,19 +223,19 @@ class Area extends Service
         }
 
         // Save files
-        $files = $request->file('files');
+        $files = $this->getRequest()->file('files');
 
         if (count($files) > 0) {
             foreach ($files as $file) {
                 if ($file instanceOf \SplFileInfo) {
                     if ($file->isValid()) {
-                        $rawName = 'area-'.$area->id;
+                        $rawName = $objectType.'-'.$object->id;
                         $rawName .= '-'.str_replace(' ', '-', microtime());
                         $rawName .= '-'.sha1_file($file->getPathname());
 
                         $data = [
-                            'object_type' => 'area', 
-                            'object_id'   => $area->id, 
+                            'object_type' => $objectType, 
+                            'object_id'   => $object->id, 
                             'author_id'   => $this->user->id, 
                             'title'       => $file->getClientOriginalName(), 
                             'path'        => config('sikobe.path.files.folder'), 
@@ -154,8 +252,6 @@ class Area extends Service
                 }
             }
         }
-
-        return $area;
     }
 
     /**
@@ -186,6 +282,38 @@ class Area extends Service
     }
 
     /**
+     * Delete a status item.
+     *
+     * @param  integer $areaId
+     * @param  integer $id
+     * 
+     * @return boolean
+     * @throws \App\Modules\Area\RecordNotFoundException
+     * @throws \RuntimeException
+     */
+    public function deleteStatus($areaId, $id)
+    {
+        $status = $this->getStatus($id);
+
+        if ($status->area_id != $areaId) {
+            throw new RecordNotFoundException('Item not found');
+        }
+
+        list($existingFiles) = $this->getFileService()->search([
+            'object_type' => 'area_status', 
+            'object_id'   => $status->id
+        ], 1, 0);
+
+        if ( ! $existingFiles->isEmpty()) {
+            foreach ($existingFiles as $file) {
+                $file->delete();
+            }
+        }
+
+        return $status->delete();
+    }
+
+    /**
      * Return a item.
      *
      * @param  integer $id
@@ -199,6 +327,19 @@ class Area extends Service
     }
 
     /**
+     * Return a status item.
+     *
+     * @param  integer $id
+     * 
+     * @return \App\Modules\Area\Models\Status
+     * @throws \App\Modules\Area\RecordNotFoundException
+     */
+    public function getStatus($id)
+    {
+        return $this->getAreaRepository()->findStatus($id);
+    }
+
+    /**
      * Return a empty model.
      * 
      * @return \App\Modules\Area\Models\Area
@@ -206,6 +347,16 @@ class Area extends Service
     public function getEmptyModel()
     {
         return $this->getAreaRepository()->createModel();
+    }
+
+    /**
+     * Return a empty status model.
+     * 
+     * @return \App\Modules\Area\Models\Status
+     */
+    public function getEmptyModelStatus()
+    {
+        return $this->getAreaRepository()->createModelStatus();
     }
 
     /**
