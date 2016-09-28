@@ -2,11 +2,11 @@
 Sistem Informasi Korban Bencana.
 
 ## Screenshots
-- Halaman depan : [Foto 1](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/homepage-1.jpg)
-- Mengelola Area Terdampak : [Foto 1](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/area-management-1.jpg) [Foto 2](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/area-management-2.jpg) [Foto 3](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/area-management-3.jpg) 
-- Mengelola Posko : [Foto 1](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/post-management-1.jpg) [Foto 2](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/post-management-2.jpg)
-- Mengelola Informasi : [Foto 1](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/information-management-1.jpg)
-- Mengelola User : [Foto 1](https://github.com/joemccann/dillinger/blob/master/SCREENSHOTS/user-management-1.jpg)
+- Halaman depan : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/homepage-1.jpg)
+- Mengelola Area Terdampak : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/area-management-1.jpg) [Foto 2](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/area-management-2.jpg) [Foto 3](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/area-management-3.jpg) 
+- Mengelola Posko : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/post-management-1.jpg) [Foto 2](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/post-management-2.jpg)
+- Mengelola Informasi : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/information-management-1.jpg)
+- Mengelola User : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/user-management-1.jpg)
 
 ## Instalasi
 
