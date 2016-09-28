@@ -130,6 +130,12 @@
                                 <span class="title">Informasi</span>
                             </a>
                         </li>
+			<li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'necessary') ? ' active open' : '' }}">
+                            <a href="{{ url('/ctrl/necessary') }}" class="nav-link nav-toggle">
+                                <i class="fa fa-cart-plus"></i>
+                                <span class="title">Daftar Kebutuhan</span>
+                            </a>
+                        </li>
                         @if ($user->isSuperAdmin())
                         <li class="heading">
                             <h3 class="uppercase">Administrasi</h3>
