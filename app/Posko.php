@@ -26,4 +26,20 @@ class Posko extends Model
       'latitude',
       'longitude'
   ];
+
+    /**
+     * Get the area that owns the posko.
+     */
+    public function village()
+    {
+        return $this->belongsTo('\App\Modules\Territory\Models\Eloquent\Village');
+    }
+
+    /**
+     * Get the area that owns the posko.
+     */
+    public function area()
+    {
+        return $this->belongsTo('\App\Modules\Area\Models\Eloquent\Area');
+    }
 }

@@ -44,4 +44,6 @@ Route::group([
     Route::get('/information', 'Information@index');
     Route::post('/information/store', 'Information@store');
     Route::get('/information/{id}/delete', 'Information@delete');
+
+    Route::resource('/posko', 'Posko');
 });

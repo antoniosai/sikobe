@@ -26,7 +26,12 @@ class Regency extends Model implements RegencyInterface
      * {@inheritdoc}
      */
     protected $fillable = [
-        'province_id', 
+        'province_id',
         'name'
     ];
+
+    public function province()
+    {
+        return $this->belongsTo('\App\Modules\Territory\Models\Eloquent\Province');
+    }
 }

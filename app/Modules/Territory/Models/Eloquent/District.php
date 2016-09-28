@@ -26,7 +26,12 @@ class District extends Model implements DistrictInterface
      * {@inheritdoc}
      */
     protected $fillable = [
-        'regency_id', 
+        'regency_id',
         'name'
     ];
+
+    public function regency()
+    {
+        return $this->belongsTo('\App\Modules\Territory\Models\Eloquent\Regency');
+    }
 }
