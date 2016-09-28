@@ -6,6 +6,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import Post from '../Post';
 import Mapping from './Mapping';
 import List from './List';
 import Detail from './Detail';
@@ -80,11 +81,19 @@ class Area extends Component {
            items={this.state.items} openDetail={this.handleOpenDetail.bind(this)} />
         </div>
         {this.getLoading()}
-        <List baseUrl={this.props.baseUrl}
-         filter={this.state.filter}
-         openDetail={this.handleOpenDetail.bind(this)}
-         dataIsLoaded={this.handleDataIsLoaded.bind(this)}
-         loadedData={this.handleLoadedData.bind(this)} />
+        <div className="row">
+          <div className="col-sm-4">
+            <Post baseUrl={this.props.baseUrl}
+             filter={this.state.filter} />
+          </div>
+          <div className="col-sm-8">
+            <List baseUrl={this.props.baseUrl}
+             filter={this.state.filter}
+             openDetail={this.handleOpenDetail.bind(this)}
+             dataIsLoaded={this.handleDataIsLoaded.bind(this)}
+             loadedData={this.handleLoadedData.bind(this)} />
+          </div>
+        </div>
         {this.getDetailData()}
       </div>
     );
@@ -92,6 +101,14 @@ class Area extends Component {
 
   handleOpenDetail(data) {
     this.setState({openDetailData: data});
+  }
+
+  handleDataIsLoaded() {
+    this.setState({isDataLoaded: true});
+  }
+
+  handleCloseDetail() {
+    this.setState({openDetailData: null});
   }
 
   handleFilter() {
@@ -109,14 +126,6 @@ class Area extends Component {
       },
       isDataLoaded: false
     });
-  }
-
-  handleDataIsLoaded() {
-    this.setState({isDataLoaded: true});
-  }
-
-  handleCloseDetail() {
-    this.setState({openDetailData: null});
   }
 
   handleLoadedData(items) {

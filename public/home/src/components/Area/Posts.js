@@ -8,18 +8,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { notify } from '../Util';
-import { getAreas } from '../../actions/actions';
-import Item from './Item';
+import { getAreaPosts } from '../../actions/actions';
+import Item from '../Post/Item';
 
-class List extends Component {
+class Posts extends Component {
 
   static propTypes = {
     baseUrl: PropTypes.string.isRequired,
-    filter: PropTypes.object.isRequired,
-    getAreas: PropTypes.func.isRequired,
-    openDetail: PropTypes.func.isRequired,
-    dataIsLoaded: PropTypes.func, 
-    loadedData: PropTypes.func
+    areaId: PropTypes.number.isRequired,
+    getAreaPosts: PropTypes.func.isRequired, 
+    dataIsLoaded: PropTypes.func,
+    openDetail: PropTypes.func.isRequired
   };
 
   constructor() {
@@ -28,13 +27,10 @@ class List extends Component {
     this.state = this.getDefaultState();
 
     this.isDataLoaded = false;
-    this.timeout = null;
-    this.fetchInterval = 60000; //60000
-    this.previousFilter = null;
   }
 
   componentDidMount() {
-    if (this.state.data == null) {
+    if (this.state.items == null) {
       this.collectData();
     }
   }
@@ -51,46 +47,33 @@ class List extends Component {
               this.props.dataIsLoaded();
             }
 
-            if (this.props.loadedData) {
-              this.props.loadedData(nextProps.data.data);
-            }
-
-            this.setState({data: nextProps.data.data});
+            this.setState({items: nextProps.data.data});
           }
         }
-
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-          this.collectData();
-        }, this.fetchInterval);
       }
-    }
-  }
-
-  componentDidUpdate() {
-    if (!_.isMatch(this.previousFilter, this.props.filter)) {
-      this.previousFilter = _.clone(this.props.filter);
-      this.isDataLoaded = false;
-      this.collectData();
     }
   }
 
   getDefaultState() {
     return {
-      data: null
+      items: null
     };
   }
 
   render() {
-    if (this.state.data == null) {
+    if (this.state.items == null) {
       return null;
     }
 
-    const items = this.state.data.map((item) => {
-      return <Item key={`area-item-${item.id}`}
-       baseUrl={this.props.baseUrl} data={item}
-       openDetail={this.props.openDetail} />;
-    });
+    let items = (<li>Belum ada posko di area ini.</li>);
+
+    if (this.state.items.length > 0) {
+      items = this.state.items.map((item) => {
+        return <Item key={`post-item-${item.id}`}
+         baseUrl={this.props.baseUrl} data={item}
+         openDetail={this.props.openDetail} />;
+      });
+    }
 
     return (
       <div className="search-content-1">
@@ -106,24 +89,23 @@ class List extends Component {
   }
 
   collectData() {
-    clearTimeout(this.timeout);
-
-    this.props.getAreas(_.extend({
+    this.props.getAreaPosts({
+      area: this.props.areaId,
       limit: 0, 
-      include: 'district,village,photos,latest_status'
-    }, this.props.filter));
+      include: 'district,village,photos'
+    });
   }
 
 }
 
 const mapStateToProps = (state) => {
   return {
-    data: state.areas
+    data: state.areaPosts
   }
 };
 
 const mapDispatchToProps = {
-  getAreas
+  getAreaPosts
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

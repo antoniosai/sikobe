@@ -2,7 +2,9 @@ import {
   LOAD_INFORMATIONS_START, LOAD_INFORMATIONS_SUCCESS, LOAD_INFORMATIONS_ERROR,
   LOAD_AREAS_START, LOAD_AREAS_SUCCESS, LOAD_AREAS_ERROR,
   LOAD_AREAS_STATUSES_START, LOAD_AREAS_STATUSES_SUCCESS, LOAD_AREAS_STATUSES_ERROR,
-  LOAD_AREA_STATUSES_START, LOAD_AREA_STATUSES_SUCCESS, LOAD_AREA_STATUSES_ERROR
+  LOAD_AREA_STATUSES_START, LOAD_AREA_STATUSES_SUCCESS, LOAD_AREA_STATUSES_ERROR,
+  LOAD_POSTS_START, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR,
+  LOAD_AREA_POSTS_START, LOAD_AREA_POSTS_SUCCESS, LOAD_AREA_POSTS_ERROR
 } from '../constants';
 
 function _dispatch(dispatch, types, url, props, all) {
@@ -70,16 +72,16 @@ export function getIncidents() {
   // };
 }
 
-export function getPosts() {
-  // return async (dispatch) => {
-  //   const url = '/informations';
+export function getPosts(props) {
+  return async (dispatch) => {
+    const url = '/command-posts';
 
-  //   return _dispatch(dispatch, {
-  //     start: LOAD_INFORMATIONS_START, 
-  //     success: LOAD_INFORMATIONS_SUCCESS, 
-  //     error: LOAD_INFORMATIONS_ERROR
-  //   }, url, null, false);
-  // };
+    return _dispatch(dispatch, {
+      start: LOAD_POSTS_START, 
+      success: LOAD_POSTS_SUCCESS, 
+      error: LOAD_POSTS_ERROR
+    }, url, props, false);
+  };
 }
 
 export function getAreas(props) {
@@ -120,6 +122,18 @@ export function getAreasStatuses(props) {
       start: LOAD_AREAS_STATUSES_START, 
       success: LOAD_AREAS_STATUSES_SUCCESS, 
       error: LOAD_AREAS_STATUSES_ERROR
+    }, url, props, false);
+  };
+}
+
+export function getAreaPosts(props) {
+  return async (dispatch) => {
+    let url = '/command-posts';
+
+    return _dispatch(dispatch, {
+      start: LOAD_AREA_POSTS_ERROR, 
+      success: LOAD_AREA_POSTS_SUCCESS, 
+      error: LOAD_AREA_POSTS_ERROR
     }, url, props, false);
   };
 }

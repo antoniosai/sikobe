@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
+/*
+ * Author: Sulaeman <me@sulaeman.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Tymon\JWTAuth\JWTAuth;
 
 use App\Http\Controllers\Controller as BaseController;

@@ -13,17 +13,16 @@ use Illuminate\Http\Request;
 
 use Dingo\Api\Routing\Helpers;
 
-use App\Services\Area as AreaService;
+use App\Services\CommandPost as CommandPostService;
 use App\Services\File as FileService;
 
-use App\Presenter\Api\Area\Area as AreaPresenter;
-use App\Presenter\Api\Area\Status as StatusPresenter;
+use App\Presenter\Api\CommandPost as CommandPostPresenter;
 use App\Presenter\Api\File as FilePresenter;
 
 use RuntimeException;
-use App\Modules\Area\RecordNotFoundException;
+use App\Modules\CommandPost\RecordNotFoundException;
 
-class Area extends Controller
+class CommandPost extends Controller
 {
     use Helpers;
 
@@ -40,7 +39,7 @@ class Area extends Controller
         $page     = (int) $request->get('page', 1);
         $district = trim($request->get('district', ''));
         $village  = trim($request->get('village', ''));
-        $search   = trim($request->get('search', ''));
+        $area     = (int) $request->get('area');
         $include  = trim($request->get('include', ''));
 
         if ($district == 'all') {
@@ -53,12 +52,13 @@ class Area extends Controller
 
         $result = $this->getService()->search([
             'district_id' => $district, 
-            'village_id'  => $village
+            'village_id'  => $village, 
+            'area_id'     => $area
         ], $page, $limit);
         
         return $this->response->paginator(
             $result, 
-            new AreaPresenter, 
+            new CommandPostPresenter, 
             [
                 'include' => $include
             ]
@@ -84,40 +84,13 @@ class Area extends Controller
     }
 
     /**
-     * Return area statuses.
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * @param  integer                   $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAllStatuses(Request $request, $id = 0)
-    {
-        $limit    = (int) $request->get('limit', 10);
-        $page     = (int) $request->get('page', 1);
-        $include  = trim($request->get('include', ''));
-
-        $result = $this->getService()->searchStatus([
-            'area_id' => $id
-        ], $page, $limit);
-        
-        return $this->response->paginator(
-            $result, 
-            new StatusPresenter, 
-            [
-                'include' => $include
-            ]
-        );
-    }
-
-    /**
      * Return the service instance.
      *
-     * @return \App\Services\Area
+     * @return \App\Services\CommandPost
      */
     private function getService()
     {
-        return new AreaService();
+        return new CommandPostService();
     }
 
     /**

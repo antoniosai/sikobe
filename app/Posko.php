@@ -11,7 +11,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Posko extends Model
+use App\Modules\CommandPost\Models\CommandPost;
+
+class Posko extends Model implements CommandPost
 {
 
   protected $table = 'posko';

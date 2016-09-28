@@ -8,18 +8,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { notify } from '../Util';
-import { getAreas } from '../../actions/actions';
+import { getPosts } from '../../actions/actions';
 import Item from './Item';
 
 class List extends Component {
 
   static propTypes = {
     baseUrl: PropTypes.string.isRequired,
+    isAutoLoad: PropTypes.bool.isRequired,
     filter: PropTypes.object.isRequired,
-    getAreas: PropTypes.func.isRequired,
+    getPosts: PropTypes.func.isRequired,
     openDetail: PropTypes.func.isRequired,
-    dataIsLoaded: PropTypes.func, 
-    loadedData: PropTypes.func
+    dataIsLoaded: PropTypes.func
   };
 
   constructor() {
@@ -51,18 +51,16 @@ class List extends Component {
               this.props.dataIsLoaded();
             }
 
-            if (this.props.loadedData) {
-              this.props.loadedData(nextProps.data.data);
-            }
-
             this.setState({data: nextProps.data.data});
           }
         }
 
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-          this.collectData();
-        }, this.fetchInterval);
+        if (this.props.isAutoLoad) {
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(() => {
+            this.collectData();
+          }, this.fetchInterval);
+        }
       }
     }
   }
@@ -108,9 +106,9 @@ class List extends Component {
   collectData() {
     clearTimeout(this.timeout);
 
-    this.props.getAreas(_.extend({
+    this.props.getPosts(_.extend({
       limit: 0, 
-      include: 'district,village,photos,latest_status'
+      include: 'district,village,photos'
     }, this.props.filter));
   }
 
@@ -118,12 +116,12 @@ class List extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.areas
+    data: state.posts
   }
 };
 
 const mapDispatchToProps = {
-  getAreas
+  getPosts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

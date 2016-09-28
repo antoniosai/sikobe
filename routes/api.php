@@ -56,6 +56,16 @@ $api->version('v1', [
             'App\Http\Controllers\Api\v1\Area@getAllStatuses'
         );
 
+        // Command Post routes
+        $api->get(
+            'command-posts', 
+            'App\Http\Controllers\Api\v1\CommandPost@getAll'
+        );
+        $api->get(
+            'command-posts/{id}/photos', 
+            'App\Http\Controllers\Api\v1\CommandPost@getPhotos'
+        );
+
     });
 
 });
