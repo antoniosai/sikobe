@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdatePoskoTable extends Migration
+class ReaddVillagePoskoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class UpdatePoskoTable extends Migration
     public function up()
     {
         Schema::table('posko', function (Blueprint $table) {
-            $table->dropColumn('village_id');
+            $table->char('village_id',10)->after('address');
         });
     }
 
