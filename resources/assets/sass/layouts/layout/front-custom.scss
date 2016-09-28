@@ -44,8 +44,18 @@ body {
 }
 
 .mt-element-list .list-news.mt-list-container ul > .mt-list-item,
-.area-container .search-content-3 .tile-container {
+.area-container .search-content-1 .search-container > ul .search-item {
     cursor: pointer;
+}
+.area-container .search-content-1 .search-container > ul .search-item {
+    padding: 10px 0;
+}
+.post-container .search-content-1 .search-container > ul .search-item > a > img {
+    margin-right: 10px;
+    width: 50px;
+}
+.post-container .search-content-1 .search-container > ul .search-item > .search-content {
+    padding-left: 60px;
 }
 
 .area-photos .cbp .cbp-item {
@@ -57,7 +67,14 @@ body {
 
 .area-container .mt-element-ribbon .ribbon {
     position: absolute;
-    left: 10px;
+    right: 10px;
+}
+
+#todo-task-modal > .modal-dialog {
+    width: 75%;
+}
+#todo-task-modal > .modal-dialog.modal-lg {
+    width: 60%;
 }
 
 /* Spinner */

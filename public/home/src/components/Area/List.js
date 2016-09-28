@@ -93,8 +93,14 @@ class List extends Component {
     });
 
     return (
-      <div className="search-content-3">
-        <div className="row">{items}</div>
+      <div className="search-content-1">
+        <div className="row">
+          <div className="col-xs-12">
+            <div className="search-container">
+              <ul>{items}</ul>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

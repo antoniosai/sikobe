@@ -6,92 +6,85 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { notify } from '../Util';
-import { getPosts } from '../../actions/actions';
+import List from './List';
+import Detail from './Detail';
 
 class Post extends Component {
 
   static propTypes = {
     baseUrl: PropTypes.string.isRequired, 
-    getPosts: PropTypes.func.isRequired
+    filter: PropTypes.object
   };
 
   constructor() {
     super();
 
     this.state = this.getDefaultState();
-
-    this.timeout = null;
-    this.fetchInterval = 60000; //60000
-  }
-
-  componentDidMount() {
-    if (this.state.data == null) {
-      this.collectData();
-    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.data.action != "undefined") {
-      if (!nextProps.data.action.started) {
-        if (nextProps.data.action.error) {
-          notify('error', nextProps.data.action.errorMessage, 'Error');
-        } else {
-          if (typeof nextProps.data.data != "undefined") {
-            this.setState({data: nextProps.data.data});
-          }
-        }
-
-        if (!this.isDetailOpened) {
-          this.timeout = setTimeout(() => {
-            this.collectData();
-          }, this.fetchInterval);
-        }
-      }
+    if (typeof nextProps.filter != "undefined") {
+      this.setState({filter: nextProps.filter});
     }
   }
 
   getDefaultState() {
     return {
-      data: null
+      filter: {
+        district: 'all',
+        village: 'all',
+        area: null
+      },
+      isDataLoaded: false,
+      openDetailData: null
     };
   }
 
   render() {
     return (
-      <div className="portlet light about-text">
+      <div className="portlet light about-text post-container">
         <h4><i className="fa fa-check icon-info"></i> Posko</h4>
         {this.getLoading()}
+        <List baseUrl={this.props.baseUrl} isAutoLoad={true}
+         filter={this.state.filter}
+         dataIsLoaded={this.handleDataIsLoaded.bind(this)}
+         openDetail={this.handleOpenDetail.bind(this)} />
+        {this.getDetailData()}
       </div>
     );
   }
 
+  handleDataIsLoaded() {
+    this.setState({isDataLoaded: true});
+  }
+
+  handleOpenDetail(data) {
+    this.setState({openDetailData: data});
+  }
+
+  handleCloseDetail() {
+    this.setState({openDetailData: null});
+  }
+
+  getDetailData() {
+    if (this.state.openDetailData == null) {
+      return null;
+    }
+
+    return <Detail baseUrl={this.props.baseUrl}
+     data={this.state.openDetailData}
+      onClose={this.handleCloseDetail.bind(this)} />
+  }
+
   getLoading() {
-    return (
+    return ! this.state.isDataLoaded ? (
       <div className="padding-20 text-center">
         <img src={`${this.props.baseUrl}/assets/img/loading-spinner-grey.gif`} className="loading" /> 
         <span>&nbsp;&nbsp;Mengunduh data... </span>
       </div>
-    );
-  }
-
-  collectData() {
-    clearTimeout(this.timeout);
-
-    // this.props.getPosts();
+    ) : null;
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    data: state.informations
-  }
-};
-
-const mapDispatchToProps = {
-  getPosts
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default Post;

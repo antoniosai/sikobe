@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+/*
+ * Author: Sulaeman <me@sulaeman.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 use Dingo\Api\Routing\Helpers;
 

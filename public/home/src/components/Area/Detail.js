@@ -9,6 +9,7 @@ import React, { Component, PropTypes } from 'react';
 import { GoogleMapLoader, GoogleMap, InfoWindow, Marker } from "react-google-maps";
 import { notify } from '../Util';
 import { getAreaPhotos } from '../../actions/actions';
+import Posts from './Posts';
 import Statuses from './Statuses';
 
 class Detail extends Component {
@@ -27,6 +28,7 @@ class Detail extends Component {
 
   getDefaultState() {
     return {
+      isPostsLoaded: false,
       isPhotosLoaded: false,
       isStatusesLoaded: false,
       isShown: false,
@@ -93,13 +95,28 @@ class Detail extends Component {
             <div className="modal-body todo-task-modal-body">
               <div className="row">
                 <div className="col-md-6">
-                  {this.getMap()}
-                </div>
-                <div className="col-md-6 text-right">
                   <i className="icon-direction"></i> {data.address} - {data.village.data.title} - {data.district.data.title}
                 </div>
+                <div className="col-md-6 text-right">
+                  <p className="todo-task-modal-bg margin-top-0" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
+                </div>
               </div>
-              <p className="todo-task-modal-bg" dangerouslySetInnerHTML={{__html: data.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}} />
+              <div className="row">
+                <div className="col-md-6">
+                  {this.getMap()}
+                </div>
+                <div className="col-md-6">
+                  <div className="portlet light about-text post-container">
+                    <h4 style={{paddingTop: '10px', paddingBottom: '10px'}}>
+                      <i className="fa fa-check icon-info"></i> Posko
+                    </h4>
+                    {this.getPostsLoading()}
+                    <Posts baseUrl={this.props.baseUrl} areaId={data.id}
+                     dataIsLoaded={this.handlePostsIsLoaded.bind(this)}
+                     openDetail={this.handleOpenPostDetail.bind(this)} />
+                  </div>
+                </div>
+              </div>
               {this.getPhotosLoading()}
               {this.getPhotos()}
               {this.getStatusesLoading()}
@@ -116,7 +133,15 @@ class Detail extends Component {
     );
   }
 
-  handleStatusesIsLoaded(items) {
+  handlePostsIsLoaded() {
+    this.setState({isPostsLoaded: true});
+  }
+
+  handleOpenPostDetail(data) {
+    // this.setState({openDetailData: data});
+  }
+
+  handleStatusesIsLoaded() {
     this.setState({isStatusesLoaded: true});
   }
 
@@ -132,11 +157,11 @@ class Detail extends Component {
     const latLngCenter = new google.maps.LatLng(this.props.data.latitude, this.props.data.longitude);
 
     return (
-      <GoogleMapLoader containerElement={<div style={{height: '100px'}}></div>}
+      <GoogleMapLoader containerElement={<div style={{height: '200px'}}></div>}
         googleMapElement={
           <GoogleMap
             containerProps={{style: {
-              height: '100px',
+              height: '200px',
             }}} defaultZoom={13} defaultCenter={latLngCenter}>
             <Marker position={latLngCenter} />
           </GoogleMap>
@@ -172,12 +197,16 @@ class Detail extends Component {
     });
 
     return (
-      <div className="portfolio-content portfolio-4 area-photos">
+      <div className="portfolio-content portfolio-4 margin-top-10 area-photos">
         <div id="js-area-grid-full-width" className="cbp">
           {items}
         </div>
       </div>
     );
+  }
+
+  getPostsLoading() {
+    return ! this.state.isPostsLoaded ? this.getLoading() : null;
   }
 
   getPhotosLoading() {

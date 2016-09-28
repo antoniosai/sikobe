@@ -14,7 +14,11 @@ class CreateIndexPoskoTable extends Migration
     public function up()
     {
         Schema::table('posko', function (Blueprint $table) {
-            $table->index(['village_id', 'area_id', 'latitude', 'longitude', 'title']);
+            $table->index(['title']);
+            $table->index(['village_id']);
+            $table->index(['area_id']);
+            $table->index(['latitude']);
+            $table->index(['longitude']);
         });
     }
 

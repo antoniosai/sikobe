@@ -176,6 +176,7 @@ return [
         App\Modules\File\Providers\Illuminate\FileServiceProvider::class,
         App\Modules\Territory\Providers\Illuminate\TerritoryServiceProvider::class,
         App\Modules\Area\Providers\Illuminate\AreaServiceProvider::class,
+        App\Modules\CommandPost\Providers\Illuminate\CommandPostServiceProvider::class,
 
         //
 

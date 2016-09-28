@@ -25,23 +25,24 @@ class Item extends Component {
     }
 
     return (
-      <div className="col-md-4">
-        <div className="mt-element-ribbon tile-container" onClick={this.handleOpenDetail.bind(this)}>
-          {this.getRibbon()}
-          <div className="tile-thumbnail">
-            <img src={imageUrl} alt={imageTitle} />
-          </div>
-          <div className="tile-title">
-            <h3>{data.title}</h3>
-            <div className="tile-desc">
-              <p>{data.address}</p>
-              <p className="margin-top-0">
-                <span className="font-grey-salt">{data.village.data.title} - {data.district.data.title}</span>
-              </p>
-            </div>
+      <li className="search-item mt-element-ribbon clearfix margin-bottom-0"
+       onClick={this.handleOpenDetail.bind(this)}>
+        {this.getRibbon()}
+        <a href="javascript:;">
+          <img src={imageUrl} alt={imageTitle} />
+        </a>
+        <div className="search-content">
+          <h2 className="search-title margin-top-0">
+            <a href="javascript:;">{data.title}</a>
+          </h2>
+          <div className="search-desc">
+            <p>{data.short_description}</p>
+            <p className="font-grey-salt margin-top-0">
+              {data.address} | {data.village.data.title} - {data.district.data.title}
+            </p>
           </div>
         </div>
-      </div>
+      </li>
     );
   }
 
@@ -61,7 +62,7 @@ class Item extends Component {
         ribbon = (
           <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-success uppercase">
             <div className="ribbon-sub ribbon-bookmark"></div>
-            <i className="icon-feed"></i>
+            <i className="icon-feed"></i>#{this.props.data.latest_status.data.scale}
           </div>
         );
         break;
@@ -69,7 +70,7 @@ class Item extends Component {
         ribbon = (
           <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-primary uppercase">
             <div className="ribbon-sub ribbon-bookmark"></div>
-            <i className="icon-feed"></i>
+            <i className="icon-feed"></i>#{this.props.data.latest_status.data.scale}
           </div>
         );
         break;
@@ -77,7 +78,7 @@ class Item extends Component {
         ribbon = (
           <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-info uppercase">
             <div className="ribbon-sub ribbon-bookmark"></div>
-            <i className="icon-feed"></i>
+            <i className="icon-feed"></i>#{this.props.data.latest_status.data.scale}
           </div>
         );
         break;
@@ -85,7 +86,7 @@ class Item extends Component {
         ribbon = (
           <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-warning uppercase">
             <div className="ribbon-sub ribbon-bookmark"></div>
-            <i className="icon-feed"></i>
+            <i className="icon-feed"></i>#{this.props.data.latest_status.data.scale}
           </div>
         );
         break;
@@ -93,7 +94,7 @@ class Item extends Component {
         ribbon = (
           <div className="ribbon ribbon-vertical-right ribbon-shadow ribbon-color-danger uppercase">
             <div className="ribbon-sub ribbon-bookmark"></div>
-            <i className="icon-feed"></i>
+            <i className="icon-feed"></i>#{this.props.data.latest_status.data.scale}
           </div>
         );
         break;

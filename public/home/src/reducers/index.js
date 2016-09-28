@@ -5,6 +5,8 @@ import informations from './informations';
 import areas from './areas';
 import areaStatuses from './areaStatuses';
 import areasStatuses from './areasStatuses';
+import posts from './posts';
+import areaPosts from './areaPosts';
 
 export default combineReducers({
   runtime,
@@ -12,5 +14,7 @@ export default combineReducers({
   informations,
   areas,
   areaStatuses,
-  areasStatuses
+  areasStatuses,
+  posts,
+  areaPosts
 });

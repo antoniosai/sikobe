@@ -1,83 +1,72 @@
 # SIKOBE powered by Laravel PHP Framework
+***Sistem Informasi Korban Bencana***
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Aplikasi web ini awalnya di bangun untuk membantu para relawan memberikan informasi mengenai situasi dari semua area yang terdampak bencana banjir di ***Garut***, sehingga publik dapat memantau perkembangannya dan dapat menyalurkan bantuan ke area yang membutuhkan.
 
-### Installation
+Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Karena keterbatasan waktu para relawan yang mempunyai kemampuan web programming, maka awal belum semua fasilitas terimplementasi. Di bawah adalah screenshot tampilan dari fasilitas yang telah tersedia.
 
-- PHP version please refer to Laravel 5.3 installation doc.
-- Install Node.js (so you can use the "npm" command)
+## Screenshots
+- Halaman depan : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/homepage-1.jpg)
+- Mengelola Area Terdampak : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/area-management-1.jpg) [Foto 2](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/area-management-2.jpg) [Foto 3](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/area-management-3.jpg) 
+- Mengelola Posko : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/post-management-1.jpg) [Foto 2](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/post-management-2.jpg)
+- Mengelola Informasi : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/information-management-1.jpg)
+- Mengelola User : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/user-management-1.jpg)
 
-Steps required :
+***Demo*** [halaman depan](https://www.sikobe.com)
 
-1) Do clone this repository.
+## Instalasi
 
-2) Download the Composer : https://getcomposer.org/download/1.2.1/composer.phar , and place inside this app directory.
+**Requirement**
+- versi PHP : silahkan lihat dokumentasi [Laravel 5.3.x](https://laravel.com/docs/5.3/installation#server-requirements).
+- MariaDB / MySQL.
+- 1 buah domain / subdomain : contoh sikobe.wilayah-anda.id
+- 1 buah sub-domain : contoh api.sikobe.wilayah-anda.id
+- Anda harus mengetahui cara instalasi / pemasangan Laravel PHP Framework.
 
-3) Copy the ".env.example" to ".env", then define the :
-   - APP_URL : example http://sikobe.local.dev
-   - APP_DOMAIN : example sikobe.local.dev
-   - API_DOMAIN : example http://api.sikobe.local.dev
-   - and all database iinformation
+**Langkah Instalasi SIKOBE**
 
-4) Run "php composer.phar install" inside this app directory.
+1) Clone repository ini atau [download](https://github.com/feelinc/sikobe/archive/master.zip).
 
-5) Run "npm install" inside this app directory.
+2) Download Composer : https://getcomposer.org/download/1.2.1/composer.phar, kemudian simpan di dalam folder sikobe.
 
-6) Create a new database, then import the "/SQL/2016-09-26-init_tables.sql".
+3) Buat sebuah database. Kemudian import file "/SQL/tables.sql" sehingga terbentuk semua tabel yang di butuhkan.
 
-### HTML Theme
-Download here : https://dl.dropboxusercontent.com/u/1550865/metronic-theme.tar.gz
+4) Copy file ".env.example" ganti menjadi ".env".
 
-Use the HTML files inside "admin_1_material_design" folder for referrences.
+5) Edit file ".env" tadi, kemudian isi informasi di dalamnya :
+   - APP_URL : contoh http://sikobe.wilayah-anda.id
+   - APP_DOMAIN : contoh sikobe.wilayah-anda.id
+   - API_DOMAIN : contoh http://api.sikobe.wilayah-anda.id
+   - JWT_KEY : isi dengan random string
+   - GOOGLE_API_KEY: buat sebuah api key di [Google Developer website](https://developers.google.com/maps/documentation/javascript/)
+   - dan semua informasi koneksi ke database
 
-
-### Test the REST API
-Use Postman Google Chrome extension. Import the "SIKOBE.postman_collection.json".
-
-
-### Updating database schema
-Create a new file inside the "/SQL/" folder provided, each time you update database schema, to make sure all contributors here having the same schema as you are. Use following format "/SQL/yyyy-mm-dd-<table_name>-<your_username>.sql"
-
-
-### Customizing the CSS
-
-#### I. Backend
-Only add your custom CSS to "/resources/asssets/sass/layouts/layout/custom.scss".
-
-#### II. Frontend
-Only add your custom CSS to "/resources/asssets/sass/layouts/layout/front-custom.scss".
-
-#### III. Compile
-After you modify the scss, run "gulp" in this app directory.
+6) Melalui terminal / command prompt, masuk kedalam folder sikobe, dan jalankan perintah di bawah, pastikan koneksi internet tersedia.
 ```sh
-$ cd sikobe
-$ gulp
+php composer.phar install
 ```
 
-### Coding Author
-Please add your name and email on each file you modify / create. Append your name and email information, if there are existing author info in the file. This to make sure your name recognized as someone who helped to build this app. Example :
-```sh
-/*
- * Author: Sulaeman <me@sulaeman.com>.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
- ```
- ```sh
- /*
- * Author: Sulaeman <me@sulaeman.com>.
- * Author: Your name <your@email.com>.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
- ```
+## Teknologi
 
-## License
+SIKOBE menggunakan berbagai macam proyek open source:
 
-This application is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+* [Laravel](https://laravel.com) - Revolutionize how you build the web!
+* [React JS](https://facebook.github.io/react/) - a JavaScript Library for building user interfaces!
+* [React Starter Kit](https://github.com/kriasoft/react-starter-kit) - "isomorphic" web app boilerplate.
+* [Twitter Bootstrap](http://getbootstrap.com/) - great UI boilerplate for modern web apps.
+* [jQuery](https://jquery.com/)
+* Etc.
+ 
+## Pengembang Awal
+Semua kontributor awal berasal dari Garut - Jawa Barat.
+* [Sulaeman](https://github.com/feelinc) 
+* [Ikbal M H](https://github.com/iqbalhikmat)
+* [Antonio S I](https://github.com/antoniosai)
+* [Saddam](https://github.com/saddamalmahali)
+
+## Ikut Mengembangkan
+Terima kasih untuk ikut membantu mengembangkan aplikasi web ini. Semoga menjadi lebih lengkap fasilitas nya untuk mempermudah melakukan bantuan pasca bencana, baik oleh para relawan maupun publik memantau situasi.
+
+## Lisensi
+
+Aplikasi ini kami persembahkan sebagai open-source software dengan lisensi [MIT license](http://opensource.org/licenses/MIT).
