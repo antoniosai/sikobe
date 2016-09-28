@@ -3,7 +3,7 @@
 
 Aplikasi web ini awalnya di bangun untuk membantu para relawan memberikan informasi mengenai situasi dari semua area yang terdampak bencana banjir di ***Garut***, sehingga publik dapat memantau perkembangannya dan dapat menyalurkan bantuan ke area yang membutuhkan.
 
-Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***.
+Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Karena keterbatasan waktu para relawan yang mempunyai kemampuan web programming, maka awal belum semua fasilitas terimplementasi. Di bawah adalah screenshot tampilan dari fasilitas yang telah tersedia.
 
 ## Screenshots
 - Halaman depan : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/homepage-1.jpg)
