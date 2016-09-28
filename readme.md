@@ -22,10 +22,15 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***.
 - Anda harus mengetahui cara instalasi / pemasangan Laravel PHP Framework.
 
 **Langkah Instalasi SIKOBE**
+
 1) Clone repository ini atau [download](https://github.com/feelinc/sikobe/archive/master.zip).
+
 2) Download Composer : https://getcomposer.org/download/1.2.1/composer.phar, kemudian simpan di dalam folder sikobe.
+
 3) Buat sebuah database. Kemudian import file "/SQL/tables.sql" sehingga terbentuk semua tabel yang di butuhkan.
+
 4) Copy file ".env.example" ganti menjadi ".env".
+
 5) Edit file ".env" tadi, kemudian isi informasi di dalamnya :
    - APP_URL : contoh http://sikobe.wilayah-anda.id
    - APP_DOMAIN : contoh sikobe.wilayah-anda.id
@@ -33,6 +38,7 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***.
    - JWT_KEY : isi dengan random string
    - GOOGLE_API_KEY: buat sebuah api key di [Google Developer website](https://developers.google.com/maps/documentation/javascript/)
    - dan semua informasi koneksi ke database
+   
 6) Melalui terminal / command prompt, masuk kedalam folder sikobe, dan jalankan perintah di bawah, pastikan koneksi internet tersedia.
 ```sh
 php composer.phar install
