@@ -20,7 +20,7 @@ class PoskoTableSeeder extends Seeder
 	        Posko::create([
             'title' => $faker->text($maxNbChars = 200),
             'address' => 'Tes',
-            'village_id' => 3205280,
+            'village_id' => 1707051008,
             'leader' => $faker->name,
             'phone' => $faker->phoneNumber,
             'area_id' => 1
