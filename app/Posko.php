@@ -24,7 +24,8 @@ class Posko extends Model
       'phone',
       'area_id',
       'latitude',
-      'longitude'
+      'longitude',
+      'author_id'
   ];
 
     /**
@@ -41,5 +42,13 @@ class Posko extends Model
     public function area()
     {
         return $this->belongsTo('\App\Modules\Area\Models\Eloquent\Area');
+    }
+
+    /**
+     * Get the area that owns the posko.
+     */
+    public function files()
+    {
+        return $this->hasMany('\App\Modules\File\Models\Eloquent\File', 'object_id');
     }
 }
