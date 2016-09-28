@@ -12,6 +12,8 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***.
 - Mengelola Informasi : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/information-management-1.jpg)
 - Mengelola User : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/user-management-1.jpg)
 
+***Demo*** [halaman depan](https://sikobe.sulaeman.com)
+
 ## Instalasi
 
 **Requirement**
@@ -38,7 +40,7 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***.
    - JWT_KEY : isi dengan random string
    - GOOGLE_API_KEY: buat sebuah api key di [Google Developer website](https://developers.google.com/maps/documentation/javascript/)
    - dan semua informasi koneksi ke database
-   
+
 6) Melalui terminal / command prompt, masuk kedalam folder sikobe, dan jalankan perintah di bawah, pastikan koneksi internet tersedia.
 ```sh
 php composer.phar install
