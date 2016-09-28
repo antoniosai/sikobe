@@ -12,7 +12,7 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Ka
 - Mengelola Informasi : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/information-management-1.jpg)
 - Mengelola User : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/user-management-1.jpg)
 
-***Demo*** [halaman depan](https://sikobe.sulaeman.com)
+***Demo*** [halaman depan](https://www.sikobe.com)
 
 ## Instalasi
 
