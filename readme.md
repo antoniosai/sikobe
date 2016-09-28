@@ -1,5 +1,9 @@
 # SIKOBE powered by Laravel PHP Framework
-Sistem Informasi Korban Bencana.
+***Sistem Informasi Korban Bencana***
+
+Aplikasi web ini awalnya di bangun untuk membantu para relawan memberikan informasi mengenai situasi dari semua area yang terdampak bencana banjir di ***Garut***, sehingga publik dapat memantau perkembangannya dan dapat menyalurkan bantuan ke area yang membutuhkan.
+
+Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***.
 
 ## Screenshots
 - Halaman depan : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/homepage-1.jpg)
@@ -45,7 +49,7 @@ SIKOBE menggunakan berbagai macam proyek open source:
 * [jQuery](https://jquery.com/)
 * Etc.
  
-## Kontributor Awal
+## Pengembang Awal
 Semua kontributor awal berasal dari Garut - Jawa Barat.
 * [Sulaeman](https://github.com/feelinc) 
 * [Ikbal M H](https://github.com/iqbalhikmat)
