@@ -51,6 +51,7 @@ class Posko extends Model implements CommandPost
      */
     public function files()
     {
-        return $this->hasMany('\App\Modules\File\Models\Eloquent\File', 'object_id');
+        $files = $this->hasMany('\App\Modules\File\Models\Eloquent\File', 'object_id');
+        return $files->where('object_type', 'posko')->where('is_active', 1);
     }
 }

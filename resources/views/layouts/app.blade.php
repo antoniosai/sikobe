@@ -118,12 +118,6 @@
                                 <span class="title">Area Terdampak</span>
                             </a>
                         </li>
-                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'posko') ? ' active open' : '' }}">
-                            <a href="{{ url('/ctrl/posko') }}" class="nav-link nav-toggle">
-                                <i class="icon-shield"></i>
-                                <span class="title">Posko</span>
-                            </a>
-                        </li>
                         <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'information') ? ' active open' : '' }}">
                             <a href="{{ url('/ctrl/information') }}" class="nav-link nav-toggle">
                                 <i class="icon-info"></i>
@@ -133,6 +127,12 @@
                         @if ($user->isSuperAdmin())
                         <li class="heading">
                             <h3 class="uppercase">Administrasi</h3>
+                        </li>
+                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'posko') ? ' active open' : '' }}">
+                            <a href="{{ url('/ctrl/posko') }}" class="nav-link nav-toggle">
+                                <i class="icon-shield"></i>
+                                <span class="title">Posko</span>
+                            </a>
                         </li>
                         <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'users') ? ' active open' : '' }}">
                             <a href="{{ url('/ctrl/users') }}" class="nav-link nav-toggle">

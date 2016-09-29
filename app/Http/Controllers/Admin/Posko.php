@@ -87,7 +87,7 @@ class Posko extends Controller
         $posko = Model::create($data);
         if ($posko) {
           if ($request->hasFile('files')) {
-            $this->saveFiles($request,$posko,'posko');
+            $this->processFiles($request,$posko,'posko');
           }
           return redirect('/ctrl/posko')->with('success', 'Posko Berhasil Disimpan');
         }
@@ -119,6 +119,7 @@ class Posko extends Controller
       // Get Area List
       $areas = Area::all();
 
+      Asset::add(elixir('assets/js/file-upload.js'), 'footer.specific.js');
       Asset::add('https://maps.googleapis.com/maps/api/js?key='.env('GOOGLE_API_KEY'), 'footer.specific.js');
       Asset::add('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/min/jquery.ui.map.full.min.js', 'footer.specific.js');
       Asset::add(elixir('assets/js/map-picker.js'), 'footer.specific.js');
@@ -140,11 +141,9 @@ class Posko extends Controller
     public function update(StorePosko $request, $id)
     {
       $data = $request->all();
-      $posko = Model::find($id)->update($data);
-      if ($posko) {
-        if ($request->hasFile('files')) {
-          $this->saveFiles($request,$posko,'posko');
-        }
+      $posko = Model::find($id);
+      $this->processFiles($request,$posko,'posko');
+      if ($posko->update($data)) {
         return redirect('/ctrl/posko')->with('success', 'Posko Berhasil Diperbaharui');
       }
       return redirect('/ctrl/posko')->with('error', 'Posko Gagal Diperbaharui');
@@ -212,11 +211,11 @@ class Posko extends Controller
         return $service;
     }
 
-    private function saveFiles($request,$object,$objectType)
+    private function processFiles($request,$object,$objectType)
     {
       $fileService = $this->getFileService();
       // Remove files
-      $keepFiles = $request->file('keep-files', []);
+      $keepFiles = $request->get('keep-files', []);
 
       list($existingFiles) = $fileService->search([
           'object_type' => $objectType,
@@ -263,4 +262,5 @@ class Posko extends Controller
           }
       }
     }
+
 }
