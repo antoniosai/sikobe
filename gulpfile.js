@@ -78,6 +78,12 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.sass([
+        'pages/search.scss'
+    ], 'public/assets/css/informations.css');
+});
+
+elixir(function(mix) {
     mix.scripts([
         '../plugins/respond.min.js',
         '../plugins/excanvas.min.js'
@@ -153,6 +159,7 @@ elixir(function(mix) {
         'assets/css/auth.css',
         'assets/css/profile.css',
         'assets/css/home.css',
+        'assets/css/informations', 
         'assets/css/error.css',
         'assets/js/ie.js',
         'assets/js/global-plugin.js',

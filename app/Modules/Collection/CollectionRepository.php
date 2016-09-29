@@ -47,7 +47,8 @@ class CollectionRepository implements Repository
     {
         $params = array_merge([
             'author_id'  => '', 
-            'identifier' => ''
+            'identifier' => '', 
+            'search'     => ''
         ], $params);
 
         $model = $this->createModel();
@@ -63,7 +64,8 @@ class CollectionRepository implements Repository
         $isUseWhere = false;
 
         if ( ! empty($params['author_id'])
-         || ! empty($params['identifier'])) {
+         || ! empty($params['identifier'])
+         || ! empty($params['search'])) {
             $useWhere = true;
         }
 
@@ -91,6 +93,19 @@ class CollectionRepository implements Repository
             $isUseWhere = true;
         }
 
+        if ( ! empty($params['search'])) {
+            if ($isUseWhere) {
+                $fromSql .= ' AND';
+            }
+
+            $fromSql .= '(';
+            $fromSql .= ' `title` LIKE "%'.$params['search'].'%"';
+            $fromSql .= ' OR `description` LIKE "%'.$params['search'].'%"';
+            $fromSql .= ')';
+
+            $isUseWhere = true;
+        }
+
         $fromSql .= ' ORDER BY `created_at` DESC';
 
         if ($limit > 0) {
@@ -107,6 +122,13 @@ class CollectionRepository implements Repository
 
         if ( ! empty($params['identifier'])) {
             $query->where($model->getTable().'.identifier', '=', $params['identifier']);
+        }
+
+        if ( ! empty($params['search'])) {
+            $query->where(function($query) use ($model, $params) {
+                $query->where($model->getTable().'.title', 'LIKE', '%'.$params['identifier'].'%')
+                    ->orWhere($model->getTable().'.description', 'LIKE', '%'.$params['identifier'].'%');
+            });
         }
 
         $this->total = $query->count();

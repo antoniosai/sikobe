@@ -9,6 +9,9 @@ namespace App\Services;
  * file that was distributed with this source code.
  */
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 use App\Services\Service;
 use App\Services\Validators\Collection as CollectionValidator;
 
@@ -33,7 +36,13 @@ class Collection extends Service
         $repository = $this->getCollectionRepository();
         $collection = $repository->search($params, $page, $limit);
 
-        return [$collection, $repository->getTotal()];
+        return new LengthAwarePaginator(
+            $collection->all(), 
+            $repository->getTotal(), 
+            $limit, 
+            $page, 
+            ['path' => Paginator::resolveCurrentPath()]
+        );
     }
 
     /**

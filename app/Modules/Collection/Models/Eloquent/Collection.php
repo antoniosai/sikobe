@@ -11,9 +11,12 @@ namespace App\Modules\Collection\Models\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Presenter\Collection as CollectionPresenter;
+use App\Contracts\Presentable;
+
 use App\Modules\Collection\Models\Collection as CollectionInterface;
 
-class Collection extends Model implements CollectionInterface
+class Collection extends Model implements CollectionInterface, Presentable
 {
     /**
      * The table associated with the model.
@@ -31,4 +34,12 @@ class Collection extends Model implements CollectionInterface
         'title',
         'description'
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPresenter()
+    {
+        return new CollectionPresenter($this);
+    }
 }

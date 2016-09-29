@@ -13,6 +13,12 @@ use App\Modules\User\Models\User as UserContract;
 
 class User extends Presenter
 {
+    /**
+     * The groups.
+     *
+     * @var array
+     */
+    protected $_groups;
 
     /**
      * Create the Presenter and store the object we are presenting.

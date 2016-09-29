@@ -19,4 +19,6 @@ Route::group([
 
     Route::get('/', 'Home@index');
 
+    Route::get('/informations', 'Information@index');
+
 });
