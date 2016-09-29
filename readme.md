@@ -49,7 +49,7 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Ka
 php composer.phar install
 ```
 
-7) Login : contoh http://sikobe.wilayah-anda.id/login
+7) Login : contoh http://sikobe.wilayah-anda.id/login , login menggunakan email yang terdaftar di tabel "users" dengan password semua "123456" (tanpa kutip).
 
 ## Teknologi
 

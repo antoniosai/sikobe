@@ -33,9 +33,7 @@ class User extends Service
 
         $request = $this->getRequest();
 
-        $userRepository = $this->getUserRepository();
-
-        $item = $userRepository->get($id);
+        $item = $this->get($id);
 
         $updatePassword = (bool) $request->get('update_password', 0);
 
@@ -74,6 +72,7 @@ class User extends Service
             ];
 
             // Update meta
+            $userRepository = $this->getUserRepository();
             $userRepository->updateMeta($item->id, 'display_name', $name);
             $userRepository->updateMeta($item->id, 'phone', $request->get('phone'));
         }
@@ -217,9 +216,7 @@ class User extends Service
             return $validation;
         }
 
-        $userRepository = $this->getUserRepository();
-
-        $item = $userRepository->get($id);
+        $item = $this->get($id);
 
         // Format user name data
         $name  = trim($request->get('name'));
@@ -251,6 +248,8 @@ class User extends Service
         if ( ! $item->save()) {
             throw new RuntimeException('Failed to update user');
         }
+
+        $userRepository = $this->getUserRepository();
 
         // Update meta
         $userRepository->updateMeta($id, 'display_name', $name);
