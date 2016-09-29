@@ -9,16 +9,8 @@ namespace App\Http\Controllers\Admin;
  * file that was distributed with this source code.
  */
 
-
- use Gate;
-
  use Illuminate\Http\Request;
  use Illuminate\Validation\Validator;
- use Illuminate\Pagination\Paginator;
- use Illuminate\Pagination\LengthAwarePaginator;
-
- use App\Support\Asset;
- use App\Presenter\BootstrapThreePresenter;
 
  use App\Services\Collection as CollectionService;
 
@@ -38,18 +30,10 @@ class Information extends Controller
 
       $service = $this->getService();
 
-      list($collection, $total) = $service->search([], $page, $limit);
-
-      $list = new LengthAwarePaginator(
-          $collection->all(),
-          $total,
-          $limit,
-          $page,
-          ['path' => Paginator::resolveCurrentPath()]
-      );
+      $result = $service->search([], $page, $limit);
 
       return view('admin.information.list', [
-          'list' => $list
+          'list' => $result
       ]);
     }
 
