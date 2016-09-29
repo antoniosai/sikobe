@@ -7,15 +7,9 @@ namespace App\Http\Controllers\Admin;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-<<<<<<< HEAD
- use Illuminate\Http\Request;
- use Illuminate\Validation\Validator;
-=======
-
  use Illuminate\Http\Request;
  use Illuminate\Validation\Validator;
 
->>>>>>> 731c81bb67fce7ab0d30ad3ca5e200df7cf4be8c
  use App\Services\Collection as CollectionService;
  use RuntimeException;
 
@@ -33,13 +27,10 @@ class Information extends Controller
       $limit = 10;
       $page  = (int) $request->get('page', 1);
       $service = $this->getService();
-<<<<<<< HEAD
       $result = $service->search([], $page, $limit);
-=======
 
       $result = $service->search([], $page, $limit);
 
->>>>>>> 731c81bb67fce7ab0d30ad3ca5e200df7cf4be8c
       return view('admin.information.list', [
           'list' => $result
       ]);
