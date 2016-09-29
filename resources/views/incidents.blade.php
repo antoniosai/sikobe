@@ -29,6 +29,17 @@
                             <h2 class="search-title">{{ $item->getPresenter()->title }}</h2>
                             <p class="margin-bottom-10">{{ $item->created_at }} | {{ $item->getPresenter()->author->name }}</p>
                             <p class="search-desc">{!! nl2br($item->description) !!}</p>
+                            @if ( ! $item->getPresenter()->files->isEmpty())
+                            <div class="row area-status-photos margin-top-10">
+                                @foreach ($item->getPresenter()->files as $file)
+                                <div class="col-xs-6 col-sm-2">
+                                  <a href="{{ sprintf(url('/storage/%s'), $file->filename) }}" target="_blank" class="thumbnail">
+                                    <img src="{{ sprintf(url('/storage/%s'), $file->filename) }}" alt="" />
+                                  </a>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
                         </div>
                     </li>
                 @endforeach
