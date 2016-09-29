@@ -64,17 +64,25 @@
                             </a>
                         </li>
                         <li class="dropdown dropdown-user">
+                            <a href="{{ url('/ctrl/information') }}" class="dropdown-toggle padding-right-10">
+                                <i class="icon-info"></i>
+                                <span class="username username-hide-on-mobile">Informasi</span>
+                            </a>
+                        </li>
+                        @if ($user->isSuperAdmin())
+                        <li class="dropdown dropdown-user">
                             <a href="{{ url('/ctrl/posko') }}" class="dropdown-toggle padding-right-10">
                                 <i class="icon-shield"></i>
                                 <span class="username username-hide-on-mobile">Posko</span>
                             </a>
                         </li>
                         <li class="dropdown dropdown-user">
-                            <a href="{{ url('/ctrl/information') }}" class="dropdown-toggle padding-right-10">
-                                <i class="icon-info"></i>
-                                <span class="username username-hide-on-mobile">Informasi</span>
+                            <a href="{{ url('/ctrl/users') }}" class="dropdown-toggle padding-right-10">
+                                <i class="icon-users"></i>
+                                <span class="username username-hide-on-mobile">Pengguna</span>
                             </a>
                         </li>
+                        @endif
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                         <li class="dropdown dropdown-user">
