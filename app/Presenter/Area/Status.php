@@ -12,19 +12,37 @@ namespace App\Presenter\Area;
 use Illuminate\Support\Collection;
 
 use App\Presenter\Presenter;
+use App\Presenter\User;
 
 use App\Modules\Area\Models\Status as StatusContract;
 
+use App\Services\User as UserService;
 use App\Services\File as FileService;
+
+use App\Modules\User\RecordNotFoundException;
 
 class Status extends Presenter
 {
+    /**
+     * The title.
+     *
+     * @var string
+     */
+    protected $_title;
+
     /**
      * The file collection.
      *
      * @var \Collection
      */
     protected $_files;
+
+    /**
+     * The User.
+     *
+     * @var \App\Presenter\User
+     */
+    protected $_user;
 
     /**
      * Create the Presenter and store the object we are presenting.
@@ -35,6 +53,20 @@ class Status extends Presenter
     public function __construct(StatusContract $status)
     {
         parent::__construct($status);
+    }
+
+    /**
+     * Return the area title.
+     *
+     * @return string
+     */
+    public function presentTitle()
+    {
+        if (is_null($this->_title)) {
+            $this->_title = $this->object->area->title;
+        }
+        
+        return $this->_title;
     }
 
     /**
@@ -56,6 +88,24 @@ class Status extends Presenter
         }
 
         return $this->_files;
+    }
+
+    /**
+     * Return the user.
+     *
+     * @return \Collection
+     */
+    public function presentAuthor()
+    {
+        if (is_null($this->_user)) {
+            $service = new UserService();
+
+            try {
+                $this->_user = new User($service->get($this->object['author_id']));
+            } catch (RecordNotFoundException $e) {}
+        }
+        
+        return $this->_user;
     }
 
     /**

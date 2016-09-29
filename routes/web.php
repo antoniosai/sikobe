@@ -18,7 +18,7 @@ Route::group([
 ], function() {
 
     Route::get('/', 'Home@index');
-
     Route::get('/informations', 'Information@index');
+    Route::get('/incidents', 'Incident@index');
 
 });
