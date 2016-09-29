@@ -146,6 +146,12 @@
         </div>
         <!-- End of Content -->
 
+        <div class="row">
+            <div class="col-sm-6">&nbsp;</div>
+            <div class="col-sm-6">
+                <?php echo $list->render(); ?>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
