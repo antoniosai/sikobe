@@ -64,10 +64,12 @@ class Detail extends Component {
               <h4 className="font-dark bold uppercase">{data.title}</h4>
             </div>
             <div className="modal-body post-modal-body">
-              {this.getMap()}
-              <div className="row margin-top-10">
+              <div className="row">
                 <div className="col-md-7">
-                  <i className="icon-direction"></i> {data.address} - {data.village.data.title} - {data.district.data.title}
+                  {this.getMap()}
+                  <div className="margin-top-10">
+                    <i className="icon-direction"></i> {data.address} - {data.village.data.title} - {data.district.data.title}
+                  </div>
                 </div>
                 <div className="col-md-5">
                   <div className="portlet light">
@@ -105,7 +107,7 @@ class Detail extends Component {
     const latLngCenter = new google.maps.LatLng(this.props.data.latitude, this.props.data.longitude);
 
     return (
-      <GoogleMapLoader containerElement={<div style={{height: '100px'}}></div>}
+      <GoogleMapLoader containerElement={<div style={{height: '200px'}}></div>}
         googleMapElement={
           <GoogleMap
             containerProps={{style: {
