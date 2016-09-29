@@ -89,21 +89,47 @@
                 <?php $no = 1; ?>
                 @if ( ! $list->isEmpty())
                     @foreach ($list as $item)
+                    <?php
+                    $user = App\User::find($item->author_id)->first();
+                    $fullname = $user->first_name .' '. $user->last_name;
+                    ?>
                     <tr>
                         <td width="10">{{ $no++ }}</td>
                         <td>{{ $item->title }}</td>
-                        <td width=250>{{ substr($item->description,0, 120) }} <a href="{{ sprintf(url('/ctrl/information/%d'), $item->id) }}">...Readmore</a></td>
-                        <td>{{ $item->author_id }}</td>
+                        <td width=250>{{ substr($item->description,0, 120) }} <a href="#view-{{ $item->id }}-modal" data-toggle="modal" class="btn blue btn-xs"><i class="icon-pencil"></i> Lihat Detail</a>
+                        <td>{{ $fullname }}</td>
                         <td width="200">{{ $item->created_at }}</td>
                         <td width="160">
-                          <a href="#view-{{ $item->id }}-modal" data-toggle="modal" class="btn blue btn-sm"><i class="icon-pencil"></i> Edit</a>
+                          <a href="#form-{{ $item->id }}-modal" data-toggle="modal" class="btn blue btn-sm"><i class="icon-pencil"></i> Edit</a>
                             <a href="{{ URL::current() }}/{{ $item->id }}/delete" class="btn btn-danger btn-sm" data-toggle="confirmation" data-popout="true" data-placement="left" data-btn-ok-label="Lanjutkan" data-btn-cancel-label="Jangan!">
                                 <span class="fa fa-times"></span>
                             </a>
                         </td>
                     </tr>
-                    <!-- Start Modal -->
+
+                    <!-- Start Preview Modal -->
                     <div id="view-{{ $item->id }}-modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">{{ $item->title }} <small>diposting oleh <b>{{ $fullname }}</b></small></h4>
+                                </div>
+                                <div class="modal-body">
+                                  <b>Deskripsi : </b><br>
+                                  {{ $item->description }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Preview Modal -->
+
+                    <!-- Start Modal -->
+                    <div id="form-{{ $item->id }}-modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog">
                             <div class="modal-content">
                               <form role="form" method="POST" action="{{ URL::current() }}/update">
@@ -112,7 +138,7 @@
                               {!! csrf_field() !!}
                                   <div class="modal-header">
                                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                      <h4 class="modal-title">Tambah Informasi</h4>
+                                      <h4 class="modal-title">Edit Informasi {{ $item->title }}</h4>
                                   </div>
                                   <div class="modal-body">
                                     <div class="form">
