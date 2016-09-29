@@ -42,7 +42,8 @@ Route::group([
     Route::get('/areas/{id}/statuses/{statusId}/delete', 'Area@deleteStatus');
 
     Route::get('/information', 'Information@index');
-    Route::post('/information/store', 'Information@store');
+    Route::post('/information', 'Information@store');
+    Route::post('/information/update', 'Information@update');
     Route::get('/information/{id}/delete', 'Information@delete');
 
     Route::resource('/posko', 'Posko');
