@@ -60,7 +60,8 @@ class AreaRepository implements Repository
             'district_id' => '', 
             'village_id'  => '', 
             'title'       => '', 
-            'is_active'   => 1
+            'is_active'   => 1, 
+            'select'      => ''
         ], $params);
 
         $model = $this->createModel();
@@ -123,7 +124,11 @@ class AreaRepository implements Repository
                 $fromSql .= ' AND';
             }
 
-            $fromSql .= ' `village_id` = "'.$params['village_id'].'"';
+            if (is_array($params['village_id'])) {
+                $fromSql .= ' `village_id` IN ("'.implode('","', $params['village_id']).'")';
+            } else {
+                $fromSql .= ' `village_id` = "'.$params['village_id'].'"';
+            }
 
             $isUseWhere = true;
         }
@@ -171,7 +176,11 @@ class AreaRepository implements Repository
         }
 
         if ( ! empty($params['village_id'])) {
-            $query->where($model->getTable().'.village_id', '=', $params['village_id']);
+            if (is_array($params['village_id'])) {
+                $query->whereIn($model->getTable().'.village_id', $params['village_id']);
+            } else {
+                $query->where($model->getTable().'.village_id', '=', $params['village_id']);
+            }
         }
 
         if ( ! empty($params['title'])) {
@@ -184,10 +193,17 @@ class AreaRepository implements Repository
 
         $this->total = $query->count();
 
-        $query = $model->newQuery()->select($model->getTable().'.*')
-                    ->from($this->getDb()->raw($fromSql))
-                    ->join($model->getTable(), $model->getTable().'.id', '=', 'o.id')
-                    ->orderBy($model->getTable().'.created_at', 'DESC');
+        $query = $model->newQuery();
+
+        if ( ! empty($params['select'])) {
+            $query->select($params['select']);
+        } else {
+            $query->select($model->getTable().'.*');
+        }
+
+        $query->from($this->getDb()->raw($fromSql))
+            ->join($model->getTable(), $model->getTable().'.id', '=', 'o.id')
+            ->orderBy($model->getTable().'.created_at', 'DESC');
 
         unset($fromSql);
         unset($model);

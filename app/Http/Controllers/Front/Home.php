@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Front;
 use App\Support\Asset;
 
 use App\Services\Territory as TerritoryService;
+use App\Services\Area as AreaService;
 
 class Home extends Controller
 {
@@ -42,7 +43,14 @@ class Home extends Controller
         Asset::add('home/build/public/assets/intl.1'.env('HOME_APP_INTL_VERSION').'.js', 'footer.specific.js');
         Asset::add('https://maps.googleapis.com/maps/api/js?key='.env('GOOGLE_API_KEY'), 'footer.specific.js');
 
-        list($districts, $villages) = $this->getTerritories();
+        $model = $this->getAreaService()->getEmptyModel();
+
+        list($villages) = $this->getTerritoryService()->searchVillages([
+            'area_table'  => $model->getTable(), 
+            'province_id' => $this->provinceId, 
+            'regency_id'  => $this->regencyId, 
+            'order_by'    => 'name'
+        ], 1, 0);
 
         $locale = 'en';
 
@@ -53,8 +61,7 @@ class Home extends Controller
                 'availableLocales' => ['en'], 
                 'baseUrl'          => url('/'), 
                 'territory'        => [
-                    'districts' => $districts->all(), 
-                    'villages'  => $villages->all()
+                    'villages' => $villages->all()
                 ]
             ], 
             'intl' => [
@@ -77,30 +84,6 @@ class Home extends Controller
     }
 
     /**
-     * Return all required territories.
-     *
-     * @return array
-     */
-    private function getTerritories()
-    {
-        $territoryService = $this->getTerritoryService();
-
-        list($districts) = $territoryService->searchDistricts([
-            'province_id' => $this->provinceId, 
-            'regency_id'  => $this->regencyId, 
-            'order_by'    => 'name'
-        ], 1, 0);
-
-        list($villages) = $territoryService->searchVillages([
-            'province_id' => $this->provinceId, 
-            'regency_id'  => $this->regencyId, 
-            'order_by'    => 'name'
-        ], 1, 0);
-
-        return [$districts, $villages];
-    }
-
-    /**
      * Return the territory service instance.
      *
      * @return \App\Services\Territory
@@ -108,6 +91,18 @@ class Home extends Controller
     private function getTerritoryService()
     {
         $service = new TerritoryService();
+
+        return $service;
+    }
+
+    /**
+     * Return the area service instance.
+     *
+     * @return \App\Services\Area
+     */
+    private function getAreaService()
+    {
+        $service = new AreaService();
 
         return $service;
     }
