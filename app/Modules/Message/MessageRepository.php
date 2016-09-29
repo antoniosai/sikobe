@@ -76,9 +76,9 @@ class MessageRepository implements Repository
 
             $fromSql .= '(';
             $fromSql .= ' `title` LIKE "%'.$params['search'].'%"';
-            $fromSql .= ' OR `sender` LIKE "%'.$params['sender'].'%"';
-            $fromSql .= ' OR `phone` LIKE "%'.$params['phone'].'%"';
-            $fromSql .= ' OR `email` LIKE "%'.$params['email'].'%"';
+            $fromSql .= ' OR `sender` LIKE "%'.$params['search'].'%"';
+            $fromSql .= ' OR `phone` LIKE "%'.$params['search'].'%"';
+            $fromSql .= ' OR `email` LIKE "%'.$params['search'].'%"';
             $fromSql .= ')';
 
             $isUseWhere = true;
@@ -96,10 +96,10 @@ class MessageRepository implements Repository
 
         if ( ! empty($params['search'])) {
             $query->where(function($query) use ($model, $params) {
-                $query->where($model->getTable().'.title', 'LIKE', '%'.$params['identifier'].'%')
-                    ->orWhere($model->getTable().'.sender', 'LIKE', '%'.$params['sender'].'%')
-                    ->orWhere($model->getTable().'.phone', 'LIKE', '%'.$params['phone'].'%')
-                    ->orWhere($model->getTable().'.email', 'LIKE', '%'.$params['email'].'%');
+                $query->where($model->getTable().'.title', 'LIKE', '%'.$params['search'].'%')
+                    ->orWhere($model->getTable().'.sender', 'LIKE', '%'.$params['search'].'%')
+                    ->orWhere($model->getTable().'.phone', 'LIKE', '%'.$params['search'].'%')
+                    ->orWhere($model->getTable().'.email', 'LIKE', '%'.$params['search'].'%');
             });
         }
 

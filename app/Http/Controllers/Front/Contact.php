@@ -86,6 +86,7 @@ class Contact extends Controller
             abort(500);
         }
 
+        $request->session()->forget('contact');
         $request->session()->flash('success', 'Pesan telah kami terima!');
 
         return back();
