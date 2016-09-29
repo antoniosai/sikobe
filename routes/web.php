@@ -20,5 +20,7 @@ Route::group([
     Route::get('/', 'Home@index');
     Route::get('/informations', 'Information@index');
     Route::get('/incidents', 'Incident@index');
+    Route::get('/contact', 'Contact@index');
+    Route::post('/contact', 'Contact@create');
 
 });
