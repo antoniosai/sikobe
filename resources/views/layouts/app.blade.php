@@ -130,7 +130,7 @@
                             <div class="sidebar-toggler"> </div>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                         </li>
-                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'messages') ? ' active open' : '' }}">
+                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && (Request::segment(2) == 'dashboard' || Request::segment(2) == 'messages')) ? ' active open' : '' }}">
                             <a href="{{ url('/ctrl/messages') }}" class="nav-link nav-toggle">
                                 <i class="icon-envelope"></i>
                                 <span class="title">Pesan</span>
