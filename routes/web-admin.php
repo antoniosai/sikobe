@@ -19,7 +19,7 @@ Route::group([
     'prefix' => 'ctrl'
 ], function() {
 
-    Route::get('/dashboard', 'Dashboard@index');
+    Route::get('/dashboard', 'Message@index');
 
     Route::get('/me', 'User@profile');
     Route::post('/me', 'User@profileUpdate');
@@ -46,4 +46,6 @@ Route::group([
     Route::get('/information/{id}/delete', 'Information@delete');
 
     Route::resource('/posko', 'Posko');
+
+    Route::get('/messages', 'Message@index');
 });

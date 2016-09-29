@@ -35,7 +35,7 @@ class User extends Service
 
         $userRepository = $this->getUserRepository();
 
-        $item = $userRepository->findBy(['id' => $id]);
+        $item = $userRepository->get($id);
 
         $updatePassword = (bool) $request->get('update_password', 0);
 
@@ -107,6 +107,21 @@ class User extends Service
     }
 
     /**
+     * Return a item.
+     *
+     * @param  integer $id
+     *
+     * @return \App\Modules\User\Models\User
+     * @throws \App\Modules\User\RecordNotFoundException
+     */
+    public function get($id)
+    {
+        return $this->getUserRepository()->findBy([
+            'id' => $id
+        ]);
+    }
+
+    /**
      * Delete a item.
      *
      * @param  integer $id
@@ -117,9 +132,7 @@ class User extends Service
      */
     public function delete($id)
     {
-        $item = $this->getUserRepository()->findBy([
-            'id' => $id
-        ]);
+        $item = $this->get($id);
 
         return $item->delete();
     }
@@ -206,7 +219,7 @@ class User extends Service
 
         $userRepository = $this->getUserRepository();
 
-        $item = $userRepository->findBy(['id' => $id]);
+        $item = $userRepository->get($id);
 
         // Format user name data
         $name  = trim($request->get('name'));

@@ -78,6 +78,18 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.sass([
+        'pages/search.scss'
+    ], 'public/assets/css/informations.css');
+});
+
+elixir(function(mix) {
+    mix.sass([
+        'pages/contact.scss'
+    ], 'public/assets/css/contact.css');
+});
+
+elixir(function(mix) {
     mix.scripts([
         '../plugins/respond.min.js',
         '../plugins/excanvas.min.js'
@@ -134,6 +146,12 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.scripts([
+        '../js/contact.js'
+    ], 'public/assets/js/contact.js');
+});
+
+elixir(function(mix) {
+    mix.scripts([
         '../js/file-upload.js'
     ], 'public/assets/js/file-upload.js');
 });
@@ -153,6 +171,8 @@ elixir(function(mix) {
         'assets/css/auth.css',
         'assets/css/profile.css',
         'assets/css/home.css',
+        'assets/css/informations.css', 
+        'assets/css/contact.css', 
         'assets/css/error.css',
         'assets/js/ie.js',
         'assets/js/global-plugin.js',
@@ -161,6 +181,7 @@ elixir(function(mix) {
         'assets/js/auth-plugin.js',
         'assets/js/auth.js',
         'assets/js/home.js',
+        'assets/js/contact.js',
         'assets/js/file-upload.js',
         'assets/js/map-picker.js',
     ]);

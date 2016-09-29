@@ -25,7 +25,7 @@
 
         {{ \App\Support\Asset::scripts('header.scripts') }}
     </head>
-    <body class="page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed page-md">
+    <body class="page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed page-sidebar-closed page-md">
         <form id="form-logout" method="POST" action="{{ url('/logout') }}" style="display:none;">
             {{ csrf_field() }}
         </form>
@@ -51,6 +51,30 @@
                 <!-- BEGIN TOP NAVIGATION MENU -->
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                            <a href="{{ url('/ctrl/messages') }}" class="dropdown-toggle padding-right-10">
+                                <i class="icon-envelope"></i>
+                                <span class="username username-hide-on-mobile">Pesan</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-user">
+                            <a href="{{ url('/ctrl/areas') }}" class="dropdown-toggle padding-right-10">
+                                <i class="icon-map"></i>
+                                <span class="username username-hide-on-mobile">Area</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-user">
+                            <a href="{{ url('/ctrl/posko') }}" class="dropdown-toggle padding-right-10">
+                                <i class="icon-shield"></i>
+                                <span class="username username-hide-on-mobile">Posko</span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-user">
+                            <a href="{{ url('/ctrl/information') }}" class="dropdown-toggle padding-right-10">
+                                <i class="icon-info"></i>
+                                <span class="username username-hide-on-mobile">Informasi</span>
+                            </a>
+                        </li>
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                         <li class="dropdown dropdown-user">
@@ -99,17 +123,17 @@
                     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                    <ul class="page-sidebar-menu page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <ul class="page-sidebar-menu page-header-fixed page-sidebar-menu-closed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
                         <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
                         <li class="sidebar-toggler-wrapper hide">
                             <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                             <div class="sidebar-toggler"> </div>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                         </li>
-                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'dashboard') ? ' active open' : '' }}">
-                            <a href="{{ url('/ctrl/dashboard') }}" class="nav-link nav-toggle">
-                                <i class="icon-home"></i>
-                                <span class="title">Dashboard</span>
+                        <li class="nav-item{{ (Request::segment(1) == 'ctrl' && (Request::segment(2) == 'dashboard' || Request::segment(2) == 'messages')) ? ' active open' : '' }}">
+                            <a href="{{ url('/ctrl/messages') }}" class="nav-link nav-toggle">
+                                <i class="icon-envelope"></i>
+                                <span class="title">Pesan</span>
                             </a>
                         </li>
                         <li class="nav-item{{ (Request::segment(1) == 'ctrl' && Request::segment(2) == 'areas') ? ' active open' : '' }}">

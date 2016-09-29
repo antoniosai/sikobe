@@ -1,3 +1,12 @@
+
+var sikobeMapIsInitialized = false;
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  if (!sikobeMapIsInitialized) {
+    sikobeMapIsInitialized = true;
+    initialize();
+  }
+});
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 function initialize() {

@@ -38,12 +38,8 @@ class Area extends Component {
   }
 
   render() {
-    const districts = this.props.territory.districts.map((item) => {
-      return (<option key={`district-${item.id}`} value={item.id}>{item.name}</option>);
-    });
-
     const villages = this.props.territory.villages.map((item) => {
-      return (<option key={`village-${item.id}`} value={item.id}>{item.name} | {item.district}</option>);
+      return (<option key={`village-${item.id}`} value={item.id}>{item.district} | {item.name}</option>);
     });
 
     return (
@@ -54,14 +50,8 @@ class Area extends Component {
               <div className="form-group form-md-line-input form-md-floating-label padding-top-0 margin-bottom-0">
                 <div className="input-group">
                   <div className="input-group-control">
-                    <select id="filter-district" className="form-control">
-                      <option value="all">Semua Kecamatan</option>
-                      {districts}
-                    </select>
-                  </div>
-                  <div className="input-group-control">
                     <select id="filter-village" className="form-control">
-                      <option value="all">Semua Kelurahan</option>
+                      <option value="all">Semua Kecamatan | Kelurahan</option>
                       {villages}
                     </select>
                   </div>
@@ -112,8 +102,7 @@ class Area extends Component {
   }
 
   handleFilter() {
-    const district = document.getElementById('filter-district');
-    const districtId = district.options[district.selectedIndex].value;
+    const districtId = 'all';
 
     const village = document.getElementById('filter-village');
     const villageId = village.options[village.selectedIndex].value;

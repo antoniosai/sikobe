@@ -342,6 +342,7 @@ class TerritoryRepository implements Repository
     public function searchVillages(Array $params = [], $page = 1, $limit = 10)
     {
         $params = array_merge([
+            'area_table'  => '', 
             'province_id' => '', 
             'regency_id'  => '', 
             'district_id' => '', 
@@ -425,6 +426,19 @@ class TerritoryRepository implements Repository
             $isUseWhere = true;
         }
 
+        if ( ! empty($params['area_table'])) {
+            if ($isUseWhere) {
+                $fromSql .= ' AND';
+            }
+
+            $fromSql .= ' `'.$model->getTable().'`.`id` IN (';
+            $fromSql .= 'SELECT `village_id` FROM `'.$params['area_table'].'`';
+            $fromSql .= ' WHERE `is_active` = 1';
+            $fromSql .= ')';
+
+            $isUseWhere = true;
+        }
+
         $fromSql .= ' ORDER BY `'.$model->getTable().'`.`'.$params['order_by'].'` ASC';
 
         if ($limit > 0) {
@@ -463,6 +477,15 @@ class TerritoryRepository implements Repository
 
         if ( ! empty($params['district_id'])) {
             $query->where($model->getTable().'.district_id', '=', $params['district_id']);
+        }
+
+        if ( ! empty($params['area_table'])) {
+            $whereRaw = ' `'.$model->getTable().'`.`id` IN (';
+            $whereRaw .= 'SELECT `village_id` FROM `'.$params['area_table'].'`';
+            $whereRaw .= ' WHERE `is_active` = 1';
+            $whereRaw .= ')';
+
+            $query->whereRaw($whereRaw);
         }
 
         $this->total = $query->count();

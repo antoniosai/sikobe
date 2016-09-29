@@ -11,6 +11,7 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Ka
 - Mengelola Posko : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/post-management-1.jpg) [Foto 2](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/post-management-2.jpg)
 - Mengelola Informasi : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/information-management-1.jpg)
 - Mengelola User : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/user-management-1.jpg)
+- Mengelola Pesan : [Foto 1](https://github.com/feelinc/sikobe/blob/master/SCREENSHOTS/message-management-1.jpg)
 
 ***Demo*** [halaman depan](https://www.sikobe.com)
 
@@ -38,6 +39,8 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Ka
    - APP_DOMAIN : contoh sikobe.wilayah-anda.id
    - API_DOMAIN : contoh http://api.sikobe.wilayah-anda.id
    - JWT_KEY : isi dengan random string
+   - POSKO_PUSAT_LATITUDE : contoh -7.2066635
+   - POSKO_PUSAT_LONGITUDE : contoh 107.8261692
    - GOOGLE_API_KEY: buat sebuah api key di [Google Developer website](https://developers.google.com/maps/documentation/javascript/)
    - dan semua informasi koneksi ke database
 
@@ -45,6 +48,8 @@ Aplikasi ini di bangun pertama kali oleh para relawan TIK daerah ***Garut***. Ka
 ```sh
 php composer.phar install
 ```
+
+7) Login : contoh http://sikobe.wilayah-anda.id/login
 
 ## Teknologi
 
