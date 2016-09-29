@@ -55,7 +55,7 @@
                                 <i class="icon-fire"></i> <span class="hidden-xs">Kejadian</span>
                             </a>
                         </li>
-                        <li class="dropdown">
+                        <!--<li class="dropdown">
                             <a href="{{ url('/needs') }}" class="dropdown-toggle">
                                 <i class="icon-heart"></i> <span class="hidden-xs">Daftar Kebutuhan</span>
                             </a>
@@ -64,7 +64,7 @@
                             <a href="{{ url('/new-incident') }}" class="dropdown-toggle">
                                 <i class="icon-flag"></i> <span class="hidden-xs">Laporkan Kejadian</span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="dropdown">
                             <a href="{{ url('/contact') }}" class="dropdown-toggle">
                                 <i class="icon-envelope"></i> <span class="hidden-xs">Kirim Pesan</span>

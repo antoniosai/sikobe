@@ -1,6 +1,8 @@
 @extends('layouts.app-front')
 
 @section('content')
+<h1 class="page-title">Daftar status area terdampak</h1>
+
 <div class="search-page search-content-2">
     <div class="search-bar">
         <div class="row">
